@@ -1,0 +1,9 @@
+<configuration GeneratedVersion="1" ModelerVersion="5.3.0.150">
+  <excludeList>
+    <item>nHydrate.Generator.EFDAL.EFDALProjectGenerator</item>
+    <item>nHydrate.Generator.MySQLInstaller.DatabaseProjectGenerator</item>
+  </excludeList>
+  <generatedModuleList />
+  <tableFacadeSettings />
+  <columnFacadeSettings />
+</configuration>

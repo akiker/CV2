@@ -1,0 +1,201 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="media">
+            <div class="media-left media-middle">
+                <a href="#"><img class="media-object" src="~/Images/stock_tech_selection_290x179.png" alt="Wells Fargo Advisors" /></a>
+            </div>
+            <div class="media-body">
+                <h4>Welcome to CodeVault!</h4>
+                <h5><strong>Your one stop shop for Service Delivery Team engagement</strong></h5>
+                <p>Use the menu and links to search for software and discover line of business configuration records.</p>
+            </div>
+        </div>
+        @*<div class="media">
+            <div class="media-left media-middle">
+                <img class="media-object" src="~/Images/stock_tech_selection_290x179.png" alt="Welcome to CodeVault 2.0" />
+            </div>
+            <div class="media-body">
+                <h3 class="media-heading">CodeVault 2.0</h3>
+                <h4 class="media-heading">Service Delivery Team</h4>
+            </div>
+        </div>*@
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
+                <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="col-md-5 pull-left">
+        <div class="panel">
+            <div class="panel-heading" style="background-color:#CE4C00;color:white;">
+                <h2 class="panel-title">Welcome to CodeVault!</h2>
+            </div>
+            <div class="panel-body panel-default">
+                <h4>Your one stop shop for Service Delivery Team engagement</h4>
+                <p>Use the menu and links to search for software and discover line of business configuration records.</p>
+            </div>
+        </div>
+
+    </div>*@
+    <div class="col-md-4">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title"><span class="glyphicon glyphicon-question-sign"></span> How Do I?</h5>
+                </div>
+                <div class="panel-body">
+                    @(Html.Kendo().DropDownList()
+                    .Name("help")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .HtmlAttributes(new { style = "width:100%;" })
+                    .Events(e => e.Change("change"))
+                    .BindTo(new List<SelectListItem>
+                        ()
+                        {
+                        new SelectListItem()
+                        {
+                        Text = "Request Software",
+                        Value = "1",
+                        },
+                        new SelectListItem()
+                        {
+                        Text = "Request Configuration Record",
+                        Value = "2",
+                        },
+                        })
+                        .Value("1")
+                        )
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title"><span class="glyphicon glyphicon-star-empty"></span> Shortcuts</h5>
+                </div>
+                <div class="panel-body">
+                    <a href="http://www.w3schools.com/html/">W3 Schools</a><br />
+                    <a href="https://msdn.microsoft.com">MSDN</a><br />
+                    <a href="https://www.google.com/?gws_rd=ssl">Google</a><br />
+                    <a href="http://www.cnn.com/">CNN</a><br />
+                    <a href="https://moqups.com/#!/edit/akiker/0PiV3eUo">Moqups</a><br />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<hr style="background-color: #CE4C00; height: 2px" />
+
+@*<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-18 col-md-12">
+            @(Html.Kendo().Grid<CodeVault.Models.ViewModels.ProductViewModel>
+                ()
+                .Name("grid")
+                .Columns(columns =>
+                {
+                columns.Bound(c => c.Name);
+                columns.Bound(c => c.Manufacturer);
+                columns.Bound(c => c.Description);
+                columns.Bound(c => c.Version);
+                columns.Bound(c => c.CreatedOnDate).Format("{0:MM/dd/yyyy}");
+                })
+                .Pageable(pager => pager.Refresh(true)).Pageable(pager => pager.ButtonCount(10))
+                .Navigatable()
+                .HtmlAttributes(new { style = "height:500px;" })
+                .Selectable(selectable => {
+                selectable.Mode(GridSelectionMode.Single);
+                selectable.Type(GridSelectionType.Row);
+                })
+                .Sortable(sortable => {
+                sortable.SortMode(GridSortMode.SingleColumn);
+                })
+                .Filterable()
+                .Scrollable()
+                .Events(events => {
+                events.Change("onChange");
+                events.DataBound("onDataBound");
+                })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(15)
+                .Read(read => read.Action("ProductViewModels_Read", "Software"))
+                )
+                )
+        </div>
+    </div>
+</div>*@
+<script type="text/javascript">
+
+    function onChange(e){
+        //Implement the event handler for Change
+    }
+
+    function onDataBound(e){
+        //Implement the event handler for DataBound
+    }
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    function change() {
+        var value = $("#color").val();
+        //$("#cap")
+        //        .toggleClass("black-cap", value == 1)
+        //        .toggleClass("orange-cap", value == 2)
+        //        .toggleClass("grey-cap", value == 3);
+    };
+
+</script>
+
+@*
+<script>
+
+
+    $(document).ready(function () {
+        $("#get").click(function () {
+            var color = $("#color").data("kendoDropDownList"),
+                size = $("#size").data("kendoDropDownList");
+
+            alert('Thank you! Your Choice is:\n\nColor ID: ' + color.value() + ' and Size: ' + size.value());
+        });
+    });
+</script>*@
+
+<div class="row">
+    <div class="col-md-4">
+        <h3 style="color:#78A22F;">Service Delivery Team News</h3>
+        <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
+        @*<p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
+    </div>
+    <div class="col-md-4">
+        <h3 style="color:#78A22F;">Announcements</h3>
+        <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
+        @*<p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>*@
+    </div>
+    @*<div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>*@
+</div>

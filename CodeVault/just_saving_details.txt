@@ -1,0 +1,91 @@
+<div id="tabSoftwareDetails" class="row" style="background-color:coral;padding-top:3px;padding-bottom:3px">
+        <div class="col-xs-12 col-sm-12 col-md-12" style="background-color:aqua;height:500px;">
+            @(Html.Kendo().TabStrip()
+          .Name("tabstrip")
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text("Overview")
+                  .Selected(true)
+                  .Content(@<text>
+                    <br />
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4" style="background-color:burlywood;height:400px;">
+                    
+                        <label>@Html.LabelFor(model => model.Name):</label>
+                    
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6" style="background-color:antiquewhite;height:400px;">
+                
+                    <p>@Html.DisplayFor(model => model.Name)</p>
+            </div>
+                    </div>
+                    @*<dl class="dl-horizontal">
+                        <dt>@Html.LabelFor(model => model.Name):</dt>
+                        <dd>@Html.DisplayFor(model => model.Name)</dd>
+                        <dt>@Html.LabelFor(model => model.Manufacturer):</dt>
+                        <dd>@Html.DisplayFor(model => model.Manufacturer)</dd>
+                        <dt>@Html.LabelFor(model => model.Version):</dt>
+                        <dd>@Html.DisplayFor(model => model.Version)</dd>
+                        <dt>@Html.LabelFor(model => model.CreatedOnDate, "Created on Date"):</dt>
+                        <dd> @Html.DisplayFor(model => model.Version) </dd>
+                        <dt>@Html.LabelFor(model => model.Description):</dt>
+                        <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+                    </dl>*@
+                    @*@Html.LabelFor(model => model.Version): &nbsp;@Html.DisplayFor(model => model.Version)
+
+                    @Html.LabelFor(model => model.CreatedOnDate, "Created on Date"): &nbsp;@Html.DisplayFor(model => model.CreatedOnDate)
+
+                    @Html.LabelFor(model => model.Description): &nbsp;@Html.DisplayFor(model => model.Description)*@
+
+                    @* <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>*@
+
+
+
+
+                    @*<span class="tab-content-fill">&nbsp;</span>*@
+
+                </text>);
+
+              tabstrip.Add().Text("Permissions")
+                  .Content(@<text>
+                <br />
+                <div class="col-sm-10 form-group" style="background-color:burlywood;">
+                    @Html.LabelFor(model => model.Permissions.ElevatedRightsRequired, "Elevated Rights Required"): &nbsp;@Html.DisplayFor(model => model.Permissions.ElevatedRightsRequired)
+                    <br />
+                    @Html.LabelFor(model => model.Permissions.RequiresAdminRightsBasic, "Requires Admin Rights for Basic Functionality"): &nbsp;@Html.DisplayFor(model => model.Permissions.RequiresAdminRightsBasic)
+                    <br />
+                    @Html.LabelFor(model => model.Permissions.RequiresAdminRightsAdvanced, "Requires Admin Rights for Advanced Functionality"): &nbsp;@Html.DisplayFor(model => model.Permissions.RequiresAdminRightsAdvanced)
+                    <br />
+                    @Html.LabelFor(model => model.Permissions.RequiresAdminRightsUpdate, "Requires Admin Rights for Updates"): &nbsp;@Html.DisplayFor(model => model.Permissions.RequiresAdminRightsUpdate)
+                    <hr />
+                    @Html.LabelFor(model => model.Permissions.LaVerified, "Local Admin (LA) Verified"): &nbsp;@Html.DisplayFor(model => model.Permissions.LaVerified)
+                    <br />
+                    @Html.LabelFor(model => model.Permissions.WorksWithLa, "Works with LA Account"): &nbsp;@Html.DisplayFor(model => model.Permissions.WorksWithLa)
+                </div>
+                <br />
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Permission</th>
+                        <th>Type</th>
+                        <th>Group or User</th>
+                        <th>Location</th>
+                    </tr>
+                    <tr>
+                        @foreach (var p in Model.Permissions.Permissions)
+                        {
+                            <td>@p.Permission</td>
+                            <td>@p.Type</td>
+                            <td>@p.GroupUser</td>
+                            <td>@p.Location</td>
+                        }
+                    </tr>
+                </table>
+
+                </text>);
+          })
+            )
+        </div>
+        @*<div class="col-xs-4 col-sm-4 col-md-4">Middle</div>
+        <div class="col-xs-4 col-sm-4 col-md-4">Right</div>*@
+    </div>

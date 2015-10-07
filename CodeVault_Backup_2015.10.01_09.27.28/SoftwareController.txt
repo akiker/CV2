@@ -1,0 +1,58 @@
+@(Html.Kendo().Grid<CodeVault.Models.ViewModels.ProductViewModel>
+                ()
+                .Name("grid")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.Name);
+                    columns.Bound(c => c.Manufacturer);
+                    columns.Bound(c => c.Description);
+                    columns.Bound(c => c.Version);
+                    columns.Bound(c => c.CreatedOnDate).Format("{0:MM/dd/yyyy}");
+                })
+                .Pageable(pager => pager.Refresh(true)).Pageable(pager => pager.ButtonCount(10))
+                .Navigatable()
+                .HtmlAttributes(new { style = "height:500px;" })
+                .Selectable(selectable =>
+                {
+                    selectable.Mode(GridSelectionMode.Single);
+                    selectable.Type(GridSelectionType.Row);
+                })
+                .Sortable(sortable =>
+                {
+                    sortable.SortMode(GridSortMode.SingleColumn);
+                })
+                .Filterable()
+                .Scrollable()
+                .Events(events =>
+                {
+                    events.Change("onChange");
+                    events.DataBound("onDataBound");
+                })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(15)
+                .Read(read => read.Action("ProductViewModels_Read", "Software"))
+                )
+)
+
+IDALFacade facade = new DALFacade();
+
+        // GET: Software
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult ProductViewModels_Read([DataSourceRequest]DataSourceRequest request)
+        {
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
+            var result = query.Select(p => new ProductViewModel(p));
+            facade.DisposeUnitOfWork();
+            return Json(result.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }

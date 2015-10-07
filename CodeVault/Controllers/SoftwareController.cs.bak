@@ -1,0 +1,64 @@
+﻿using CodeVault.Models;
+using CodeVault.Models.BaseTypes;
+using CodeVault.Models.ViewModels;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Description;
+using System.Web.Mvc;
+
+namespace CodeVault.Controllers
+{
+    public class SoftwareController : Controller
+    {
+        IDALFacade facade = new DALFacade();
+
+        //GET: Software
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        //public ActionResult ProductViewModels_Read([DataSourceRequest]DataSourceRequest request)
+        //{
+        //    IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+        //    var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
+        //    var result = query.Select(p => new ProductViewModel(p));
+        //    facade.DisposeUnitOfWork();
+        //    return Json(result.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        //}
+        //[ResponseType(typeof(ProductViewModel))]
+        public ActionResult GetSoftware([DataSourceRequest]DataSourceRequest request)
+        {
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
+            var result = query.Select(p => new ProductViewModel(p));
+            facade.DisposeUnitOfWork();
+
+            return Json(result.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        [ResponseType(typeof(ProductViewModel))]
+        public ProductViewModel GetSoftwareById(string id)
+        {
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            int productId;
+            int.TryParse(id, out productId);
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == productId, o => o.OrderBy(n => n.ProductName));
+            var result = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
+            facade.DisposeUnitOfWork();
+            return result;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
+    }
+}

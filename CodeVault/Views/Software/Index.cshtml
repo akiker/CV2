@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Software";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Software Catalog</h4>
+@(Html.Kendo().Grid<CodeVault.Models.ViewModels.ProductViewModel>()
+          .Name("grid")
+          .Columns(columns =>
+          {
+              columns.Bound(c => c.Name).ClientTemplate("<a href='" +
+                    Url.Action("Details", "Software") + "/#= Id #'" + ">#= Name #</a>");
+              columns.Bound(c => c.Manufacturer);
+              columns.Bound(c => c.Description);
+              columns.Bound(c => c.Version);
+              columns.Bound(c => c.CreatedOnDate).Filterable(false).Sortable(false);
+          })
+          .Pageable(pager => pager.Refresh(true)).Pageable(pager => pager.ButtonCount(10))
+          .Navigatable()
+          .HtmlAttributes(new { style = "height:500px;" })
+          .Selectable(selectable =>
+          {
+              selectable.Mode(GridSelectionMode.Single);
+              selectable.Type(GridSelectionType.Row);
+          })
+          .Sortable(sortable =>
+          {
+              sortable.SortMode(GridSortMode.SingleColumn);
+          })
+          .Filterable(filterable => filterable.Mode(GridFilterMode.Menu))
+          .Scrollable()
+          .Events(events =>
+          {
+              events.Edit("onEdit");
+              events.Change("onChange");
+          })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(15)
+              .Model(model => model.Id(p => p.Id))
+              .Read(read => read.Action("ProductViewModels_Read", "Software"))
+              .ServerOperation(true)
+        )
+)
+
+<script type="text/x-kendo-template" id="template">
+    <div id="details-container">
+        <h4>#= Name # #= Manufacturer #</h4>
+        <em>#= Version #</em>
+    </div>
+</script>
+
+<script type="text/javascript">
+    var detailsTemplate = kendo.template($("#template").html());
+
+    function showDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#Details").data("kendoWindow");
+
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
+</script>
+
+<script>
+
+    function onEdit(e) {
+        //Implement the event handler for Edit
+    }
+
+    function onChange(e) {
+        //Implement the event handler for Change
+    }
+
+</script>

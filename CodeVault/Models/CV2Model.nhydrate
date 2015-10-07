@@ -1,0 +1,2192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nHydrateModel dslVersion="5.3.0.150" Id="c6aa433a-f1c2-4654-afff-ff38022c6511" companyName="WFA" projectName="CV2" sQLServerType="SQL2008" version="1.0.0.0" maxPrecedenceOrder="1" modelVersion="5.1.2.115" diagramVisibility="Function, StoredProcedure, View" supportedPlatforms="SQLServer">
+  <entities>
+    <entity Id="b32ce098-c0b0-4ef5-a930-f6560bcf1991" name="ApplicationPermissions" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="550e325b-c7db-4157-9fb5-40f08ea5c20e">
+          <field Id="54bfa5bf-8612-423d-8ca9-d54bfcd94219" name="ApplicationPermissionId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="6c622ec0-4175-4e2f-bbc5-be1d2d521990">
+          <field Id="5059208e-00c9-4f2a-83ad-aed09d50b8cb" name="Approve" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="7e3925ca-6c86-4bf6-8f90-f0154e5d10c8">
+          <field Id="ee80cb34-3c07-413c-989d-6b412c9dba04" name="UserAdmin" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="bb080ae1-4219-45d3-b628-3d9708f4b5e3">
+          <field Id="b1ac81f8-3bfb-4d40-a264-dea0f63053e0" name="ApplicationRoleId" nullable="false" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="ebd300d9-a37e-4ffe-b808-0e8716b4cb56">
+          <index Id="8986b20c-cc6b-41fc-b71e-8c327a7a414f" parentEntityID="b32ce098-c0b0-4ef5-a930-f6560bcf1991" indexType="IsIndexed" importedName="IX_ApplicationRoleId">
+            <indexColumns>
+              <indexHasIndexColumns Id="520b89f6-f55a-4480-b65e-3c731666dae9">
+                <indexColumn Id="23b3c191-5c9e-4db4-863e-f6222820856a" fieldID="b1ac81f8-3bfb-4d40-a264-dea0f63053e0" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="f25a218e-363d-4408-967a-e66d70cc8324">
+          <index Id="15357f5d-ffb1-4cd0-85ac-188a60b70154" parentEntityID="b32ce098-c0b0-4ef5-a930-f6560bcf1991" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ApplicationPermissions" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="41111e31-3cd8-491d-b578-8e52d9d47356">
+                <indexColumn Id="40cf85cf-e02b-4010-be73-6909d3599fdc" fieldID="54bfa5bf-8612-423d-8ca9-d54bfcd94219" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="bfb6421c-0eed-4c81-8e78-238bafd73c7d" name="ApplicationRoles" allowTimestamp="false" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="b5e22061-d10a-4ddc-98ef-216f50862b52" roleName="Applicationroles_applicationroleid" importData="1458104235" importedConstraintName="FK_ApplicationRoles_ApplicationRoleId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ApplicationPermissions" />
+        </entityHasEntities>
+        <entityHasEntities Id="ce332f96-f660-4c54-84c6-7ae6c2500b8b" roleName="Applicationroles_applicationroleid" importData="1474104292" importedConstraintName="FK_ApplicationRoles_ApplicationRoleId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ApplicationUsers" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="49125098-7f0e-4bd2-af82-f437ed7f7abd">
+          <field Id="0d28b131-523d-493d-8fda-b10f01c09b0e" name="ApplicationRoleId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="61b0a8be-1d51-484a-a10d-5bac47feb27b">
+          <field Id="c94c6505-6fd6-4a06-b141-aae423e65468" name="ApplicationRoleName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="ed6403e1-4c3c-4cbf-a4d4-f73d9e12c3ff">
+          <field Id="1b8f94f1-bbf0-408e-9915-1e359a2fbaf6" name="ApplicationRoleDescription" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="208daf09-0929-453a-942f-915036d06a55">
+          <field Id="32caa522-26f9-43b0-a2f7-9afd0bec4668" name="CreatedOnDate" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="4" uIDataType="Date" />
+        </entityHasFields>
+        <entityHasFields Id="dd2066e6-161e-49fc-bde5-19f692d7876c">
+          <field Id="c6c419a1-4f79-4417-9d9e-6fd8179ed4f5" name="RowVersion" nullable="false" dataType="Timestamp" length="8" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="37272ac4-3873-4c83-82cf-f75d20b13e23">
+          <index Id="e150cf66-b04a-46e0-ae32-16d46a2610d6" parentEntityID="bfb6421c-0eed-4c81-8e78-238bafd73c7d" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ApplicationRoles" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="713eefbd-ee15-4e9f-be9a-20f92d077c0b">
+                <indexColumn Id="bddca8f9-d741-46dd-b6f8-985794b1ae22" fieldID="0d28b131-523d-493d-8fda-b10f01c09b0e" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="158eedb3-35f8-4444-bc4e-641026f4587d" name="ApplicationUsers" allowTimestamp="false" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="42901e05-3dcf-45d7-a699-20ab2739073b">
+          <field Id="6cac2721-70b4-4d4a-a70d-3b3d92e0be50" name="ApplicationUserId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="d0bc537d-d6cc-492b-b6a4-b59874dffa13">
+          <field Id="83e44c01-9964-4213-8bd1-1a81ed2f21d8" name="ApplicationUserLoginId" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="b0e91587-67fa-439c-8a8d-d24ed4c00d12">
+          <field Id="fabf1ee7-4fdc-43e5-ba74-22724a787103" name="ApplicationUserName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="2fe5d8aa-dc62-488a-bfbc-fe0a838ef93a">
+          <field Id="2188b538-90e3-41ae-8047-4b2857f9ba1a" name="ApplicationUserEmail" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="fee35fd0-26c6-4d91-a4ac-8bccabb4ddb5">
+          <field Id="06535c34-632d-4b39-8bb7-564c624745eb" name="ApplicationUserPhoneNumber" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="88b0ed02-ad46-4cda-813c-eaac22c13da9">
+          <field Id="881ed8b2-3a91-4e25-a0f1-6dd2f41121c5" name="ApplicationRoleId" nullable="false" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="bf7835f9-8850-48c6-9c92-17b4ae63c67a">
+          <field Id="356c1c1f-e766-4bdd-9d9a-5975a404b758" name="CreatedOnDate" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="6d55320f-5907-475b-817c-6de9e6cf0de1">
+          <field Id="8334ccef-d1f7-4ddd-a560-9db49d69f8ef" name="RowVersion" nullable="false" dataType="Timestamp" length="8" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+        <entityHasFields Id="a77c6ac7-f36c-4daa-b1f7-9500e6f3cb29">
+          <field Id="32cbba48-d90d-4edc-8fc8-f21ea5a19b7f" name="WorkQueueId" nullable="false" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="9" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="f88117e3-62f3-49ab-8c4d-799dc91867be">
+          <index Id="60dc9f10-b3f9-4106-9b2d-81bed0772cbb" parentEntityID="158eedb3-35f8-4444-bc4e-641026f4587d" indexType="IsIndexed" importedName="IX_ApplicationRoleId">
+            <indexColumns>
+              <indexHasIndexColumns Id="543fc2f7-0025-41c9-b9e7-7b1251f9ce02">
+                <indexColumn Id="d9bef8e9-08ef-4c8e-8e54-0ee7538f06b0" fieldID="881ed8b2-3a91-4e25-a0f1-6dd2f41121c5" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="d4ae07ac-da1d-4c3f-9e96-70a86dd1cfa7">
+          <index Id="30c383d7-d113-4938-a5e4-bd373f8568ef" parentEntityID="158eedb3-35f8-4444-bc4e-641026f4587d" indexType="IsIndexed" importedName="IX_WorkQueueId">
+            <indexColumns>
+              <indexHasIndexColumns Id="cd7094d8-a674-41b4-a978-f5e25f5bef5d">
+                <indexColumn Id="79553764-18e0-4825-9002-404285a647a2" fieldID="32cbba48-d90d-4edc-8fc8-f21ea5a19b7f" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="237fdc02-56af-4e3b-8fbe-d333ead1a77f">
+          <index Id="fd18aaae-f73b-4165-b2cf-f5a498859f47" parentEntityID="158eedb3-35f8-4444-bc4e-641026f4587d" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ApplicationUsers" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="1f32eb03-70dc-4b32-98d4-2aa9a00f43b8">
+                <indexColumn Id="9ec1cbf7-dba6-4789-afa3-b980bd4b6223" fieldID="6cac2721-70b4-4d4a-a70d-3b3d92e0be50" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="a5cd13ed-e302-4b28-952e-d8c8438c7b3c" name="Attachments" allowTimestamp="false" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="ecf603cb-155b-4b4c-a3b3-93339fd4dd52">
+          <field Id="5794e27e-6db5-46f9-97cd-4b6a5115d022" name="AttachementId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="b43a04fb-26a3-4429-9e14-209a1f0ce7e1">
+          <field Id="386bcd06-14f7-4fc3-b66b-d28dd238b72c" name="AttachmentName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="74a6cc3d-e84d-4de2-8ba2-77b1d50b7fa1">
+          <field Id="d97384a6-25ff-4551-9591-a46a587991ed" name="AttachmentContents" nullable="false" dataType="VarBinary" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="f006210f-d827-408a-a8d8-1d121fddb3c0">
+          <field Id="0d3d92fb-158a-4931-a492-720299050cab" name="AttachmentExtension" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="5768be2a-1f42-43c1-8dab-6c8e31dadab3">
+          <field Id="4db0ad92-fccf-405d-b145-5f07dd814260" name="RowVersion" nullable="false" dataType="Timestamp" length="8" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="e4024a73-7ef6-48a5-a4dc-e12a650eb4bc">
+          <field Id="db9872c7-adf6-4bc9-9ee7-fccbd1357e19" name="DocumentId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="9258c708-5efd-477b-a89e-e6f2f3556a99">
+          <index Id="5cfa8f36-e779-4075-9232-3e5b7a341ac5" parentEntityID="a5cd13ed-e302-4b28-952e-d8c8438c7b3c" indexType="IsIndexed" importedName="IX_DocumentId">
+            <indexColumns>
+              <indexHasIndexColumns Id="0d2d9d7d-e00c-48e9-ad3b-5aee967b8747">
+                <indexColumn Id="ec412eda-f1a1-45ef-ac0d-e050e5204f94" fieldID="db9872c7-adf6-4bc9-9ee7-fccbd1357e19" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="7f6a66f2-d792-4720-a6b2-b0aa60526699">
+          <index Id="87c2180e-3e79-4719-9a85-8dc42df148a5" parentEntityID="a5cd13ed-e302-4b28-952e-d8c8438c7b3c" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.Attachments" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="bb428135-d1c2-4e82-810f-6eafa89b8cbe">
+                <indexColumn Id="a6085f59-1c83-4e91-9529-325be61d149c" fieldID="5794e27e-6db5-46f9-97cd-4b6a5115d022" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="cd78b9b8-99e1-47a8-bb91-7b6586717b22" name="ConfigurationRecords" schema="dbo" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="27c21327-6352-4630-a003-23d7f8dad03b" roleName="configurationrecordspackagestoadd" importData="373576369" importedConstraintName="FK_ConfigurationRecordsPackagesToAdd">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/PackagesToAdd" />
+        </entityHasEntities>
+        <entityHasEntities Id="9fe0cc76-59cf-4520-9d68-31f5d831d38e" roleName="configurationrecordspackagestodelete" importData="389576426" importedConstraintName="FK_ConfigurationRecordsPackagesToDelete">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/PackagesToDelete" />
+        </entityHasEntities>
+        <entityHasEntities Id="2bdacfbd-92dc-4028-aea2-7f6c69b0cf20" roleName="configurationrecordssoftwareexceptions" importData="405576483" importedConstraintName="FK_ConfigurationRecordsSoftwareExceptions">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SoftwareExceptions" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="4cf8e532-ec09-4530-bc32-6a3b84892b95">
+          <field Id="805ca7ad-bae1-4f2d-9884-19a0bd9ec654" name="Id" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="7ed2957d-af92-4739-b52a-33286a6706ff">
+          <field Id="1db97610-456a-45c2-b1d4-91c09e991e79" name="Name" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="e345bcd2-db6f-4414-945d-df61ca594504">
+          <field Id="a74287b0-72aa-4719-be4e-2b3a158dab79" name="Description" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="a12679c6-07de-4964-b24d-9cefcfed89e9">
+          <field Id="ccea5d43-df7f-4dd1-88c9-18b94f7369c8" name="Status" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="70c27540-14ed-485b-9f4a-f61aac820473">
+          <field Id="27770585-38a4-45b6-80db-561eb0465677" name="AutoImage" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="568256e0-068c-4b5b-a7b2-28b19dfbbca7">
+          <field Id="42f60821-02e3-4157-9ccc-d8b0c267b162" name="AssignedImage" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="64324d66-bc13-49b3-af4a-355840bb16e0">
+          <field Id="f1c33797-67b0-4ceb-a77d-9e5bd13c698a" name="InstallBaseApps" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="e93593b4-8182-4d32-b884-b1762871479a">
+          <field Id="fe876419-e362-400a-a579-132b7c9a5583" name="Key" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+        <entityHasFields Id="2bfcc55d-b22f-49a4-8409-ae5876a327ba">
+          <field Id="c8065472-a1c0-46db-b8d7-a5749c797e52" name="OU" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="9" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="c91223df-91f8-4f5a-9c54-1fdd1761661b">
+          <index Id="c4f1dd84-2f61-411d-9478-8e219580b4eb" parentEntityID="cd78b9b8-99e1-47a8-bb91-7b6586717b22" isUnique="true" indexType="PrimaryKey" importedName="PK_ConfigurationRecords" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="2912fdfe-5b08-4db6-9ddb-cf37858e2b61">
+                <indexColumn Id="8bf9b1cc-5eef-41fb-80c7-cfffc5545f84" fieldID="805ca7ad-bae1-4f2d-9884-19a0bd9ec654" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="b0181ea2-da1d-4765-9084-5fd7d5d29ca0" name="CosmicConfigRecords" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="1c23c1af-c638-44df-8812-d2e2256faf2d" roleName="Cosmicconfigrecords_cosmicconfigrecordid" importData="1554104577" importedConstraintName="FK_CosmicConfigRecords_CosmicConfigRecordId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Products" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="768ae8a2-c087-4f90-9140-094e6fc38e2c">
+          <field Id="afeb4865-a42c-4b32-9530-f251705b567a" name="CosmicConfigRecordId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="3d8a8921-57ab-49ad-961a-6f38c69daa56">
+          <field Id="4aace92c-23a2-4311-8f78-0116e10f2ef3" name="CosmicConfigRecordName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="b6e28f9a-aad7-4b15-9223-6ccd594e086d">
+          <field Id="0167b457-286a-478a-aa62-05d6417795bd" name="CosmicConfigRecordCreatedBy" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="f4be7c8e-8ad9-490c-8826-08bb29b1d384">
+          <index Id="efa19b1d-7c9e-40e4-b354-ac38b20aba83" parentEntityID="b0181ea2-da1d-4765-9084-5fd7d5d29ca0" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.CosmicConfigRecords" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="9b6d9d63-ccd3-4a79-923c-6fed1c374a58">
+                <indexColumn Id="1932988a-1671-4107-b4e5-1ab42b874fb9" fieldID="afeb4865-a42c-4b32-9530-f251705b567a" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="b1d8df84-674c-432a-ba8a-0416cbf64b60" name="Dependencies" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="f60f8f56-8be5-42e9-a35b-c9d283afd028">
+          <field Id="a78cd118-0767-4b8b-874c-bb758e1b02d6" name="BaseProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="a7c59357-04f1-427d-8d09-2ca961e5433d">
+          <field Id="3aa154c1-2f0e-4451-85cb-8df62123b49f" name="DependencyProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="b592d3f0-f951-4ab8-86a1-1a8501b454ae">
+          <field Id="fcd59666-131f-40d8-91d3-6a5a72c2cad3" name="InstallOrder" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="8c22f3b1-1d49-418d-bed5-d4e2b5dfa9fa">
+          <field Id="aa68738f-9303-4559-94b1-35128fc56ee8" name="DependencyType" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="d1c142ad-5448-4bf4-88d4-2ad4e429bfbd">
+          <field Id="19ca0806-3ac2-4a54-a4bd-c40257e96aa7" name="Product_ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="3dd56a25-8f31-4118-9860-4cb86c63379f">
+          <index Id="047f9cb7-9e72-4c8a-a442-3facc1f1ddaf" parentEntityID="b1d8df84-674c-432a-ba8a-0416cbf64b60" indexType="IsIndexed" importedName="IX_BaseProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="c000ba0a-82d7-4055-b034-aa4163cb863b">
+                <indexColumn Id="7d90f3b9-8a38-4217-a0c1-0f41231b19af" fieldID="a78cd118-0767-4b8b-874c-bb758e1b02d6" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="cc9b5101-3975-49b1-b8e5-2aaa69e9835f">
+          <index Id="cf4ee541-07f3-42cf-91ae-f712fe77c881" parentEntityID="b1d8df84-674c-432a-ba8a-0416cbf64b60" indexType="IsIndexed" importedName="IX_DependencyProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="3b8d3cd6-9dea-4322-a9f3-b5c4be732990">
+                <indexColumn Id="df76cf61-8f01-4944-9e1c-319fc89f1122" fieldID="3aa154c1-2f0e-4451-85cb-8df62123b49f" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="8b163d8c-b266-4dce-90f7-e4070fd91704">
+          <index Id="80e81124-b1ba-47ce-af23-392e258e5bf7" parentEntityID="b1d8df84-674c-432a-ba8a-0416cbf64b60" indexType="IsIndexed" importedName="IX_Product_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="62db7dee-4242-474f-8d79-30df9585478f">
+                <indexColumn Id="eee14d41-49f9-42e3-85d4-b31d72f7b53b" fieldID="19ca0806-3ac2-4a54-a4bd-c40257e96aa7" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="5ca8d711-aabd-4088-af92-5046fc5768c1">
+          <index Id="0d7be6f1-aaf3-4598-9bd7-242d5e891b58" parentEntityID="b1d8df84-674c-432a-ba8a-0416cbf64b60" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.Dependencies" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="77043466-055f-4601-b9a6-2c5ab9e959e1">
+                <indexColumn Id="51b2f26b-5c8d-4990-8fac-ec3f0bff0907" fieldID="a78cd118-0767-4b8b-874c-bb758e1b02d6" sortOrder="1" />
+              </indexHasIndexColumns>
+              <indexHasIndexColumns Id="8f157368-9ef2-4002-bc81-375078c0a252">
+                <indexColumn Id="6b622394-f1f1-48f2-a527-0bf34a8b6037" fieldID="3aa154c1-2f0e-4451-85cb-8df62123b49f" sortOrder="2" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="9f161682-0cde-4225-9815-42830ff197e4" name="DistributionLocations" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="e9319125-8784-45e6-a634-8bf21dc835dd">
+          <field Id="7acd6f4f-c8ae-480a-a5b2-93c45c0249cf" name="DistributionLocationId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="8abad652-ac20-4c5b-b0d7-7b6acff9b9e8">
+          <field Id="1815a987-1925-4b44-a193-bc41efd90187" name="DistributionPath" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="b1f1bd1b-8ae1-4a71-a084-dd363e915ca8">
+          <field Id="dcbc77f4-ee75-435d-964e-8b85d391823a" name="DistributionMethod" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="7c0817cf-0203-4409-b873-655f63ba5e1c">
+          <field Id="c65daae0-caa5-4aaa-8ada-b4138390e0b4" name="ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="eaa03507-6145-4daa-a5f8-dba05941af21">
+          <index Id="8cfe022f-6282-4dd3-b2ae-5d780ed35376" parentEntityID="9f161682-0cde-4225-9815-42830ff197e4" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="5621c876-2367-4d5f-aceb-4496bc9fe4a1">
+                <indexColumn Id="fdcda7ab-512e-4930-adc4-e8c25a2e93e0" fieldID="c65daae0-caa5-4aaa-8ada-b4138390e0b4" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="12bff07b-5456-408c-bc7e-0ac6464821c4">
+          <index Id="0aca7c47-f098-44a5-a161-77f4a8d495c0" parentEntityID="9f161682-0cde-4225-9815-42830ff197e4" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.DistributionLocations" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="bbfff27a-d5b2-4142-856c-b318fa67fcee">
+                <indexColumn Id="6c4c9679-7a77-41ba-83bb-d862b7555246" fieldID="7acd6f4f-c8ae-480a-a5b2-93c45c0249cf" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="45c00cd1-6d1e-42f8-a4fb-90d280ad2a82" name="Documents" allowTimestamp="false" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="b2a7d4e3-a434-47ac-be49-1c744b714f47" roleName="Documents_documentid" importData="1742629251" importedConstraintName="FK_Documents_DocumentId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Attachments" />
+        </entityHasEntities>
+        <entityHasEntities Id="220dc845-4510-448f-bb6b-212d230b430d" roleName="Cocuments_document_documentid" importData="2050106344" importedConstraintName="FK_Cocuments_Document_DocumentId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/KeyWordDocuments" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="50de35b7-efa4-4439-90d3-c23fe1b7e9df">
+          <field Id="82410771-4359-43e9-98fc-611a8e4f1f90" name="DocumentId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="96ec8679-4896-4068-a300-16f5829125a7">
+          <field Id="b71c4c90-fe2d-4495-8e1c-e2d510673a7d" name="DocumentTitle" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="0369c7bf-c55a-4cf2-af4d-3fd17fa44180">
+          <field Id="64d1553a-8eb0-40a8-a3f1-d6cb0019ed48" name="DocumentType" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="4b9788e4-9ec2-4369-b50a-2d90e80f2ce5">
+          <field Id="8e8479fb-ee13-4127-8ae4-33205bae903f" name="DocumentContents" nullable="false" dataType="VarBinary" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="dfbfd68d-7327-4e55-b8af-6d470c1640be">
+          <field Id="e3d75f21-80a2-4287-bc0c-2ac318b636fa" name="DocumentExtension" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="80584ec3-3571-4455-bcb7-ed61fdac6668">
+          <field Id="47e9c8e9-a376-4139-91ba-11f73b23af43" name="DocumentCreatedBy" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="449ae585-28b0-4146-8d41-68a300dbb9bf">
+          <field Id="873af5fb-4871-411f-af27-53557fab3e3b" name="DocumentCreatedOn" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="80373606-f5c1-4f57-bcc9-cbac77341f24">
+          <field Id="1ec7235f-6d16-47b4-aa36-8748c7a8a558" name="RowVersion" nullable="false" dataType="Timestamp" length="8" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+        <entityHasFields Id="598898a9-b8ab-416a-8f83-1f41a9936855">
+          <field Id="6b24442d-0de4-4e61-9024-c0badf4e1db7" name="ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="9" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="1077f270-7841-4680-8a57-aaf6d24e9fab">
+          <index Id="48e695c2-964f-405d-b4a3-bb7258f5762a" parentEntityID="45c00cd1-6d1e-42f8-a4fb-90d280ad2a82" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="ab76c6f6-6485-4093-8c1c-5b6ad6fe90b5">
+                <indexColumn Id="ca69f16f-f3e1-4791-a8ae-5e7a16a350f8" fieldID="6b24442d-0de4-4e61-9024-c0badf4e1db7" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="60175399-2d59-41e5-8b07-a4e8a52edc8c">
+          <index Id="2404edbf-36e4-4d43-a46d-4b88be3f9d42" parentEntityID="45c00cd1-6d1e-42f8-a4fb-90d280ad2a82" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.Documents" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="be429a4c-5297-4c4f-838f-5f42f5b54a93">
+                <indexColumn Id="9f0cdc17-dfaf-4687-adb4-f39b662c2ebb" fieldID="82410771-4359-43e9-98fc-611a8e4f1f90" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="817dccb6-4d66-49bd-8898-6d192e549c59" name="InstallDetails" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="dbc2d1b8-53d3-465f-b5ed-64238589b0a0">
+          <field Id="4a4c6d50-c472-43a7-8e3c-f755accc46d0" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="8c3f073b-e046-409a-af9b-2e2501a4c6a1">
+          <field Id="d32028e3-fe8f-4804-a503-7df922a0afc7" name="InstallDetailFileName" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="2707ea08-e9a1-4892-a13d-3130c814de31">
+          <field Id="243d8d9a-2002-47fa-868c-2feef7676e30" name="InstallDetailTransformFileName" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="69397491-6383-4430-84bc-37823cf7af31">
+          <field Id="7361dbb3-61dc-4248-abbc-6344cc15322f" name="InstallDetailFileSize" nullable="false" dataType="BigInt" length="8" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="73ebcbc0-d085-4288-92ff-898f64beb927">
+          <field Id="1ec0bb2b-9033-4892-8f4b-ff17226bb857" name="InstallDetailRebootRequired" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="ef03e749-884c-4a36-8057-3f3f3eca23e7">
+          <field Id="117c6b9c-fe23-492d-bd64-e71d06d7c443" name="InstallDetailInstallCommand" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="83a74ba2-fcc2-4c6b-9f2b-ebcfd8e4eab6">
+          <field Id="5f4a3a34-20ee-4e4b-9753-25d2c3f67a2c" name="InstallDetailUninstallCommand" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="e4f52362-ed8c-49d6-99df-bcdd3d710b1d">
+          <field Id="f243bbce-d1a4-4d30-b7fa-51863ef7fc22" name="InstallDetailSourceLocation" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="972da5ea-570b-4044-9e25-38b5409e4731">
+          <index Id="d23ca88a-fbed-4a4e-87e8-5caf914039b9" parentEntityID="817dccb6-4d66-49bd-8898-6d192e549c59" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.InstallDetails" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="89c56bba-e999-4a79-b106-57179c54169a">
+                <indexColumn Id="b053e0ea-3046-4f52-98de-d17bd3e99265" fieldID="4a4c6d50-c472-43a7-8e3c-f755accc46d0" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="bc4cdf63-ad0e-4b9e-88d4-effc31edbd99" name="JournalEntries" allowCreateAudit="false" allowModifyAudit="false" allowTimestamp="false" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="a6a04ad5-79ef-486a-aa6c-d666082a2162">
+          <field Id="854e85e6-ddeb-474d-a81f-11b423b192aa" name="JournalEntryId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="d5293ed1-5ff2-4200-b76f-b4f4976e8506">
+          <field Id="f852cb90-715e-44c4-8379-f1e623d61c78" name="JournalEntryType" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="ec94fec1-4575-4ddf-ba88-2e0badf035dc">
+          <field Id="22a8e04f-6c2c-4d8b-a948-5cc28999b51b" name="JournalEntryText" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="7967461c-e199-49b6-a333-51c2698903b0">
+          <field Id="490d8c85-85c8-44a1-a360-8fe48b47a7b2" name="JournalEntryCreatedBy" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="b6f41438-3db0-4328-a0c3-6ae17226b80f">
+          <field Id="0a623825-0b68-4ee4-8125-d8b34b0fa8fb" name="JournalEntryCreatedOn" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="4e9571e6-537a-4cad-865e-47b8ccb0da2f">
+          <field Id="bbc8e9db-504b-4b6d-a3c1-2d08b8d251d0" name="RowVersion" nullable="false" dataType="Timestamp" length="8" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="4fbe2391-7bdf-406a-b347-aea1473391c3">
+          <field Id="7f4afdd8-5efb-42a9-9ff8-240881303619" name="ProductId" nullable="false" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="559bc8f7-395d-43fd-9113-e7f28f4f46fc">
+          <index Id="3c00b17f-c5d9-41e2-8e3c-d37d5482358e" parentEntityID="bc4cdf63-ad0e-4b9e-88d4-effc31edbd99" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="ae518dc2-c273-4e6d-bc03-29cd7140a25c">
+                <indexColumn Id="a62e0b6e-2b1b-4437-b515-839b1473b7bf" fieldID="7f4afdd8-5efb-42a9-9ff8-240881303619" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="1a8e9706-27e7-4852-bdfa-3b386379e446">
+          <index Id="a8c9626d-fe75-46f0-93be-24462ec5cdea" parentEntityID="bc4cdf63-ad0e-4b9e-88d4-effc31edbd99" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.JournalEntries" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="29e86dcd-9f6e-463c-acad-a0007c58848d">
+                <indexColumn Id="51fe3599-39b6-44ac-a1b1-d803f80d9332" fieldID="854e85e6-ddeb-474d-a81f-11b423b192aa" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="549bf8eb-e450-436d-84a2-0e3f3395879d" name="KeyWordDocuments" schema="dbo" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="2eab7c13-ca74-4b55-b9a4-cd4a6a6d1f6e">
+          <field Id="a2e3c3e3-9194-46db-9248-db0c46d2c0bc" name="KeyWord_KeyWordId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="2e7cb355-5af6-4bd6-af08-fcb9eac8b6b7">
+          <field Id="22c99077-aa18-4975-916b-b78f2ca00170" name="Document_DocumentId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="426c6f2b-5976-47a7-9fcd-c3f1275fb16a">
+          <index Id="deb0268b-3084-4d7c-b1ed-e53d729a34c5" parentEntityID="549bf8eb-e450-436d-84a2-0e3f3395879d" indexType="IsIndexed" importedName="IX_Document_DocumentId">
+            <indexColumns>
+              <indexHasIndexColumns Id="b9b62026-cb42-4e06-933c-e1f69ae248c6">
+                <indexColumn Id="59921966-9454-4cc2-b3db-4cad1cb9cdce" fieldID="22c99077-aa18-4975-916b-b78f2ca00170" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="937063da-ae66-4e4d-abe3-cac8bea48a45">
+          <index Id="9a4888fe-17b5-40a2-be0f-5b6d61b600d7" parentEntityID="549bf8eb-e450-436d-84a2-0e3f3395879d" indexType="IsIndexed" importedName="IX_KeyWord_KeyWordId">
+            <indexColumns>
+              <indexHasIndexColumns Id="6b961782-af0e-4ef6-9e82-b52e2fb2662a">
+                <indexColumn Id="f67714dd-9cc6-4a29-bec3-d4fee2a2cce5" fieldID="a2e3c3e3-9194-46db-9248-db0c46d2c0bc" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="4738df44-b31c-483b-b9a5-2d655fc53bed">
+          <index Id="0b4b3d7d-a243-4e53-bba6-a6bbfec183db" parentEntityID="549bf8eb-e450-436d-84a2-0e3f3395879d" isUnique="true" indexType="PrimaryKey" importedName="PK_dbo.KeyWordDocuments" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="94b069b9-5c6d-4a1d-997e-17a7953b7591">
+                <indexColumn Id="df9508ad-4b90-4b00-8795-052669a8a9b6" fieldID="a2e3c3e3-9194-46db-9248-db0c46d2c0bc" sortOrder="1" />
+              </indexHasIndexColumns>
+              <indexHasIndexColumns Id="17eb4c53-4cb2-47f4-b4d3-b0c189340a3c">
+                <indexColumn Id="5a90b9d2-294a-43b2-a802-da009f4bbab1" fieldID="22c99077-aa18-4975-916b-b78f2ca00170" sortOrder="2" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="97a95911-0bec-4035-b4d4-2c46d14ee2de" name="KeyWords" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="6a3c3f91-3ac5-4f8f-8281-7313306611ba" roleName="Keywords_keyword_keywordid" importData="2034106287" importedConstraintName="FK_KeyWords_KeyWord_KeyWordId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/KeyWordDocuments" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="b933cac2-4d4c-4512-893c-d05d8c3aca84">
+          <field Id="e4249d40-f545-48e6-9c67-47ab50ae0e9c" name="KeyWordId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="14a9460a-fda6-4b34-aca4-1a73d8e0ef37">
+          <field Id="cb074e9f-c7c7-4d9d-8408-9c354821e0d1" name="Word" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="94e9c11e-2344-4704-84d2-e623cbe24fc1">
+          <index Id="42065c4f-5960-412c-bfd4-c3b00120e584" parentEntityID="97a95911-0bec-4035-b4d4-2c46d14ee2de" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.KeyWords" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="8ff7187b-4af2-4f97-95b5-68d04197efed">
+                <indexColumn Id="3b81977b-7341-453c-ac54-8e5fd6af9560" fieldID="e4249d40-f545-48e6-9c67-47ab50ae0e9c" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="0843f813-3c93-47d3-8a5b-fc86088f2ec5" name="LicenseKeys" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="6ec0c24a-b1cf-4586-9f1f-a532eeef7836">
+          <field Id="69dc74b6-fc47-41e5-923d-b22d34ab17ca" name="LicenseKeyId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="ab62d26f-5c72-4368-9057-bd26f77dd825">
+          <field Id="cc599547-071b-45db-b2f0-4ec21b788a1c" name="LicenseKeyData" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="38f64e85-6d59-4e99-bba9-a2336333e06a">
+          <field Id="1a14fd17-6532-41e0-a770-ef51bfbc8893" name="LicenseKeyOwnerName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="9b522a2b-cd19-4311-a92c-a08f4345dfbb">
+          <field Id="403a3cbc-4489-469c-baec-5c0af27b2001" name="LicenseKeyOwnerEmail" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="f4ee82e1-00ab-47db-8861-efcd4e701be4">
+          <field Id="b59d4de0-b231-439e-810d-a502f24c8702" name="LicenseKeyOwnerPhoneNumber" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="907d018d-8e97-424d-ba37-fcf949c2d50c">
+          <field Id="4ea88d1e-6b1a-4a71-bd6a-fa01e31f24f5" name="LicenseId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="ab7cab05-1a8e-46dc-b231-c0d066aa6ec2">
+          <index Id="6248fce4-d045-4fa1-afc3-ba0d3357dc44" parentEntityID="0843f813-3c93-47d3-8a5b-fc86088f2ec5" indexType="IsIndexed" importedName="IX_LicenseId">
+            <indexColumns>
+              <indexHasIndexColumns Id="4876e64f-5bd0-4330-9fc9-7fa3f68cd04a">
+                <indexColumn Id="8a4aecf0-6bcd-41bc-b762-da4f5b06e894" fieldID="4ea88d1e-6b1a-4a71-bd6a-fa01e31f24f5" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="07b791e1-ddf7-45ba-95e3-39f9248fde74">
+          <index Id="4e48636c-0e57-4917-8ab0-c09424d060ed" parentEntityID="0843f813-3c93-47d3-8a5b-fc86088f2ec5" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.LicenseKeys" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="5ff290ae-fcb9-4d37-b88d-1b5ce0e84d36">
+                <indexColumn Id="bca48be3-d8bf-43d9-9eaf-86e1522ce92a" fieldID="69dc74b6-fc47-41e5-923d-b22d34ab17ca" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="fd882ea9-a6c5-418a-b3f3-23ffd36b7fa7" name="Licenses" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="e50c614b-2d4a-48fc-b24e-e5f1dfc03964" roleName="Licenses_licenseid" importData="1778105375" importedConstraintName="FK_Licenses_LicenseId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/LicenseKeys" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="a6c2f78f-5ddc-42a0-aaa9-7ed368088ea8">
+          <field Id="164b08ef-7600-4f6a-9fed-486dac840d2e" name="LicenseId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="9dcbe593-3006-4d0b-b162-38e3535d2abf">
+          <field Id="062ab41e-b5a8-4beb-abdb-d0d81aae7301" name="LicenseSku" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="b4a4a690-03e0-4675-b1ab-e146c23b8fe1">
+          <field Id="ab687bfb-e8e3-47a9-9965-9ec0ab1fc171" name="LicenseNotes" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="7d15e19a-37ed-4b0b-af21-25c5bb3d17ed">
+          <field Id="47a402ae-83e3-45ed-a24b-3b521ff7d9c3" name="LicenseOwner" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="7973fd8a-406c-4e9f-9620-5b5b9ce5d956">
+          <field Id="868f249e-1672-484b-8f87-62c318c5854e" name="LicenseTypeId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="36ed202f-5189-4fcb-8aba-ec40d3f1e990">
+          <field Id="141f8ac8-6909-4c5f-be09-a61d9fefe2f0" name="ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="7548e90e-64fc-4749-a09b-ab02054bd616">
+          <index Id="e9745060-34b3-45f0-b702-c04eb6b8206d" parentEntityID="fd882ea9-a6c5-418a-b3f3-23ffd36b7fa7" indexType="IsIndexed" importedName="IX_LicenseTypeId">
+            <indexColumns>
+              <indexHasIndexColumns Id="0eefb85b-4ca4-4772-a4e3-8e953c1399f2">
+                <indexColumn Id="85278e3b-16ec-42c2-85d6-5ac3e9a91b6b" fieldID="868f249e-1672-484b-8f87-62c318c5854e" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="4f9429bf-264d-4127-951a-7c8caad80158">
+          <index Id="eb4a5e66-5899-4f65-97de-fad7fcbc525a" parentEntityID="fd882ea9-a6c5-418a-b3f3-23ffd36b7fa7" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="5c0c9931-5e0a-4e5a-a6a4-974ed84e171b">
+                <indexColumn Id="464283bd-0ede-422f-a9a8-b498c642e5ab" fieldID="141f8ac8-6909-4c5f-be09-a61d9fefe2f0" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="1a199b27-70d3-4eea-9763-2c94877d4f7d">
+          <index Id="4058efe7-6741-4675-88ec-fd2983459a22" parentEntityID="fd882ea9-a6c5-418a-b3f3-23ffd36b7fa7" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.Licenses" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="d257ce82-1154-4992-be04-f53a5ceb408b">
+                <indexColumn Id="8ddfea25-92b6-46ed-895b-fad135eb537d" fieldID="164b08ef-7600-4f6a-9fed-486dac840d2e" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="b1787445-1d65-43a2-82ed-d065eedc3038" name="LicenseTypes" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="dcbc3928-390c-47a8-ac58-08d00d0667ff" roleName="Licensetypes_licensetypeid" importData="1746105261" importedConstraintName="FK_LicenseTypes_LicenseTypeId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Licenses" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="f8c92697-e72d-4fb8-9a58-63beb1179ce7">
+          <field Id="c4eb71b3-f780-4286-a6bc-136665b8b030" name="LicenseTypeId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="5c2c1b58-1b23-405e-9181-6baf703bfd87">
+          <field Id="13d136d9-0919-4bec-bc87-51e9888137b0" name="LicenseTypeName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="3a623969-2e09-44c3-b000-e10a349e2544">
+          <index Id="c8a06c8b-4c1b-4602-b24b-d67e2a6c8557" parentEntityID="b1787445-1d65-43a2-82ed-d065eedc3038" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.LicenseTypes" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="80bb7062-1278-452e-9417-24560ab1c8c6">
+                <indexColumn Id="769f10c4-a6f7-4057-8447-4b7cb68fd60d" fieldID="c4eb71b3-f780-4286-a6bc-136665b8b030" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="75179baa-1b15-4c05-8e94-515d9376a1f3" name="LocalAccountVerifications" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="ce0dd4d7-840b-471b-855e-35981d32bdce">
+          <field Id="75bbcdb1-b44e-4fdf-a51f-4d8cc0814b91" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="57401e5b-6424-40cc-a524-c76796b45d0a">
+          <field Id="6c3bbc19-414b-4e83-a5f0-11f07efdfe54" name="LocalAdminVerificationComplete" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="46340a1f-5d88-47f2-a260-5308caf537f0">
+          <field Id="f19724ac-a862-414b-8a3a-7601bf2820a3" name="WorksWithLocalAdminAccount" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="a69ed93d-75c7-43f9-a451-61617728b280">
+          <index Id="ff36d078-7bb0-4ea6-9a7b-2ea7dbcd5a5a" parentEntityID="75179baa-1b15-4c05-8e94-515d9376a1f3" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.LocalAccountVerifications" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="e2e268a0-282b-463e-8c3a-51253ef7354a">
+                <indexColumn Id="a9bde63f-6211-4a93-815f-b7a60afd2fe6" fieldID="75bbcdb1-b44e-4fdf-a51f-4d8cc0814b91" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="d1179071-e17f-441b-a312-b1fa8ada834f" name="OsRequirements" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="656dd9db-822f-46e9-9b60-702d4d0fdac2">
+          <field Id="8b04a022-6256-4127-b8f1-f18f48733fa8" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="014ebbca-6777-41b8-8526-3bf6e8d55e09">
+          <field Id="66a472b4-0062-4905-b0ce-27c073b12bf6" name="WindowsXP_32Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="9906e02e-1d8a-49ee-b3c9-2dd5cdca1911">
+          <field Id="35e0f4f0-ea5d-499b-b8a9-70e61ee6ce09" name="WindowsVista_32Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="681c1e60-780e-448e-803f-ded9bf1e2cde">
+          <field Id="306cddd2-2968-46a5-a4b6-76cc8e65fe78" name="Windows7_32Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="9b87f9a7-a805-4dc2-a9fe-6a66d03e91ec">
+          <field Id="38424100-9266-43e0-b88d-6de38753f4d7" name="Windows8_32Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="08be1415-4c1a-4b86-9b51-7e2503364148">
+          <field Id="b9bbc71e-5c2f-4604-9d6d-d84e4b148110" name="Windows81_32Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="65847429-c084-4cfb-a18e-b422117c0f69">
+          <field Id="113ea6cb-1133-4758-aaa0-1e08b43bbe89" name="WindowsXP_64Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="5bcdb28b-987b-49b2-9f41-296554830ac6">
+          <field Id="0d181646-16b8-450a-970b-931f90eb71e0" name="WindowsVista_64Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+        <entityHasFields Id="db12c73d-827c-4ebe-9174-6e86fce06fdd">
+          <field Id="5f10f627-523f-48f1-b748-e7d5f7f00c04" name="Windows7_64Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="9" />
+        </entityHasFields>
+        <entityHasFields Id="d2a22f20-5a4b-4c55-932e-98f7c07d03ad">
+          <field Id="fa68f3c8-05cc-4b43-9b89-9795b461b983" name="Windows8_64Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="10" />
+        </entityHasFields>
+        <entityHasFields Id="6d123abc-5d6c-4d70-988f-e0e3676c7fc0">
+          <field Id="d3893159-9486-45ca-adf1-c3f9f8d956ba" name="Windows81_64Bit" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="11" />
+        </entityHasFields>
+        <entityHasFields Id="a916f7ca-2c13-4faa-b60e-156e0ac69aae">
+          <field Id="53eaa7ea-6459-452a-bf8c-891bb1e0dc35" name="Windows10_32Bit" nullable="false" dataType="Bit" default="0" length="1" min="NaN" max="NaN" scale="0" sortOrder="12" />
+        </entityHasFields>
+        <entityHasFields Id="5fecbb9e-a361-4bb2-9908-1bd89960519f">
+          <field Id="b0d6351c-02d1-44c6-bb3e-6f4a2329b453" name="Windows10_64Bit" nullable="false" dataType="Bit" default="0" length="1" min="NaN" max="NaN" scale="0" sortOrder="13" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="c273b02e-fa6b-415f-873c-58013e1fe661">
+          <index Id="74ce4afd-0f25-4068-a041-f75900c65134" parentEntityID="d1179071-e17f-441b-a312-b1fa8ada834f" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.OsRequirements" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="80862c01-ff4f-49f0-adff-746b26f7383b">
+                <indexColumn Id="51dfde70-a711-4f43-9c42-1b3746eda837" fieldID="8b04a022-6256-4127-b8f1-f18f48733fa8" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="b1db96c7-097c-4975-a58e-16a7e3653894" name="PackagesToAdd" schema="dbo" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="2681f4e3-7826-444e-8a82-5a62a584c2dd">
+          <field Id="d81558f0-80ee-4e57-a314-4ce5c77b20a0" name="Id" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="18d75eca-e3af-410c-9563-8186eb01784a">
+          <field Id="d9c52b42-85ab-4430-9578-1c86914f6b63" name="Name" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="ad8dbe81-c5e8-4c34-a4ae-16c11f141733">
+          <field Id="9fa0257c-ecde-4562-9a07-42d6a40efa70" name="ConfigurationRecordsId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="1a57b0a3-fdbe-4b64-9a0e-7fc250cc60d9">
+          <index Id="25e641f4-9791-494d-b362-3cf149860165" parentEntityID="b1db96c7-097c-4975-a58e-16a7e3653894" indexType="IsIndexed" importedName="IX_FK_ConfigurationRecordsPackagesToAdd">
+            <indexColumns>
+              <indexHasIndexColumns Id="e33cb3a2-5a02-4857-853c-bfd0f8e5683b">
+                <indexColumn Id="7458b9ae-ce6c-4970-bd1d-bcd23b8e633c" fieldID="9fa0257c-ecde-4562-9a07-42d6a40efa70" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="3a3e3b0e-b545-476d-9cc1-3a864092ea75">
+          <index Id="7eb15ac5-6743-49b1-a7ee-b6af0d017ffc" parentEntityID="b1db96c7-097c-4975-a58e-16a7e3653894" isUnique="true" indexType="PrimaryKey" importedName="PK_PackagesToAdd" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="01009ca7-da58-4caf-9f69-87b0415d35dd">
+                <indexColumn Id="e88d00dd-ccf6-4c29-bdaa-27ec76bba63d" fieldID="d81558f0-80ee-4e57-a314-4ce5c77b20a0" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="1716ad5e-c70f-4854-b290-c52f56ea7ab2" name="PackagesToDelete" schema="dbo" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="8e70c943-167b-4a68-996d-b4c9035daa26">
+          <field Id="913c8cfe-3f10-4815-b346-d8a5dd21e4bc" name="Id" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="8308bedf-1ad0-4870-8534-2e25f4c50fcb">
+          <field Id="b6041f60-0125-4f50-91be-41c368ae3afa" name="Name" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="94172000-92e8-47f0-bd3d-d1d6dbce0c48">
+          <field Id="4166cf47-3a2c-442a-bc12-ac1e08a42d5e" name="ConfigurationRecordsId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="cf2f6bab-e637-4a20-ad66-2623033c338c">
+          <index Id="7a18cffd-9004-4eb2-b650-609186ed5ad6" parentEntityID="1716ad5e-c70f-4854-b290-c52f56ea7ab2" indexType="IsIndexed" importedName="IX_FK_ConfigurationRecordsPackagesToDelete">
+            <indexColumns>
+              <indexHasIndexColumns Id="6595ec1b-708a-46bd-8d57-9713b293ce21">
+                <indexColumn Id="2ae3f30c-51c3-40ad-90bf-713aad99463f" fieldID="4166cf47-3a2c-442a-bc12-ac1e08a42d5e" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="b331ed28-c220-4d0d-9142-c4ab6c6d6cc3">
+          <index Id="4f0750a3-b84b-4ee5-86d9-e30591325206" parentEntityID="1716ad5e-c70f-4854-b290-c52f56ea7ab2" isUnique="true" indexType="PrimaryKey" importedName="PK_PackagesToDelete" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="8732c90f-efe9-4911-b7a7-9bf328adec6f">
+                <indexColumn Id="ac5e96e2-e404-4c7f-9e9c-457584937336" fieldID="913c8cfe-3f10-4815-b346-d8a5dd21e4bc" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="d70efbdd-c5ef-4fd3-b0ad-e1d99206812a" name="ProductCategories" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="88b176a5-771a-42ed-9d9c-e4ea92db962b" roleName="Productcategories_productcategoryid" importData="1570104634" importedConstraintName="FK_ProductCategories_ProductCategoryId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Products" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="829967c8-c214-429c-9278-585d0ee9acc6">
+          <field Id="b7dc1f14-d8c1-4d57-afc6-6bf1b43c6935" name="ProductCategoryId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="c011965d-4ef1-44ab-8941-33cc50641974">
+          <field Id="a94af837-743a-4a61-ae7a-91a25ace69d6" name="ProductCategoryName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="15aeb5d5-ba5c-44bd-a0a7-42a8b8d943e0">
+          <index Id="b81c4e73-1056-48bb-8a4a-a8af2d4bb52e" parentEntityID="d70efbdd-c5ef-4fd3-b0ad-e1d99206812a" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ProductCategories" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="f78b622c-c110-44f1-8ca5-da1c7c5bd264">
+                <indexColumn Id="40d5c4b8-1f74-4735-a5b4-073220235835" fieldID="b7dc1f14-d8c1-4d57-afc6-6bf1b43c6935" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="b3977ea1-1a3b-4b6d-a1ca-c11e53774cf0" name="ProductContactRoles" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="06521944-a3f0-4cda-9697-ed581cc230ac" roleName="Productcontactroles_productcontactroleid" importData="1826105546" importedConstraintName="FK_ProductContactRoles_ProductContactRoleId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ProductContacts" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="96d3cb22-39fd-4227-a8ff-96ef87837497">
+          <field Id="623e39f9-e514-4795-aebe-c111fa54168f" name="ProductContactRoleId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="8a080d7b-6da6-4548-9389-738d66f137dc">
+          <field Id="06a28ef7-6d89-45a1-a2b5-229bfe8340dc" name="ProductContactRoleName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="72554253-3fc5-4a75-a057-8fc4e99922fd">
+          <index Id="769b0683-b051-4360-961c-df54f9461423" parentEntityID="b3977ea1-1a3b-4b6d-a1ca-c11e53774cf0" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ProductContactRoles" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="402377f5-2fe8-4aba-9c60-499b3a160fa5">
+                <indexColumn Id="aca4dbe7-31b8-4c93-986b-146af8446621" fieldID="623e39f9-e514-4795-aebe-c111fa54168f" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="de1f48aa-aff4-4a66-a389-42e10a23fd41" name="ProductContacts" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="db76503e-7ec1-44d5-8f38-30d62c0a6360">
+          <field Id="4c8ff53d-99ae-46db-990c-4975124fb53e" name="ProductContactId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="f9246f41-d821-462a-8716-4d1e9a469c90">
+          <field Id="db3bdda8-c3c0-46f3-a6e2-7a47b564cef8" name="ProductContactLoginId" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="cd862f4f-6796-4269-921c-b0212d73c0d2">
+          <field Id="95c1ca65-257d-47a0-a4ea-da49b30ba0fe" name="ProductContactName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="1d46f018-c47d-4b98-a67a-a894f52d6ce5">
+          <field Id="57d9932c-eac9-4f58-acb5-f6a525be268c" name="ProductContactEmail" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="d43f6b84-49d0-4ab2-8756-86fae0f55d9e">
+          <field Id="8eb69433-74e8-4d6e-bf17-89ada6340d4f" name="ProductContactPhoneNumber" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="491e855f-7fdc-4b5e-9c77-7c639d679c9f">
+          <field Id="6ece40ee-7675-45a7-8d56-181fe7395ef9" name="ProductContactRoleId" nullable="false" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="79cd5262-093a-4470-8daf-b5eb8ae76302">
+          <field Id="49769c25-bb68-46d0-903f-35f9fc7c3d90" name="ProductId" nullable="false" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="38d34485-02a0-4e49-87df-ed315c5960d1">
+          <index Id="97f87aaf-dd5a-41f3-bdd8-65124f66adaa" parentEntityID="de1f48aa-aff4-4a66-a389-42e10a23fd41" indexType="IsIndexed" importedName="IX_ProductContactRoleId">
+            <indexColumns>
+              <indexHasIndexColumns Id="cc51a6a5-70ad-449a-bb13-d0d351477d86">
+                <indexColumn Id="c30e40fb-9bc3-4f6d-aa6f-03bf6db20059" fieldID="6ece40ee-7675-45a7-8d56-181fe7395ef9" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="ae547cb4-3a65-4a5a-b2e3-72807aae7e29">
+          <index Id="632767bb-9cac-4282-b7ae-469a03dc2f9e" parentEntityID="de1f48aa-aff4-4a66-a389-42e10a23fd41" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="6603fd42-1280-43e4-98c3-e719e8f608e9">
+                <indexColumn Id="483f269b-8b06-4ae3-94a4-63268d05b209" fieldID="49769c25-bb68-46d0-903f-35f9fc7c3d90" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="cd0bc007-b783-4aa3-b4bf-4bc145b82978">
+          <index Id="a9409ee7-35f8-476b-8020-0735e4eeed31" parentEntityID="de1f48aa-aff4-4a66-a389-42e10a23fd41" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ProductContacts" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="14295fa7-0630-4a00-90ff-55f0fa387374">
+                <indexColumn Id="7d5d453e-c5c5-4c07-b571-9cda4447c84b" fieldID="4c8ff53d-99ae-46db-990c-4975124fb53e" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="2b2279a6-a6cc-429a-b5bb-128406c0c676" name="ProductKeyWordProducts" schema="dbo" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="83a9a25f-0128-49c5-b9ec-aa12b111bcbb">
+          <field Id="531d76f8-72d6-4856-86c5-b4a6e7ae94fb" name="ProductKeyWord_ProductKeyWordId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="1d340c50-c499-4c8e-82a0-1a0a34d31144">
+          <field Id="34e61289-d57b-40b0-93db-1b19e4c3105f" name="Product_ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="fb07febc-aa57-4bfd-beb5-7b2830ba96dd">
+          <index Id="78607a21-f25c-4da7-995a-12e82ff81690" parentEntityID="2b2279a6-a6cc-429a-b5bb-128406c0c676" indexType="IsIndexed" importedName="IX_Product_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="98b0a9e6-c104-4305-b092-c8c177b3631b">
+                <indexColumn Id="1ed1afd9-564d-42ee-a3cd-96f3092e9408" fieldID="34e61289-d57b-40b0-93db-1b19e4c3105f" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="58835e08-d9ed-4d05-99b2-9ec178a976f6">
+          <index Id="0eeaf324-f1bb-4611-95be-24134f572a5f" parentEntityID="2b2279a6-a6cc-429a-b5bb-128406c0c676" indexType="IsIndexed" importedName="IX_ProductKeyWord_ProductKeyWordId">
+            <indexColumns>
+              <indexHasIndexColumns Id="b040a52d-0325-4a3c-b9bb-c00629110857">
+                <indexColumn Id="7bcefe70-a03c-4afb-a592-84d9ac5cf404" fieldID="531d76f8-72d6-4856-86c5-b4a6e7ae94fb" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="291c3561-fcb8-4731-bc2e-1bb6ce9ef28a">
+          <index Id="365042f8-7070-45ca-b336-e39d53d9f626" parentEntityID="2b2279a6-a6cc-429a-b5bb-128406c0c676" isUnique="true" indexType="PrimaryKey" importedName="PK_dbo.ProductKeyWordProducts" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="c6fcdcf6-92eb-4293-8ee4-4f272196beb0">
+                <indexColumn Id="88c50bf3-4601-4c73-b13b-f440c3e28a2f" fieldID="531d76f8-72d6-4856-86c5-b4a6e7ae94fb" sortOrder="1" />
+              </indexHasIndexColumns>
+              <indexHasIndexColumns Id="8f9af20e-90e7-4c45-80d7-ca83b41af9d9">
+                <indexColumn Id="5e7a617b-4f3f-49f9-8c83-49f97de524c2" fieldID="34e61289-d57b-40b0-93db-1b19e4c3105f" sortOrder="2" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="8a48b31a-6662-4cbb-a9be-ef21284d8f99" name="ProductKeyWords" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="8f7850f1-fa75-4e4b-84e2-cbebf3a95eac" roleName="Productkeywords_productkeyword_productkeywordid" importData="174623665" importedConstraintName="FK_ProductKeyWords_ProductKeyWord_ProductKeyWordId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ProductKeyWordProducts" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="5cd1728c-addb-43c0-b27a-afe967203d73">
+          <field Id="903baabe-6d8a-4eae-b373-e627d1d3763b" name="ProductKeyWordId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="40b734fc-bee9-4f7e-87f0-66d1ad034042">
+          <field Id="5b821e9d-d405-40a7-8033-9a992b3dd0a9" name="Word" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="1571c3b9-6543-4427-934b-59411259beac">
+          <index Id="2bfbaa5b-1119-4036-855b-dd166cda4afb" parentEntityID="8a48b31a-6662-4cbb-a9be-ef21284d8f99" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ProductKeyWords" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="a373b2cb-818a-4436-8932-b94b3f89d7f4">
+                <indexColumn Id="7c0af2ba-69af-4cbe-b927-722f235d4ae2" fieldID="903baabe-6d8a-4eae-b373-e627d1d3763b" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="45d88a40-5589-4364-abd4-2dc71ef44258" name="ProductPermissionDetails" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="51a57fdf-6333-4d6b-8ac1-03e263a61f6a">
+          <field Id="d1ff953f-1e65-4e1f-8bb0-ca092ecbf49a" name="ProductPermissionDetailId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="d6d74c0e-b314-4f60-9806-44e5f14ac427">
+          <field Id="73b54028-ff91-467b-ae64-b56eb8052b9f" name="ProductPermissionDetailAcl" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="1936c643-44f6-4cf5-a57d-9c21fe0bd72c">
+          <field Id="6f5d0b78-8f56-4bd7-be0c-9b61db85cd4f" name="ProductPermissionDetailType" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="c0042b55-0d40-436f-a51c-11836900e13a">
+          <field Id="56cfb56a-4193-4192-b0c5-3c44d250d454" name="ProductPermissionLocation" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="5ae8a229-a528-4f8e-b2d1-77e32fb18210">
+          <field Id="f4d9af93-90fc-40f4-b8fc-93071065a3c1" name="ProductPermissionGroupOrUserName" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="6078376e-b17b-417e-8d8b-ff5d21bbd3ba">
+          <field Id="870dbd8b-e23e-4aed-8574-6a2bb4e0a92b" name="ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="4f4e4c1f-6d9a-404f-9aaa-91907b845e16">
+          <index Id="03c0ce81-48c3-4a48-874c-4cb7528fbefe" parentEntityID="45d88a40-5589-4364-abd4-2dc71ef44258" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="dd25922b-040e-4aa3-9fc6-9fe715f1beea">
+                <indexColumn Id="c54260ca-a77a-4f2d-9c87-8302011b0c70" fieldID="870dbd8b-e23e-4aed-8574-6a2bb4e0a92b" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="3d6ef61f-9e81-4461-bd32-7a0318ad9546">
+          <index Id="a695f092-82aa-4011-a8ec-7099d8ddd74f" parentEntityID="45d88a40-5589-4364-abd4-2dc71ef44258" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ProductPermissionDetails" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="a2be70fb-9a64-470c-a1f5-36ec5d114d15">
+                <indexColumn Id="52e6e1e4-25b1-4311-a9e7-cf7080a069d3" fieldID="d1ff953f-1e65-4e1f-8bb0-ca092ecbf49a" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="42fd4973-1737-418a-a74b-b292eadbd530" name="ProductPermissions" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="960cd616-184c-4b27-97c4-d07f4833e92e">
+          <field Id="618cbac2-53be-4da8-9945-9eb9b318d89c" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="2f12578b-41b8-47a3-b782-95019eaea4cf">
+          <field Id="fa640134-f9b4-4f46-b282-e6bf8cc95acf" name="ElevatedRightsRequired" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="3485fbff-da45-42ce-848f-803ccc43198d">
+          <field Id="acb100f6-c7aa-49cf-828c-ecab87f6daa8" name="RequiresAdminRightsBasic" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="604df1ca-c692-4337-be9f-364f5c6e1b6c">
+          <field Id="92ce322f-9886-40da-b644-18a53f4e5633" name="RequiresAdminRightsAdvanced" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="bbffae1a-6780-4583-9eb2-a0b7d52e5a90">
+          <field Id="3938b68f-4794-48c0-952c-2142848b9539" name="RequiresAdminRightsUpdates" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="4c39cc2a-ee01-41a1-94f9-bee0af0c4622">
+          <index Id="f9cb538e-6232-42f7-ae1e-137562f73f35" parentEntityID="42fd4973-1737-418a-a74b-b292eadbd530" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ProductPermissions" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="f81b4c7a-c674-46bb-8fb3-c25d1cdead87">
+                <indexColumn Id="53f6b7bc-8975-47c2-9ee4-ad3e544bda26" fieldID="618cbac2-53be-4da8-9945-9eb9b318d89c" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="ba2aebc4-b9d5-48d7-aa18-bf48cc378807" name="Products" allowTimestamp="false" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="337e2490-1046-499d-aac2-edf1a1019d60" roleName="Products_baseproductid" importData="1634104862" importedConstraintName="FK_Products_BaseProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Dependencies" />
+        </entityHasEntities>
+        <entityHasEntities Id="ab48c7e2-d66b-4bd9-8849-570acb6c1787" roleName="Products_dependencyproductid" importData="1650104919" importedConstraintName="FK_Products_DependencyProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Dependencies" />
+        </entityHasEntities>
+        <entityHasEntities Id="f40a08f0-ad6c-4131-958c-c4449c7900ea" roleName="Products_product_productid" importData="1666104976" importedConstraintName="FK_Products_Product_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Dependencies" />
+        </entityHasEntities>
+        <entityHasEntities Id="a710617c-5801-4162-b6ee-b29d23c7b34a" roleName="Products_productid" importData="1682105033" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/DistributionLocations" />
+        </entityHasEntities>
+        <entityHasEntities Id="51bf7fc0-e5d8-4009-9f5d-2988c9101613" roleName="Croducts_productid" importData="1698105090" importedConstraintName="FK_Croducts_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Documents" />
+        </entityHasEntities>
+        <entityHasEntities Id="ce326c37-de13-4a4f-bf9d-91b459efabfe" roleName="Products_productid" importData="1714105147" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/InstallDetails" />
+        </entityHasEntities>
+        <entityHasEntities Id="a5a7b254-59b3-4fba-9ce6-dde32ad4f74c" roleName="Products_productid" importData="1730105204" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/JournalEntries" />
+        </entityHasEntities>
+        <entityHasEntities Id="a3ce25cc-0e25-4bdb-893a-c501d54db51d" roleName="Productid" importData="1762105318" importedConstraintName="FK_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Licenses" />
+        </entityHasEntities>
+        <entityHasEntities Id="e626e256-f93d-48b4-8cb6-33893a834c76" roleName="Products_productid" importData="814625945" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/LocalAccountVerifications" />
+        </entityHasEntities>
+        <entityHasEntities Id="61cc400e-7880-45f0-a2cd-a5488a136929" roleName="Products_productid" importData="1794105432" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/OsRequirements" />
+        </entityHasEntities>
+        <entityHasEntities Id="869b9b47-2a7c-4cb3-b957-5511e50b6327" roleName="Products_productid" importData="1810105489" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ProductContacts" />
+        </entityHasEntities>
+        <entityHasEntities Id="15dcca77-a142-4cf2-b747-a4c9d9e8e609" roleName="Products_productid" importData="1102626971" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ProductPermissionDetails" />
+        </entityHasEntities>
+        <entityHasEntities Id="ade59540-55b0-4ca9-974d-917f83bdfdc7" roleName="Products_productid" importData="830626002" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ProductPermissions" />
+        </entityHasEntities>
+        <entityHasEntities Id="995d9086-d6ca-4065-a48d-d699a2c296ba" roleName="Products_productid" importData="1842105603" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SccmDeploymentDetails" />
+        </entityHasEntities>
+        <entityHasEntities Id="209f50ca-3689-4533-9acc-3972651c0261" roleName="Products_productid" importData="1858105660" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SccmReturnCodes" />
+        </entityHasEntities>
+        <entityHasEntities Id="acab5a9d-f7d3-4004-ad13-cfb1b8d94bfc" roleName="Products_productid" importData="1874105717" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SccmRules" />
+        </entityHasEntities>
+        <entityHasEntities Id="641e5879-6937-423b-99e0-9008a3edf49c" roleName="Products_productid" importData="1890105774" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SoftwarePolicies" />
+        </entityHasEntities>
+        <entityHasEntities Id="3dd4b9be-026f-4407-9997-b1777aec6522" roleName="Products_productid" importData="1938105945" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SoftwareRequirements" />
+        </entityHasEntities>
+        <entityHasEntities Id="15e4ece3-b260-4c18-a96f-13c43653a090" roleName="Products_baseproductid" importData="1954106002" importedConstraintName="FK_Products_BaseProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SupersededProducts" />
+        </entityHasEntities>
+        <entityHasEntities Id="77f82a06-08b2-4663-916e-b291289fc4d4" roleName="Products_product_productid" importData="1986106116" importedConstraintName="FK_Products_Product_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SupersededProducts" />
+        </entityHasEntities>
+        <entityHasEntities Id="8f871c7c-e553-4689-96a6-fb16d68ab7ee" roleName="Products_supersededproductid" importData="1970106059" importedConstraintName="FK_Products_SupersededProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SupersededProducts" />
+        </entityHasEntities>
+        <entityHasEntities Id="90129e04-0d21-44ea-8a18-1bb8945fe56f" roleName="Products_productid" importData="2002106173" importedConstraintName="FK_Products_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SystemRequirements" />
+        </entityHasEntities>
+        <entityHasEntities Id="bd3ada6b-2d0b-48cc-84cb-4c994980a29b" roleName="Products_product_productid" importData="190623722" importedConstraintName="FK_Products_Product_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ProductKeyWordProducts" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="272e1e29-ee38-4ed4-8307-85cfa8a13f8f">
+          <field Id="6af0b3da-f975-4c43-8c55-d985b6a5286e" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="4c7488ae-a5f7-4fbf-8aff-4fb99e74e75d">
+          <field Id="8d63b6c0-66a0-4228-960e-4c8a8f44393f" name="ProductName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="94c3f3de-bab6-4e01-9afc-a917dc913539">
+          <field Id="51af5020-858d-4cd0-98af-52a4faff08ca" name="ProductVersion" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="182c7675-e97a-4e83-837a-7770451a3249">
+          <field Id="f92cd191-b2eb-4b72-bb1d-912b6881c251" name="ProductManufacturer" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="cdaee771-ee3f-4ad7-8e32-02ae7a452c64">
+          <field Id="24509136-bd01-40dc-9248-7abc51a8b5a3" name="ProductDescription" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="a609c78b-8e85-4293-961b-f466ed23eb99">
+          <field Id="b0b22954-362c-4b7c-a2a6-f063866c02ee" name="ProductIsDigitallySigned" nullable="false" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="386d1011-f973-4f20-b5f1-0b16db3806e8">
+          <field Id="687f2aea-3f7c-4382-8f78-423d19b45cae" name="ProductCode" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="4b0e4d1d-c0bd-4c9f-93cd-d3b3850aed68">
+          <field Id="bebc491d-8fab-4cea-8e22-5125a34c2fb9" name="ProductUpgradeCode" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+        <entityHasFields Id="c800138a-cf00-4f4a-a507-c52c1b19d171">
+          <field Id="3507052b-c370-4a7d-948c-fb3e44130c71" name="ProductDslId" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="9" />
+        </entityHasFields>
+        <entityHasFields Id="d57972d4-09fb-41e9-a8a7-6bda47c91251">
+          <field Id="70070c38-5a70-4427-8069-d44018405a46" name="ProductCosmicId" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="10" />
+        </entityHasFields>
+        <entityHasFields Id="45965418-9868-4c2b-b626-642c888b264b">
+          <field Id="55729822-a6c3-4c2f-9af2-cfd946ed8622" name="ProductCosmicMsiGuid" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="11" />
+        </entityHasFields>
+        <entityHasFields Id="ede37dbf-6c08-4401-811f-e4904727e472">
+          <field Id="4110be61-8f11-4ed3-af54-cbb39488bfbe" name="ProductStatus" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="12" />
+        </entityHasFields>
+        <entityHasFields Id="8f9b4b83-ee5f-4473-8d4b-324bbd6ee9f7">
+          <field Id="80a0a784-67fa-448c-8ab4-b99b36ebdec1" name="CreatedOnDate" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="13" />
+        </entityHasFields>
+        <entityHasFields Id="106a69fd-3083-413d-bab6-ca26545fbcc1">
+          <field Id="6d912a87-427a-4afe-b6b1-e4d56483d4f2" name="RowVersion" nullable="false" dataType="Timestamp" length="8" min="NaN" max="NaN" scale="0" sortOrder="14" />
+        </entityHasFields>
+        <entityHasFields Id="ce8884fd-7781-477c-8f14-fcc9ed8c8d9e">
+          <field Id="8418ab06-25c6-4040-ba14-08c8e85b0424" name="LegacyId" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="15" />
+        </entityHasFields>
+        <entityHasFields Id="ad78b396-6351-432d-8ce3-ce2e3c4bdef4">
+          <field Id="5eb3d89a-cb13-4caa-817e-de322276448b" name="ProductCategoryId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="16" />
+        </entityHasFields>
+        <entityHasFields Id="08b38942-6b93-48fa-8c06-d605207b3085">
+          <field Id="1e79797c-6989-4aee-8333-a4f419372ba3" name="ProductTypeId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="17" />
+        </entityHasFields>
+        <entityHasFields Id="ce8de2f7-e8dc-4ef3-b167-eef39d8c916e">
+          <field Id="da91712d-8a30-4a40-b03d-9280e2ec351c" name="ProjectTypeId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="18" />
+        </entityHasFields>
+        <entityHasFields Id="96b6879f-75d3-45e5-915e-147941a01d69">
+          <field Id="adc1ac76-9ec3-417b-a5ac-3c4451715622" name="CosmicConfigRecordId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="19" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="c4de911b-5c8d-4ecf-89d9-0c11a1e632d1">
+          <index Id="716378b0-47a0-4772-9054-cdcef2f9b34b" parentEntityID="ba2aebc4-b9d5-48d7-aa18-bf48cc378807" indexType="IsIndexed" importedName="IX_CosmicConfigRecordId">
+            <indexColumns>
+              <indexHasIndexColumns Id="d5437672-88b3-4da4-941c-ec902d7022a4">
+                <indexColumn Id="d480fad8-cabc-4fd6-a6f1-0e16ce5e3167" fieldID="adc1ac76-9ec3-417b-a5ac-3c4451715622" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="6d6f5c65-fba5-4b32-8a3c-c74a5757d58c">
+          <index Id="c6ed66c5-8d0e-40a9-bc0c-1386bcc9d45a" parentEntityID="ba2aebc4-b9d5-48d7-aa18-bf48cc378807" indexType="IsIndexed" importedName="IX_ProductCategoryId">
+            <indexColumns>
+              <indexHasIndexColumns Id="4465786f-a249-4e62-adfc-6808b322a534">
+                <indexColumn Id="f8cc66bf-77d5-4613-ae4f-81ac5874c177" fieldID="5eb3d89a-cb13-4caa-817e-de322276448b" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="285c441e-9605-4ccb-9aef-67be72222bfb">
+          <index Id="de803a97-ddbe-4eb1-8089-eaddbf8b78c6" parentEntityID="ba2aebc4-b9d5-48d7-aa18-bf48cc378807" indexType="IsIndexed" importedName="IX_ProductTypeId">
+            <indexColumns>
+              <indexHasIndexColumns Id="1681180b-5161-4e8a-bf66-afef18b4948a">
+                <indexColumn Id="52895c93-ff94-4cb9-a1ad-9442194c5f03" fieldID="1e79797c-6989-4aee-8333-a4f419372ba3" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="15e4a945-6f13-4d1c-aed0-00c444f38dd2">
+          <index Id="b00278b5-5374-431f-a83a-87be3a136c7e" parentEntityID="ba2aebc4-b9d5-48d7-aa18-bf48cc378807" indexType="IsIndexed" importedName="IX_ProjectTypeId">
+            <indexColumns>
+              <indexHasIndexColumns Id="2fd67303-e832-41c4-b6ff-2f5158f85dd8">
+                <indexColumn Id="c9bc20ee-a09a-499a-a4f1-dd73b283be68" fieldID="da91712d-8a30-4a40-b03d-9280e2ec351c" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="5049d511-c5e8-4690-bea1-d1d6cc5d34a8">
+          <index Id="63897ee8-22f9-484f-983b-bdfdef76268c" parentEntityID="ba2aebc4-b9d5-48d7-aa18-bf48cc378807" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.Products" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="9837517d-81cf-4621-8a11-5d485245917a">
+                <indexColumn Id="7a5243e8-d282-4b56-ab26-35e6ba7bd27c" fieldID="6af0b3da-f975-4c43-8c55-d985b6a5286e" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="9c3c1cca-6697-432f-a4ad-60437890ff94" name="ProductTypes" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="9ebc3ab5-ee2c-4a74-8475-547c912ba644" roleName="Producttypes_producttypeid" importData="1586104691" importedConstraintName="FK_ProductTypes_ProductTypeId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Products" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="3104f68e-b5a5-4906-8401-711627a00b1e">
+          <field Id="f88bd5fb-fc9d-4856-9b81-deda16793118" name="ProductTypeId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="0e47d745-0d39-4f5a-8e44-e4ddc86b8a51">
+          <field Id="af4238a2-c7f2-45b4-b29b-ac25d4f5d644" name="ProductTypeName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="49bce1ab-4ab1-49af-95d1-ff41213f0847">
+          <index Id="24b3b045-980c-4f20-8adb-595e1948f264" parentEntityID="9c3c1cca-6697-432f-a4ad-60437890ff94" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ProductTypes" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="e3b74765-df72-4fbb-8396-18bc6de4fc8b">
+                <indexColumn Id="7aa6a679-36f5-4032-82e4-244bc8caf7e4" fieldID="f88bd5fb-fc9d-4856-9b81-deda16793118" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="5e645617-708b-4517-a4ce-1706d9834f45" name="ProjectTypes" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="dd760098-6953-4d6f-8ef0-850d5a8f3411" roleName="Projecttypes_projecttypeid" importData="1602104748" importedConstraintName="FK_ProjectTypes_ProjectTypeId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Products" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="2d54dc59-a762-4216-b489-9e1fb94f4158">
+          <field Id="13a02878-16e3-4b52-8ab7-5e9f5ca9417d" name="ProjectTypeId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="ad48b271-f1c1-4ca9-b5ea-2edcbec63f84">
+          <field Id="3c4bf1a8-679f-4415-a122-5f83f19d5ade" name="ProjectTypeName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="4232dfb7-5706-46dc-99db-0a91aab4a1ef">
+          <index Id="c569c5f4-73e5-4395-8c4f-77620d94421c" parentEntityID="5e645617-708b-4517-a4ce-1706d9834f45" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.ProjectTypes" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="e13489f6-9004-4461-a691-ce9330cd04fe">
+                <indexColumn Id="3c0c9328-47ff-4e71-afbb-aa41171754e0" fieldID="13a02878-16e3-4b52-8ab7-5e9f5ca9417d" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="0902111c-5d15-41e0-ad85-138783f81031" name="RequestHistories" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="b7b7fe90-0e63-4bc5-b781-2787554dfea9">
+          <field Id="96c28c25-8908-4607-bb53-8cf8c5a86b08" name="RequestHistoryId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="b217d6b4-ef32-4364-9447-9b98dc5c8087">
+          <field Id="273a79c3-7135-47f7-afcf-3606ec572df5" name="RequestHistoryEntry" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="0a0b554b-1bb6-4275-b200-dd2189593f92">
+          <field Id="4dc1ab22-42dc-48df-afbd-a51e689c9ed3" name="CreatedOnDate" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="2cc7da8a-9246-470b-b891-02a3919e8a67">
+          <field Id="a2f0ab4a-96da-475d-a91b-9c43b8e0c11f" name="RequestId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="5b9a31b0-0327-4699-8abd-e5d9ecf28c71">
+          <index Id="b87182f5-5886-4f7a-9057-591da5763a38" parentEntityID="0902111c-5d15-41e0-ad85-138783f81031" indexType="IsIndexed" importedName="IX_RequestId">
+            <indexColumns>
+              <indexHasIndexColumns Id="27457bf6-b8da-4cf2-91f4-e55e5c1e45ef">
+                <indexColumn Id="71a26584-d129-430e-83f7-28a0d2f1893f" fieldID="a2f0ab4a-96da-475d-a91b-9c43b8e0c11f" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="e2a53a56-1bbe-4163-b0d7-19e60df51e68">
+          <index Id="a7b38cdb-0014-430d-91b8-10adfb2987a0" parentEntityID="0902111c-5d15-41e0-ad85-138783f81031" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.RequestHistories" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="f241b77c-9951-42b3-bf86-9a0d12430894">
+                <indexColumn Id="83749fbb-d986-4808-ac8a-bbe1bc184aca" fieldID="96c28c25-8908-4607-bb53-8cf8c5a86b08" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="6c409e23-7776-49b9-86b4-ff54024e7d48" name="Requests" allowTimestamp="false" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="265810f0-dc2c-40cc-ab42-308f0cb97115" roleName="Requests_productid" importData="1618104805" importedConstraintName="FK_Requests_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Products" />
+        </entityHasEntities>
+        <entityHasEntities Id="3248145c-3365-4139-9cc0-c3d4a2744573" roleName="Requests_requestid" importData="2018106230" importedConstraintName="FK_Requests_RequestId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/RequestHistories" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="de67e8fa-dff1-4e7b-a02d-ce49e6894ae9">
+          <field Id="e5c78cc9-b277-4f25-9067-38366a5dc402" name="RequestId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="190c2661-a0a4-4426-9dbc-024d24a65d70">
+          <field Id="d0803b5a-6ea5-4560-9b68-7a759a62f105" name="RequestorUserId" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="23fa6894-626c-4a0d-9363-9cde40d29684">
+          <field Id="13660043-9e7d-46cd-9499-1576bcdf2c65" name="RequestTitle" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="c2e2c22b-2688-40e0-bf1c-02db2b08022d">
+          <field Id="a5d12916-cf17-4813-a132-7d0e6ef53872" name="RequestDescription" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="a5255791-1fa2-406c-a9ce-eb03b120dcb4">
+          <field Id="75c6227d-bb82-44f9-b8ed-5bfa368e2af8" name="CreatedOnDate" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="a9ec6e2e-7b26-4f5c-ad5d-4cb09cda7569">
+          <field Id="4b30577d-d795-4b12-9e4e-efac89c99c3a" name="DueOnDate" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="53dda561-c907-4262-a4b9-34b6ab7e2b00">
+          <field Id="b26b57e8-40ce-4008-8d04-d6af54fd9cf6" name="CompletedOnDate" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="97657b90-f404-45ce-ba8e-10a39a870955">
+          <field Id="a6fa4e6e-d8c2-4ae8-ba5a-61ecb8a95fbb" name="RowVersion" nullable="false" dataType="Timestamp" length="8" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+        <entityHasFields Id="00cbc2f8-a2aa-4d32-99dc-acbb40ede281">
+          <field Id="efd8b265-ba78-4405-a1a3-fd00e3783a34" name="RequestTypeId" nullable="false" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="9" />
+        </entityHasFields>
+        <entityHasFields Id="bd4a6de4-07e4-40ae-832e-3e1fe56cee90">
+          <field Id="f7d30f8c-cb2b-49bf-a6bd-cbc5460be543" name="RequestStatusId" nullable="false" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="10" />
+        </entityHasFields>
+        <entityHasFields Id="0440de74-3918-4c25-b410-b1a696b4c119">
+          <field Id="3cb31c9c-9a31-42f4-8c79-5d9eb86bd9b2" name="WorkQueueId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="11" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="9f7eb3bb-62d1-4d54-baf2-9e0a0bfde3e9">
+          <index Id="b72fd712-aaed-400f-b2ca-faacabb8efac" parentEntityID="6c409e23-7776-49b9-86b4-ff54024e7d48" indexType="IsIndexed" importedName="IX_RequestStatusId">
+            <indexColumns>
+              <indexHasIndexColumns Id="d286b7cc-5e3b-4a84-beeb-6aff744260db">
+                <indexColumn Id="fb27333f-6751-4f30-8fa7-2b05cf5b0b67" fieldID="f7d30f8c-cb2b-49bf-a6bd-cbc5460be543" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="8254c14c-a5c4-4e92-95fc-b2f8b7309b71">
+          <index Id="53a92e56-3f1a-4122-8f13-86385432271f" parentEntityID="6c409e23-7776-49b9-86b4-ff54024e7d48" indexType="IsIndexed" importedName="IX_RequestTypeId">
+            <indexColumns>
+              <indexHasIndexColumns Id="0bcc303b-09a2-484b-aea6-d57a0d0d6612">
+                <indexColumn Id="7abaf2ae-4b6a-46b3-a88e-33c255da08d2" fieldID="efd8b265-ba78-4405-a1a3-fd00e3783a34" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="01d31249-25a1-42e9-8635-20d31d9f8585">
+          <index Id="7acc4f88-c322-487d-b0b8-fb1057576df1" parentEntityID="6c409e23-7776-49b9-86b4-ff54024e7d48" indexType="IsIndexed" importedName="IX_WorkQueueId">
+            <indexColumns>
+              <indexHasIndexColumns Id="74e11de2-d61e-4fbc-8b8f-180560b670e6">
+                <indexColumn Id="ab9f94f1-d1d1-4f5f-8869-4c19f7a0c5aa" fieldID="3cb31c9c-9a31-42f4-8c79-5d9eb86bd9b2" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="905f4085-45be-4b31-8442-69b9f6df24f0">
+          <index Id="e258d494-27f9-4161-ba13-809b0084e79d" parentEntityID="6c409e23-7776-49b9-86b4-ff54024e7d48" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.Requests" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="69833656-ff7b-4a56-ae7e-3831954963fc">
+                <indexColumn Id="e9276b7d-0827-49e1-980f-6e3ac9636f02" fieldID="e5c78cc9-b277-4f25-9067-38366a5dc402" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="12324c3a-59fc-48d4-bc38-a147bcbba7e2" name="RequestStatus" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="918e874d-cacf-43de-9492-5b4902dfa68d" roleName="Requeststatus_requeststatusid" importData="1506104406" importedConstraintName="FK_RequestStatus_RequestStatusId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Requests" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="fa28f204-69a4-4520-908a-2bf0cbf4ad4e">
+          <field Id="bf82d0f5-348a-4bcd-9845-4507d755a054" name="RequestStatusId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="1ea6461f-cdfc-4433-8016-c037cf6a8553">
+          <field Id="b8b30ebd-2a12-439f-bceb-3c99a0191298" name="RequestStatusName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="178424e9-0d5a-4a28-9e62-3df063a52264">
+          <index Id="a8b1db98-dbb0-4194-b28d-9103f7e8d0b0" parentEntityID="12324c3a-59fc-48d4-bc38-a147bcbba7e2" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.RequestStatus" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="9dafaece-09c9-4a65-968d-4bec00f97ad9">
+                <indexColumn Id="2248d40c-8941-4bed-94e9-6370cb5a28c3" fieldID="bf82d0f5-348a-4bcd-9845-4507d755a054" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="9dac230c-cca6-4c1f-9595-05e441b487f1" name="RequestTypes" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="90cddf75-148e-4794-a99e-1396400df019" roleName="Requesttypes_requesttypeid" importData="1522104463" importedConstraintName="FK_RequestTypes_RequestTypeId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Requests" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="4c5fe115-0ee4-458d-b0cc-1a25ef726d6f">
+          <field Id="f8cc88c5-59b4-46d2-8bb5-93f2286ba637" name="RequestTypeId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="8928a38c-dcbc-4767-b89f-f9899b6eb2b4">
+          <field Id="f9ae8d6c-6c89-4ee4-80a6-2884b1986bf6" name="RequestValue" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="7c85c0f1-567d-453b-8bbb-82a634404c40">
+          <field Id="4bde272f-eb8c-469d-803e-d5f2d9421591" name="RequestValueHelpText" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="9980fe82-dcce-4da0-b16b-0961eaab565a">
+          <index Id="f49a8e60-5075-4b0d-a558-5b2bcd3fa09f" parentEntityID="9dac230c-cca6-4c1f-9595-05e441b487f1" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.RequestTypes" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="d2abbab6-7600-4c51-b47b-579f9dc1c251">
+                <indexColumn Id="ce37ddba-411b-4bf8-bfe8-901680de3898" fieldID="f8cc88c5-59b4-46d2-8bb5-93f2286ba637" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="5890f47f-b29b-48ba-a157-e99b8079d331" name="SccmDeploymentDetails" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="87ed85e3-441b-48dc-a4c0-3561935480d1">
+          <field Id="496cb8be-191c-48e4-b279-012e974d5043" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="05dbc336-d584-43e3-b3e5-4e5f8704d65a">
+          <field Id="6f3a760d-733f-4b8f-82f0-69f54693e322" name="SccmContentLocation" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="106d1be0-6697-4752-aa9b-85c369348ecf">
+          <field Id="ea9bd2c8-b22f-46d2-ba9d-848ba272351a" name="SccmInstallCommand" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="3e56fd05-4896-4053-82cd-2b59ca2c4dfb">
+          <field Id="15c76c42-4658-4dfa-9c20-2a5c6a5dc2c1" name="SccmUninstallCommand" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="c718d1d1-7d88-47a4-8078-30b34f9a1168">
+          <field Id="cb329f0d-3baa-4e6c-8888-28cc798e8ae0" name="SccmDeploymentNotes" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="d0e8a7b6-b0df-40ae-9104-1ba8dc864fca">
+          <field Id="af9f5c99-21ad-46d8-9bbf-18b8e1f2fbff" name="SccmRebootRequired" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="4a79240f-974c-4de1-b6b6-1f2a820336d1">
+          <field Id="3d5d9f08-f4fe-4084-afe0-25ac050847f3" name="SccmOnDemandGroup" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="719d5cb0-8854-4dd1-aa81-9759f4616171">
+          <index Id="d1abd6e4-7d03-4db0-9eea-d2fec905837a" parentEntityID="5890f47f-b29b-48ba-a157-e99b8079d331" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.SccmDeploymentDetails" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="d83f1945-c5d4-4667-a004-cda779de90fa">
+                <indexColumn Id="b8f51644-ec24-41f5-9f6f-e3834b303b42" fieldID="496cb8be-191c-48e4-b279-012e974d5043" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="ab642e7f-f5a2-4462-b8b6-9c36992f770e" name="SccmReturnCodes" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="06f3bb8e-1b0c-460c-8cab-95329fa2f83e">
+          <field Id="e632fa36-22f1-4bf6-9a20-1e654fa1eb32" name="SccmReturnCodeId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="9209950b-c8c5-4405-9fdf-4ccc2e5d7255">
+          <field Id="7e8437b0-7846-40ef-8962-2e1376cdf4ad" name="ReturnCode" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="a76fa20f-be39-4bee-8262-de0a4cf63f3d">
+          <field Id="d6ba922d-70bd-4ee1-a937-deb967db4696" name="ReturnCodeDescription" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="9dff2b67-e3b1-4bfb-b301-1d368ccaf124">
+          <field Id="8fae8b4d-a45b-4cf0-988f-0b220caeff6c" name="ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="3e054bef-c146-4660-9d58-74954d4153b3">
+          <index Id="9e68811c-cdc2-479b-bb22-0464f18d1bf5" parentEntityID="ab642e7f-f5a2-4462-b8b6-9c36992f770e" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="0d8c293a-2a55-4cab-924b-a278b862bea3">
+                <indexColumn Id="76ca3e4d-4870-42a2-99d2-51dba8bcdfde" fieldID="8fae8b4d-a45b-4cf0-988f-0b220caeff6c" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="f982fc1c-a21e-4689-aa56-f823b1cea30d">
+          <index Id="dbcafbb5-7045-40d2-b1d8-593ee7adc2e8" parentEntityID="ab642e7f-f5a2-4462-b8b6-9c36992f770e" isUnique="true" indexType="PrimaryKey" importedName="PK_cv2.SccmReturnCodes" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="9e5d53da-84f4-4f09-a1a4-ff9d15b95fc9">
+                <indexColumn Id="e7958efa-39ef-45ec-acc8-6e890296b10d" fieldID="e632fa36-22f1-4bf6-9a20-1e654fa1eb32" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="149dfd5e-0142-4151-922d-274d286b6335" name="SccmRules" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="b444b6ee-b398-4eb9-a938-7e1235789e2b">
+          <field Id="1529a791-3569-463c-b874-9909f8139366" name="SccmRuleId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="87ff5af6-47b5-4c6f-9be0-0eddfb1c8961">
+          <field Id="8e603f72-2c79-43fd-b6bc-6057719cb2cb" name="SccmRuleType" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="9423c8a9-2d5f-471a-a08a-03ce0df5d9bd">
+          <field Id="543be5c0-ebac-413f-bda5-fcdcd6a3ff50" name="SccmRuleConnector" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="811d7ae1-7935-4614-9e5f-e0e643c34e7c">
+          <field Id="3e5227fa-4d38-4d27-9b83-7cdbe6a472b8" name="SccmRuleOrder" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="baaba9f6-584b-466c-8458-405c4f980e62">
+          <field Id="f7486966-9752-43be-9dd1-cec0598ea747" name="ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="a525a2a2-b0e8-4fcc-acde-e418682423f4">
+          <field Id="92714afc-59ab-4c46-a75b-c27ac9e40c6e" name="FileOrFolderPath" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="01b4ddb5-113e-4d7e-85c9-f923b27bd354">
+          <field Id="34dfb868-a2cb-41d2-b56e-48f0bf2fbe04" name="FileOrFolderName" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="4a0ce72e-86df-46e9-89cd-8eeb9dfcead0">
+          <field Id="3697e3cc-a7fd-4ad6-8349-a56947ec827c" name="FileOrFolderAssociate32On64" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+        <entityHasFields Id="b4bb87a3-3c6b-42b5-8a6a-601191c16572">
+          <field Id="d515d774-10fa-4297-a37e-ff825c100dd5" name="FileOrFolderMustExist" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="9" />
+        </entityHasFields>
+        <entityHasFields Id="f29810f1-b3f6-4572-b78e-823d30d241ac">
+          <field Id="706ccb66-9af4-4056-bbae-fc0e32c380c5" name="FileOrFolderRuleType" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="10" />
+        </entityHasFields>
+        <entityHasFields Id="778612d1-086a-43d1-9277-d1ff4c5d5cf9">
+          <field Id="7be15213-00a1-4fd5-9a62-756839449745" name="FileOrFolderRuleProperty" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="11" />
+        </entityHasFields>
+        <entityHasFields Id="d46dba3b-5862-464b-bdab-0efb97bd1709">
+          <field Id="08953a65-a420-4e60-bc15-c9e613a27caf" name="FileOrFolderRuleOperator" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="12" />
+        </entityHasFields>
+        <entityHasFields Id="e064cd2b-eb51-4338-afb9-bf4a7621725c">
+          <field Id="7feb376c-f01d-498c-b05d-422fb1898798" name="FileOrFolderRuleValue" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="13" />
+        </entityHasFields>
+        <entityHasFields Id="6493b0e9-c8bd-42b8-9f0f-bfb18872da70">
+          <field Id="7bf31399-d47a-4ebe-babb-ecfca594de3d" name="RegistryHive" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="14" />
+        </entityHasFields>
+        <entityHasFields Id="bdce88bc-9343-441b-a27f-b7efacb2cedb">
+          <field Id="5bb6dec6-aa49-484b-9eda-c4bccf8eb877" name="RegistryKey" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="15" />
+        </entityHasFields>
+        <entityHasFields Id="07e9d2ee-ffb0-4ae1-ab76-1926113ea28e">
+          <field Id="7981b0f5-78d1-454b-bf3d-827bb2c126c6" name="RegistryValue" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="16" />
+        </entityHasFields>
+        <entityHasFields Id="79cce3d4-d6e5-4d5e-99a9-ba7e28d7d53c">
+          <field Id="f6aaa6ea-690e-41e2-8adb-ce4d1598f001" name="UseDefaultValue" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="17" />
+        </entityHasFields>
+        <entityHasFields Id="54e70246-3dfe-4865-b4e3-6ad5160b5130">
+          <field Id="cc20f6ae-fec9-48b3-be25-41d8c4ac1e5f" name="RegKeyAssociate32On64" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="18" />
+        </entityHasFields>
+        <entityHasFields Id="24c15445-e2b7-452a-a27f-b6ad22fbf91b">
+          <field Id="107e551d-8fbd-4219-9b62-856083fd896f" name="RegistryDataType" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="19" />
+        </entityHasFields>
+        <entityHasFields Id="87b5edef-6ccd-48f9-8c49-708710736ce3">
+          <field Id="367f25d6-a3e5-4ed6-b198-a8a5457b055f" name="RegKeyMustExist" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="20" />
+        </entityHasFields>
+        <entityHasFields Id="c3a79ffa-6ed8-41c8-8ba8-77c694464dca">
+          <field Id="2d452b0f-4b37-4786-a55d-486c72fa1afc" name="RegRuleOperator" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="21" />
+        </entityHasFields>
+        <entityHasFields Id="8f1a3c5f-b180-49ba-8ef3-b2a6afc33121">
+          <field Id="35a92424-aa39-4090-9b1f-409ad2c44c20" name="RegRuleValue" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="22" />
+        </entityHasFields>
+        <entityHasFields Id="2a35c9b8-56fd-4134-9733-8efab07ed869">
+          <field Id="e61abd47-481a-40fa-bbad-e96203394965" name="ProductCode" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="23" />
+        </entityHasFields>
+        <entityHasFields Id="36142146-9618-4433-803d-fdd49db2ed88">
+          <field Id="66ad7eaa-9ef5-4fe0-8461-66198cc1698d" name="MsiProductCodeMustExist" dataType="Bit" length="1" min="NaN" max="NaN" scale="0" sortOrder="24" />
+        </entityHasFields>
+        <entityHasFields Id="6014af8a-10b0-4cb1-aac1-898ec82f5cad">
+          <field Id="5d2269ee-cfae-4f25-9a7f-3701e71e4441" name="MsiRuleProperty" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="25" />
+        </entityHasFields>
+        <entityHasFields Id="fc03af8b-6aac-4ed8-a8b0-135d4360f00d">
+          <field Id="6c9281d7-df2e-4fbf-bdb4-1f37e642c23e" name="MsiRuleOperator" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="26" />
+        </entityHasFields>
+        <entityHasFields Id="17a1dc24-de61-41c7-b973-7ce16076c2c1">
+          <field Id="7d90f32f-4b52-4d9e-9dc5-342ab545beee" name="MsiRuleValue" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="27" />
+        </entityHasFields>
+        <entityHasFields Id="1899ca16-11ec-483f-a238-c1a820ebfb47">
+          <field Id="9e7f9994-08ca-42ab-8418-0d8c3775106b" name="Discriminator" nullable="false" dataType="NVarChar" length="128" min="NaN" max="NaN" scale="0" sortOrder="28" />
+        </entityHasFields>
+        <entityHasFields Id="6aecaafc-d51f-4c1f-a068-19702073feb7">
+          <field Id="3684a667-6ea2-44f4-9a6b-32ceb964cd62" name="SccmRuleNote" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="29" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="788415fc-0d82-4f92-bfd3-92403066f85c">
+          <index Id="174785a9-a2af-4c35-92a2-3d43bf375133" parentEntityID="149dfd5e-0142-4151-922d-274d286b6335" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="6b257d84-134d-4fb9-a072-1d6d605f2c2c">
+                <indexColumn Id="794aa9d0-89ca-45bc-a667-0ff5e37c8a31" fieldID="f7486966-9752-43be-9dd1-cec0598ea747" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="0332461f-8f6f-4da3-b334-538969b2b6eb">
+          <index Id="4a29deec-cdec-42fb-98f2-898e2e5d7da4" parentEntityID="149dfd5e-0142-4151-922d-274d286b6335" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.SccmRules" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="659ebfce-1861-4859-b5b3-fdbf01b9eead">
+                <indexColumn Id="61b320c4-568c-442c-8264-79ce47789294" fieldID="1529a791-3569-463c-b874-9909f8139366" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="faa00437-8edd-43f4-a78f-50e3cce943ec" name="SoftwareExceptions" schema="dbo" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="decbe17c-45b0-47f9-bacc-18a0cfd053ac">
+          <field Id="03b5b4d0-9b41-4529-b42e-57e75963201e" name="Id" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="d3b95a43-49f4-42ca-bffb-d507d3330d14">
+          <field Id="e61ea56a-994b-42dd-b182-31c77e001a12" name="WorkstationName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="e2fc4a20-09ef-4be9-bd88-945d3a6103ac">
+          <field Id="70ca0eab-9b1d-4ec5-ab16-fba985b00a82" name="SourcePackageName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="59deeaf6-0dd4-4ae7-9c87-f915e3b3fd69">
+          <field Id="4018aa4d-1cf2-4e4a-a86b-1bf1dbc7024a" name="DestinationPackageName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="183d7675-1181-4d83-84ca-47a118eb8e2e">
+          <field Id="a2bfdb8a-cff7-431b-a60d-869d2384983a" name="PrePostProcessFlag" nullable="false" dataType="VarBinary" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="c7522dc8-4974-4f2c-9ed0-70ba482eb28c">
+          <field Id="54d55411-46a2-486c-89c4-d5993fbcd6fa" name="ConfigurationRecordsId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="55a6ce11-a88e-4c87-9806-5c4e3ffea1f3">
+          <index Id="102dda4f-c021-4217-a301-9ce603045635" parentEntityID="faa00437-8edd-43f4-a78f-50e3cce943ec" indexType="IsIndexed" importedName="IX_FK_ConfigurationRecordsSoftwareExceptions">
+            <indexColumns>
+              <indexHasIndexColumns Id="8e5f0db1-72c0-4b6f-a5d7-c0fa6a3d9eb0">
+                <indexColumn Id="adafae56-50cc-43ac-8f64-9c8ce2bf0e43" fieldID="54d55411-46a2-486c-89c4-d5993fbcd6fa" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="538fd706-6b25-4a2b-9c08-7e7c203b9d9b">
+          <index Id="0251cfe5-bbe6-48c6-b206-7e8ffb833eae" parentEntityID="faa00437-8edd-43f4-a78f-50e3cce943ec" isUnique="true" indexType="PrimaryKey" importedName="PK_SoftwareExceptions" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="4044b51c-40af-431a-8a00-1679b5cf394c">
+                <indexColumn Id="a15e835d-1ed9-4181-a598-146c8c960e93" fieldID="03b5b4d0-9b41-4529-b42e-57e75963201e" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="8131a740-25a7-4367-93dd-1b32cd921385" name="SoftwarePolicies" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="ca8bfcde-1366-485c-8681-bf477df627fd" roleName="Softwarepolicies_productid" importData="1906105831" importedConstraintName="FK_SoftwarePolicies_ProductId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SoftwarePolicyGroupAssociations" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="799bf2e2-6518-44c5-83ea-2fe37ba3779e">
+          <field Id="2585db0a-d555-474c-9fac-8bb96f38458c" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="61e6de2e-7750-4446-984d-580efcafb4ee">
+          <field Id="cbe74249-ca2a-4cbb-a0ca-9618a7b99059" name="SoftwarePolicyType" nullable="false" dataType="Int" length="4" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="c0fd4408-9902-4bff-a3ff-2a6836962691">
+          <index Id="be3403e1-7cb5-47bc-baa8-fc08f7c1af33" parentEntityID="8131a740-25a7-4367-93dd-1b32cd921385" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.SoftwarePolicies" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="2351202e-5234-4c9a-8e9a-5dedb1879502">
+                <indexColumn Id="8aeac90f-afa4-4e5d-a970-2c1dcc5b9643" fieldID="2585db0a-d555-474c-9fac-8bb96f38458c" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="8a05d4a3-69ce-429d-a098-0dee3beb227c" name="SoftwarePolicyGroupAssociations" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="136d813e-830f-41cd-8184-7f1d2f48d003">
+          <field Id="b3f0ef9c-d5c4-40f6-8914-96eb9a2fd3a8" name="SoftwarePolicyGroupAssociationId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="03c0f1ae-c930-4c45-a886-4857cc6fc84c">
+          <field Id="9fa05c92-0e89-48f9-8571-aa5675fbee4b" name="SoftwarePolicyADGroupName" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="ff77d47e-e106-417d-a04d-d6694df40918">
+          <field Id="56e9b65c-c1e9-46fa-a6f0-6abffda53894" name="SoftwarePolicyGroupDisplayName" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="b80f361b-9ef1-4fa4-b45e-50a98f9e3f0b">
+          <field Id="50d8a096-8ce2-4c16-9e71-2323573da262" name="SoftwarePolicyGroupDescription" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="67b582e8-b984-42b9-883c-033874b1ef43">
+          <field Id="e707de0b-3e16-4353-9606-0adcb38f2feb" name="ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="0f12beba-4819-4c3b-a27b-c9991fc6b8ab">
+          <field Id="9886f37e-922e-4d24-a6b4-33d2ba380d06" name="SoftwarePolicySupportLevelId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="46d4d7c7-bea8-4147-b294-a592a0bf941b">
+          <index Id="8bc87807-c5f8-440d-9163-fdf01ece4284" parentEntityID="8a05d4a3-69ce-429d-a098-0dee3beb227c" indexType="IsIndexed" importedName="IX_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="9f084f0f-ff22-4efb-88e2-738ed7799dd5">
+                <indexColumn Id="b88a4cff-40c4-440a-ae2e-064991ebc1c1" fieldID="e707de0b-3e16-4353-9606-0adcb38f2feb" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="f24b7b10-a109-414a-8432-25b2a8c157b1">
+          <index Id="bb276bc0-9251-4735-b418-bab7742aaba8" parentEntityID="8a05d4a3-69ce-429d-a098-0dee3beb227c" indexType="IsIndexed" importedName="IX_SoftwarePolicySupportLevelId">
+            <indexColumns>
+              <indexHasIndexColumns Id="2b8b0914-3b28-4cbe-b63c-1cd2945cc5c2">
+                <indexColumn Id="6c23d078-9c91-47a9-a03f-7ea091c757aa" fieldID="9886f37e-922e-4d24-a6b4-33d2ba380d06" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="8d931675-a8f8-4386-9e08-91e520f209d7">
+          <index Id="e0a31fd3-958e-4f6c-b419-67ca5175f115" parentEntityID="8a05d4a3-69ce-429d-a098-0dee3beb227c" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.SoftwarePolicyGroupAssociations" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="183a9301-1e87-4707-94f1-83183ce7f672">
+                <indexColumn Id="c7826b50-505a-4b14-99b6-3cfce5b09185" fieldID="b3f0ef9c-d5c4-40f6-8914-96eb9a2fd3a8" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="bf7b4bd5-77f0-4900-8e85-332e2b17680b" name="SoftwarePolicySupportLevels" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="a4aaebb9-4391-4434-946c-73b3a51f8397" roleName="Softwarepolicysupportlevels_softwarepolicysupportlevelid" importData="1922105888" importedConstraintName="FK_SoftwarePolicySupportLevels_SoftwarePolicySupportLevelId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/SoftwarePolicyGroupAssociations" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="5f0028de-8a33-43e3-bd8a-9a6b769e2cb9">
+          <field Id="97e10a76-ef4b-4c19-92ea-da99dad7f638" name="SoftwarePolicySupportLevelId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="51e66411-8c88-4d0a-b409-53b91e0260c7">
+          <field Id="04b34dbd-ebc2-4c6d-806f-e93c6237f7aa" name="SoftwarePolicySupportLevelName" nullable="false" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="d45ddf5d-778b-483b-89e0-8404570c5799">
+          <index Id="c3b68370-e55d-494d-adea-e457e87eb98b" parentEntityID="bf7b4bd5-77f0-4900-8e85-332e2b17680b" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.SoftwarePolicySupportLevels" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="9f36548e-1ebb-4459-b076-79062de32585">
+                <indexColumn Id="c0c63065-53aa-4d2b-8dab-57cbf8885e9b" fieldID="97e10a76-ef4b-4c19-92ea-da99dad7f638" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="4488e029-4a23-4710-9ada-5834f36e905d" name="SoftwareRequirements" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="b3db9d96-383e-4402-9009-fb60095de8b4">
+          <field Id="78a6b6f7-d8c1-48df-b13b-cb5fc52e3e43" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="831cbc70-6694-43d5-9237-cdc0691c67b0">
+          <field Id="096e2936-bdd6-4899-a9b8-667d52339834" name="InternetExplorerVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="46dff65b-7de0-4a4f-af16-86f11f60c665">
+          <field Id="baafca39-30cb-4ab6-b848-3af0e0ffa903" name="IISVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="402fd9b8-c585-4e79-923a-1b11402c934c">
+          <field Id="d004ac6e-e94d-4ec8-a5e1-e72296085be1" name="DotNetVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="0a7069c1-c41c-4f0d-81e0-fe584e342414">
+          <field Id="e1d98323-01b3-42f1-8260-42bfe6519611" name="AdobeReaderVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+        <entityHasFields Id="2b0f076f-0594-4d97-99f4-6a014a9a4a98">
+          <field Id="4910a3e8-f1b4-45a2-8e69-15705c9a52b5" name="JavaRuntimeVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="6" />
+        </entityHasFields>
+        <entityHasFields Id="3541b0f6-af1b-4fef-a873-b63d22d99d1a">
+          <field Id="0ba78a7b-ff00-4f99-83a9-8963a27ca1ca" name="JDKVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="7" />
+        </entityHasFields>
+        <entityHasFields Id="a28906eb-e291-4e62-b679-7bf4a1eda991">
+          <field Id="62caab2d-e224-44c9-8acc-53d4d7fbe141" name="DirectXVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="8" />
+        </entityHasFields>
+        <entityHasFields Id="bc6855a8-f8ba-400e-9b5a-dcf2cc34bd4f">
+          <field Id="eab20409-bc46-4e42-9cc6-690bece82069" name="InstalledOfficeApplicationName" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="9" />
+        </entityHasFields>
+        <entityHasFields Id="8583e2b5-05bb-421f-a110-2d1e89876df9">
+          <field Id="eab75c9d-12a1-43ed-bac4-f5928c0f0f7c" name="InstalledOfficeApplicationVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="10" />
+        </entityHasFields>
+        <entityHasFields Id="769ddc01-489c-4be3-a74b-6cc6c68578eb">
+          <field Id="f1c028aa-d373-4b94-9c82-72ccdbf92671" name="SQLExpressVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="11" />
+        </entityHasFields>
+        <entityHasFields Id="ac6c6068-00e0-4fb7-8bdd-8eef7651ea52">
+          <field Id="00589253-e59e-4df0-b827-3ccfeeb6f843" name="SQLCompactVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="12" />
+        </entityHasFields>
+        <entityHasFields Id="3559f0ab-ef32-496c-b0ce-9b3dd5990d09">
+          <field Id="e966fced-a0dd-4a67-824e-95e994ed4ea4" name="VSTORuntimeVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="13" />
+        </entityHasFields>
+        <entityHasFields Id="e3dbd71e-1664-43fd-a88c-0bf156ca21b7">
+          <field Id="7d2e803f-d8e3-4727-b9bb-f074a84c5a9c" name="InstalledOffice2003PIA" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="14" />
+        </entityHasFields>
+        <entityHasFields Id="8b66a207-f2a3-4468-93d3-54b549b65bca">
+          <field Id="66345ddc-be3e-45b5-a97f-4fd3c77acfaa" name="InstalledOffice2007PIA" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="15" />
+        </entityHasFields>
+        <entityHasFields Id="75890156-33e6-4a69-9cbb-c0cd8408cd3b">
+          <field Id="73055bce-074d-48af-8f1a-f945b18169fe" name="InstalledOffice2010PIA" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="16" />
+        </entityHasFields>
+        <entityHasFields Id="9095688a-0b62-40cc-b58b-e03ecd82d4e4">
+          <field Id="3b1fe28f-3f9a-43ab-b9ad-9f551e851554" name="OfficeSharedInteropAssembly" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="17" />
+        </entityHasFields>
+        <entityHasFields Id="c2db96dd-8a99-42fa-ae16-16d421028cba">
+          <field Id="aecd5661-69d7-45aa-a918-751c77a0978b" name="PowerShellVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="18" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="7cc88736-43a6-46cd-89ef-6d14dcb43fe7">
+          <index Id="03e4eba2-d768-4493-b21b-acdb0d97bced" parentEntityID="4488e029-4a23-4710-9ada-5834f36e905d" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.SoftwareRequirements" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="5733349e-ddc9-4b67-8928-120879555d5e">
+                <indexColumn Id="e746b896-956c-4d1a-a8a2-b00cd47ec9ff" fieldID="78a6b6f7-d8c1-48df-b13b-cb5fc52e3e43" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="90f4d866-4654-42d8-a7da-2517d13176b0" name="SupersededProducts" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="865390ae-0365-4a67-ab04-22a66747f782">
+          <field Id="0fca627a-8998-4064-a343-4a17ea087658" name="BaseProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="b86a6db7-dbe1-4d5b-ba45-1d92704e00b3">
+          <field Id="eb7bcf77-9b87-429f-a151-c41e0841f7af" name="SupersededProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="09fe0d5a-7c5b-4609-9e75-ff41fc501052">
+          <field Id="3be91c45-80f4-4195-9677-f14562e75d3c" name="Product_ProductId" dataType="Int" isIndexed="true" length="4" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="573eeb37-12f5-4a86-8abe-867a40f4279c">
+          <index Id="8cc8eb71-e84b-452b-8441-1eb0559d97f0" parentEntityID="90f4d866-4654-42d8-a7da-2517d13176b0" indexType="IsIndexed" importedName="IX_BaseProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="ba1c99b5-2da4-4e21-8552-e7a666f86868">
+                <indexColumn Id="ed7273bb-dc62-4733-ae43-ead5408022c9" fieldID="0fca627a-8998-4064-a343-4a17ea087658" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="c0563045-b928-4568-8eb7-e929a4db8d81">
+          <index Id="2c2ba6f9-d69e-4a6c-b1ec-e2e391bdc9ee" parentEntityID="90f4d866-4654-42d8-a7da-2517d13176b0" indexType="IsIndexed" importedName="IX_Product_ProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="d5bf18f4-3e3c-456c-9104-3bb936ff80cf">
+                <indexColumn Id="bd4e6dac-7811-40db-babc-368c33e87b5f" fieldID="3be91c45-80f4-4195-9677-f14562e75d3c" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="fcc4ceb4-0d03-4406-a60e-8b900f8bae16">
+          <index Id="cf39b290-b533-40ee-811d-d2d1b3e078c2" parentEntityID="90f4d866-4654-42d8-a7da-2517d13176b0" indexType="IsIndexed" importedName="IX_SupersededProductId">
+            <indexColumns>
+              <indexHasIndexColumns Id="e601ff90-088f-4ef1-bebd-83c6d10f5041">
+                <indexColumn Id="a40bf6b4-e1da-41e6-bef0-a9bba0b4e735" fieldID="eb7bcf77-9b87-429f-a151-c41e0841f7af" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+        <entityHasIndexes Id="e5c57be1-651c-4226-aae1-967137433c53">
+          <index Id="4c01c095-6924-472f-a2e0-6ac521b37829" parentEntityID="90f4d866-4654-42d8-a7da-2517d13176b0" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.SupersededProducts" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="a7132fdb-c777-4c54-a7bd-3d1334d18ba4">
+                <indexColumn Id="df8c72af-273c-4bfa-a5d4-9b9013b9d2e5" fieldID="0fca627a-8998-4064-a343-4a17ea087658" sortOrder="1" />
+              </indexHasIndexColumns>
+              <indexHasIndexColumns Id="a5c5c17d-8472-4322-88e1-38bef4926f9b">
+                <indexColumn Id="db9b7839-ba37-46bd-b5df-4c8634dfe76b" fieldID="eb7bcf77-9b87-429f-a151-c41e0841f7af" sortOrder="2" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="44e8cb72-4d7d-4da6-b4f4-7c67277fea2f" name="SystemRequirements" schema="CV2" copyStateInfo="">
+      <fields>
+        <entityHasFields Id="ed1b970e-00e0-441a-9411-240aabf207fe">
+          <field Id="e91a84e6-18b3-4714-9784-b9a855f91c6f" name="ProductId" nullable="false" dataType="Int" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="d394ffb6-c001-4127-b820-b1ee7cf4086d">
+          <field Id="60d4d65c-8144-4ff9-ba5f-8ba563bbe6b4" name="MinimumWindowsInstallerVersion" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="9d9c9789-b82e-492b-b8f9-3ad77d228d8c">
+          <field Id="f1415adc-e27b-47cc-94dc-ab5a838e638e" name="MinimumScreenResolution" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+        <entityHasFields Id="c6959484-bc45-4bcc-b512-06dc4b678647">
+          <field Id="d29c0378-0c01-458b-8ffa-f1faa423aea5" name="MinimumPhysicalMemory" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="4" />
+        </entityHasFields>
+        <entityHasFields Id="323d25c5-6118-47a3-bea2-7b9e84619bc4">
+          <field Id="2d997e23-bd0b-4f42-aac2-656994b750e0" name="MinimumColorQuality" dataType="NVarChar" length="0" min="NaN" max="NaN" scale="0" sortOrder="5" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="f12ec12e-159c-430f-8943-8896f169d21e">
+          <index Id="83d8c075-3527-4fa2-89b3-cef641e65880" parentEntityID="44e8cb72-4d7d-4da6-b4f4-7c67277fea2f" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.SystemRequirements" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="f6e226ee-bc40-4ffe-998d-432c9445129d">
+                <indexColumn Id="57fc415c-a198-4215-9135-9a4f7b8edb6c" fieldID="e91a84e6-18b3-4714-9784-b9a855f91c6f" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+    <entity Id="c31fd632-cfb1-4536-9145-016e58b4102a" name="WorkQueues" allowTimestamp="false" schema="CV2" copyStateInfo="">
+      <childEntities>
+        <entityHasEntities Id="e2a7e5eb-cd09-49f3-8aac-db8e86446d82" roleName="Workqueues_workqueueid" importData="1490104349" importedConstraintName="FK_WorkQueues_WorkQueueId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/ApplicationUsers" />
+        </entityHasEntities>
+        <entityHasEntities Id="fc269f50-dba3-4786-85a3-b46addffcc6c" roleName="Workqueues_workqueueid" importData="1538104520" importedConstraintName="FK_WorkQueues_WorkQueueId">
+          <entityMoniker name="/c6aa433a-f1c2-4654-afff-ff38022c6511/Requests" />
+        </entityHasEntities>
+      </childEntities>
+      <fields>
+        <entityHasFields Id="f1901245-cc14-4079-905d-48c597d92fec">
+          <field Id="0d7ed77e-94ba-47fb-8d5d-ac3439b00b1a" name="WorkQueueId" nullable="false" dataType="Int" identity="Database" isIndexed="true" isUnique="true" length="4" min="NaN" max="NaN" isPrimaryKey="true" scale="0" sortOrder="1" />
+        </entityHasFields>
+        <entityHasFields Id="6b19d46f-c321-4ab3-92fd-043f7733b90a">
+          <field Id="0a02e48f-ae43-437d-9f31-96f0fd4501e7" name="CreatedOnDate" nullable="false" dataType="DateTime" length="8" min="NaN" max="NaN" scale="0" sortOrder="2" />
+        </entityHasFields>
+        <entityHasFields Id="6d764b23-ab23-48be-96d1-0d7ebc5e5929">
+          <field Id="3b912836-0a34-4c97-8bbd-0448ac148ef2" name="RowVersion" nullable="false" dataType="Timestamp" length="8" min="NaN" max="NaN" scale="0" sortOrder="3" />
+        </entityHasFields>
+      </fields>
+      <indexes>
+        <entityHasIndexes Id="ee6fbadb-1dce-4a7d-b37e-2702ca517805">
+          <index Id="1b16493f-f5ea-4576-8d92-455d158575bf" parentEntityID="c31fd632-cfb1-4536-9145-016e58b4102a" isUnique="true" indexType="PrimaryKey" importedName="PK_CV2.WorkQueues" clustered="true">
+            <indexColumns>
+              <indexHasIndexColumns Id="685d5b61-75d0-4773-839a-29f8964c5326">
+                <indexColumn Id="c3a7633f-7118-432a-a2cc-0626cf8cdbde" fieldID="0d7ed77e-94ba-47fb-8d5d-ac3439b00b1a" sortOrder="1" />
+              </indexHasIndexColumns>
+            </indexColumns>
+          </index>
+        </entityHasIndexes>
+      </indexes>
+    </entity>
+  </entities>
+  <views>
+    <nHydrateModelHasViews Id="7c426db2-6e89-4ec8-b041-9d68c18317fa">
+      <view Id="24915b91-ca08-422d-a486-becd50463856" sQL="SELECT        TOP (100) PERCENT CV2.Products.ProductId, CV2.Products.LegacyId, CV2.Products.ProductName, CV2.Products.ProductVersion, CV2.Products.ProductManufacturer, &#xD;&#xA;                         CV2.Products.ProductStatus, CV2.Products.ProductDescription, CV2.ProductContactRoles.ProductContactRoleName, CV2.Products.ProductDslId, &#xD;&#xA;                         CV2.Products.ProductCosmicId, CV2.Requests.RequestTitle, CV2.ProductContacts.ProductContactName, CV2.Requests.RequestId&#xD;&#xA;FROM            CV2.Products INNER JOIN&#xD;&#xA;                         CV2.ProductContacts ON CV2.Products.ProductId = CV2.ProductContacts.ProductId INNER JOIN&#xD;&#xA;                         CV2.ProductContactRoles ON CV2.ProductContacts.ProductContactRoleId = CV2.ProductContactRoles.ProductContactRoleId INNER JOIN&#xD;&#xA;                         CV2.Requests ON CV2.Products.ProductId = CV2.Requests.RequestId&#xD;&#xA;WHERE        (CV2.Products.ProductStatus &lt;&gt; 6)&#xD;&#xA;ORDER BY CV2.Products.ProductName" name="ProductSummaryView" schema="dbo" precedenceOrder="1">
+        <fields>
+          <viewHasFields Id="1078019f-cad9-4a8f-9eb7-c17d0048f92a">
+            <viewField Id="d4792a46-dfec-4bb5-8b4b-2bcfab4a2cb0" name="LegacyId" nullable="true" dataType="Int" length="4" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="745c74bc-26a2-4e97-a573-3d226a3f57b7">
+            <viewField Id="139f0c5a-9439-4e4c-94e8-748ef5be7aad" name="ProductContactName" nullable="false" dataType="NVarChar" length="0" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="f40b8b98-518b-41cf-9d36-c2e4e0a57f53">
+            <viewField Id="a4def7c9-785b-4153-ae3d-1581d8524461" name="ProductContactRoleName" nullable="false" dataType="NVarChar" length="0" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="d4101e20-f486-498d-b0fd-26addbbd1946">
+            <viewField Id="426ff90e-35cb-4c30-b7fa-26f0705c2f09" name="ProductCosmicId" nullable="false" dataType="Int" length="4" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="e0bdab88-b905-4d46-84ff-a12733e8f509">
+            <viewField Id="8c64646d-d5a0-4088-bdc1-b92db29077aa" name="ProductDescription" nullable="true" dataType="NVarChar" length="0" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="af524d90-a26f-4e89-8adb-d9a170dbaf16">
+            <viewField Id="9d2f4bba-968a-4ae6-8dab-7282ff52a6e5" name="ProductDslId" nullable="false" dataType="Int" length="4" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="a8cc76ba-bfd8-4dbc-87bb-d63ec7f67306">
+            <viewField Id="3a95bf6a-f282-4490-beaa-034b7223ffee" name="ProductId" nullable="false" dataType="Int" length="4" scale="0" isPrimaryKey="true" />
+          </viewHasFields>
+          <viewHasFields Id="8dd6a1e2-8232-4ce9-9930-67fe8b53da15">
+            <viewField Id="c4e206ba-cccf-4d8b-930a-be6e7fbf120b" name="ProductManufacturer" nullable="true" dataType="NVarChar" length="0" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="920ebd86-2977-406e-b3c4-9e2e7639682d">
+            <viewField Id="9451643f-8117-41e9-95fe-5371b6a61010" name="ProductName" nullable="false" dataType="NVarChar" length="0" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="6e63782a-2191-409f-8a46-43a27d4a874e">
+            <viewField Id="1c66f921-4934-4db2-8b42-f74f2bdf2b3e" name="ProductStatus" nullable="false" dataType="Int" length="4" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="bc3b656d-6075-4e39-97a9-f89b26fdba34">
+            <viewField Id="f359453c-73f7-4acb-ae93-58f74c22395a" name="ProductVersion" nullable="false" dataType="NVarChar" length="0" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="1ebcd2be-d9ac-494d-9596-1ec2b656bf8d">
+            <viewField Id="6c768e27-2c7e-4b53-9f56-224da1c62df5" name="RequestId" nullable="false" dataType="Int" length="4" scale="0" />
+          </viewHasFields>
+          <viewHasFields Id="807bd5cc-9f95-463e-9b2e-4e2b1115d5b4">
+            <viewField Id="b8a7cd9d-66c9-416d-944c-dcb83c8eba1c" name="RequestTitle" nullable="false" dataType="NVarChar" length="0" scale="0" />
+          </viewHasFields>
+        </fields>
+      </view>
+    </nHydrateModelHasViews>
+  </views>
+  <relationFields>
+    <nHydrateModelHasRelationFields Id="8e461494-7651-4af6-a4e7-5787ef3f6958">
+      <relationField Id="8e6cb0f4-f861-45ba-ab57-4965c25564aa" sourceFieldId="0d28b131-523d-493d-8fda-b10f01c09b0e" targetFieldId="b1ac81f8-3bfb-4d40-a264-dea0f63053e0" relationID="b5e22061-d10a-4ddc-98ef-216f50862b52" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="3f5e9cc6-be39-4b18-9611-78aacbca6193">
+      <relationField Id="ff728b7a-e5c9-4706-92be-7e99ee0dcf6d" sourceFieldId="0d28b131-523d-493d-8fda-b10f01c09b0e" targetFieldId="881ed8b2-3a91-4e25-a0f1-6dd2f41121c5" relationID="ce332f96-f660-4c54-84c6-7ae6c2500b8b" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="2017ed69-1346-4362-83b8-df4ea981d9b9">
+      <relationField Id="3112147c-6a14-4b94-aa7c-6f4fe4b98ddf" sourceFieldId="805ca7ad-bae1-4f2d-9884-19a0bd9ec654" targetFieldId="9fa0257c-ecde-4562-9a07-42d6a40efa70" relationID="27c21327-6352-4630-a003-23d7f8dad03b" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="10981219-3610-491c-963d-e78e9a640a26">
+      <relationField Id="25481679-6796-4016-8d51-d998131ea2ea" sourceFieldId="805ca7ad-bae1-4f2d-9884-19a0bd9ec654" targetFieldId="4166cf47-3a2c-442a-bc12-ac1e08a42d5e" relationID="9fe0cc76-59cf-4520-9d68-31f5d831d38e" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="09727dfd-a08e-45b3-850c-892fc0c16ffb">
+      <relationField Id="74c6fa03-f470-4292-b915-c2ba4e0dcfaf" sourceFieldId="805ca7ad-bae1-4f2d-9884-19a0bd9ec654" targetFieldId="54d55411-46a2-486c-89c4-d5993fbcd6fa" relationID="2bdacfbd-92dc-4028-aea2-7f6c69b0cf20" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="1554517a-f8e3-4c86-adeb-2d6abd90e328">
+      <relationField Id="008e6090-044f-44d6-829d-f3da32738add" sourceFieldId="afeb4865-a42c-4b32-9530-f251705b567a" targetFieldId="adc1ac76-9ec3-417b-a5ac-3c4451715622" relationID="1c23c1af-c638-44df-8812-d2e2256faf2d" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="42925938-4b71-465f-bf15-9fe87c0c6054">
+      <relationField Id="8b1773bc-b542-41ff-af75-b4cc90743ae4" sourceFieldId="82410771-4359-43e9-98fc-611a8e4f1f90" targetFieldId="db9872c7-adf6-4bc9-9ee7-fccbd1357e19" relationID="b2a7d4e3-a434-47ac-be49-1c744b714f47" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="ead60071-4f4e-4eec-b8b9-6a7302add260">
+      <relationField Id="bd1fd34c-31ce-49c6-b1f0-e8ab90daa023" sourceFieldId="82410771-4359-43e9-98fc-611a8e4f1f90" targetFieldId="22c99077-aa18-4975-916b-b78f2ca00170" relationID="220dc845-4510-448f-bb6b-212d230b430d" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="461d0e93-5fe3-4a49-b4cb-8178a8561b73">
+      <relationField Id="9aa76ee2-b0f3-47ef-b897-2e88b7340b8e" sourceFieldId="e4249d40-f545-48e6-9c67-47ab50ae0e9c" targetFieldId="a2e3c3e3-9194-46db-9248-db0c46d2c0bc" relationID="6a3c3f91-3ac5-4f8f-8281-7313306611ba" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="44e51763-afda-40cb-b0e2-d6efb5056721">
+      <relationField Id="b26aabba-2006-4b4e-bda7-93b95a785196" sourceFieldId="164b08ef-7600-4f6a-9fed-486dac840d2e" targetFieldId="4ea88d1e-6b1a-4a71-bd6a-fa01e31f24f5" relationID="e50c614b-2d4a-48fc-b24e-e5f1dfc03964" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="b67a2bbd-0443-4170-bb33-41bc078ca453">
+      <relationField Id="145672fa-9281-4dc1-a804-b5223e366907" sourceFieldId="c4eb71b3-f780-4286-a6bc-136665b8b030" targetFieldId="868f249e-1672-484b-8f87-62c318c5854e" relationID="dcbc3928-390c-47a8-ac58-08d00d0667ff" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="2738c8d1-154b-4b91-ae88-36d4ce9feee6">
+      <relationField Id="901894b5-26b2-4ce4-a12f-d2514f012d25" sourceFieldId="b7dc1f14-d8c1-4d57-afc6-6bf1b43c6935" targetFieldId="5eb3d89a-cb13-4caa-817e-de322276448b" relationID="88b176a5-771a-42ed-9d9c-e4ea92db962b" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="41e69e66-571a-4316-bedc-66489de81fae">
+      <relationField Id="1478d553-17db-47bb-bfb1-822bba144da3" sourceFieldId="623e39f9-e514-4795-aebe-c111fa54168f" targetFieldId="6ece40ee-7675-45a7-8d56-181fe7395ef9" relationID="06521944-a3f0-4cda-9697-ed581cc230ac" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="95f6e9ce-dfb0-40f0-84c1-0e280bf1617c">
+      <relationField Id="10de2e8d-9c93-4263-9d22-efa151aa3150" sourceFieldId="903baabe-6d8a-4eae-b373-e627d1d3763b" targetFieldId="531d76f8-72d6-4856-86c5-b4a6e7ae94fb" relationID="8f7850f1-fa75-4e4b-84e2-cbebf3a95eac" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="951f9177-dcf7-43cd-ac29-be3e2f53483d">
+      <relationField Id="cfaf7803-219b-4ee1-86ce-239857b26a41" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="a78cd118-0767-4b8b-874c-bb758e1b02d6" relationID="337e2490-1046-499d-aac2-edf1a1019d60" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="4d85c7bd-0862-4491-a328-d98289ca144f">
+      <relationField Id="12834afe-c991-4e4a-a08c-3b22c154d2fb" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="3aa154c1-2f0e-4451-85cb-8df62123b49f" relationID="ab48c7e2-d66b-4bd9-8849-570acb6c1787" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="5724e992-2f37-405c-b4eb-cf77fec4e08e">
+      <relationField Id="398ec101-32be-4fdb-a94d-4a38e5a7d62e" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="19ca0806-3ac2-4a54-a4bd-c40257e96aa7" relationID="f40a08f0-ad6c-4131-958c-c4449c7900ea" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="21db1c9e-d0e2-4c3a-95db-265a5bb7f5ff">
+      <relationField Id="3a0311f0-a9be-4598-a0be-c163d0a2a6fa" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="c65daae0-caa5-4aaa-8ada-b4138390e0b4" relationID="a710617c-5801-4162-b6ee-b29d23c7b34a" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="aed28730-8c15-4aa1-8244-3d4a0cba4f74">
+      <relationField Id="5d17b6d0-e3c0-475b-b4e8-2eb7c6512b7e" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="6b24442d-0de4-4e61-9024-c0badf4e1db7" relationID="51bf7fc0-e5d8-4009-9f5d-2988c9101613" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="63958366-de8e-4f4a-af6e-62ba0a5c1159">
+      <relationField Id="6c3c8be9-3d69-412f-a62b-34e785e27e2f" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="4a4c6d50-c472-43a7-8e3c-f755accc46d0" relationID="ce326c37-de13-4a4f-bf9d-91b459efabfe" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="358f014e-9b94-4cd5-846b-c16c0d082866">
+      <relationField Id="c738b13a-7c3f-4d78-888a-3eaaad3041ec" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="7f4afdd8-5efb-42a9-9ff8-240881303619" relationID="a5a7b254-59b3-4fba-9ce6-dde32ad4f74c" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="33f269e9-9f96-49a5-8f01-057e83b152e2">
+      <relationField Id="8b54bcd1-c2c5-47ba-8df3-f5f56ff231e1" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="141f8ac8-6909-4c5f-be09-a61d9fefe2f0" relationID="a3ce25cc-0e25-4bdb-893a-c501d54db51d" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="87012415-1388-495e-83a0-65397d0e2bb9">
+      <relationField Id="e7228d33-4a1d-4405-93d6-13624532c729" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="75bbcdb1-b44e-4fdf-a51f-4d8cc0814b91" relationID="e626e256-f93d-48b4-8cb6-33893a834c76" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="28bf4350-21c5-4523-a936-18b0b313c96c">
+      <relationField Id="ce54ff69-e530-4bf1-a54e-b464f67e8e4b" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="8b04a022-6256-4127-b8f1-f18f48733fa8" relationID="61cc400e-7880-45f0-a2cd-a5488a136929" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="1debb20c-bdde-428a-97fe-8001851cad85">
+      <relationField Id="136a2277-a11c-4e80-8cd8-f802f800474b" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="49769c25-bb68-46d0-903f-35f9fc7c3d90" relationID="869b9b47-2a7c-4cb3-b957-5511e50b6327" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="4525602a-30c8-4da9-ac55-51b56398af1c">
+      <relationField Id="58dd4c4a-1e96-4cff-9d09-371dfcec911c" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="870dbd8b-e23e-4aed-8574-6a2bb4e0a92b" relationID="15dcca77-a142-4cf2-b747-a4c9d9e8e609" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="0f63e4da-0ea1-48b5-9ecc-8c9d5f65e649">
+      <relationField Id="e060e429-a012-4242-966c-96974b57a3b9" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="618cbac2-53be-4da8-9945-9eb9b318d89c" relationID="ade59540-55b0-4ca9-974d-917f83bdfdc7" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="0a97d128-f933-4160-a888-26a0be143440">
+      <relationField Id="8865f2b4-9555-4bf6-8307-f5acfab5af13" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="496cb8be-191c-48e4-b279-012e974d5043" relationID="995d9086-d6ca-4065-a48d-d699a2c296ba" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="a71fb046-bed8-4420-a9ce-4a5017fc3b15">
+      <relationField Id="f9cf2148-9868-49ab-bd41-fd971e15725d" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="8fae8b4d-a45b-4cf0-988f-0b220caeff6c" relationID="209f50ca-3689-4533-9acc-3972651c0261" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="16e3ea39-2139-4ff9-b931-c5051e9cf8e3">
+      <relationField Id="828ac8a6-5d28-4d5a-827b-32d6e1afe47e" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="f7486966-9752-43be-9dd1-cec0598ea747" relationID="acab5a9d-f7d3-4004-ad13-cfb1b8d94bfc" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="85970283-ee03-46df-8c2f-a36cfbfc9f8c">
+      <relationField Id="5b8674d0-b282-4850-952f-26ff907c9639" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="2585db0a-d555-474c-9fac-8bb96f38458c" relationID="641e5879-6937-423b-99e0-9008a3edf49c" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="13840b99-e2f6-4443-b5a4-ef38fc2861dc">
+      <relationField Id="337bba72-1dfc-4e9f-8676-cce7a4cf3e21" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="78a6b6f7-d8c1-48df-b13b-cb5fc52e3e43" relationID="3dd4b9be-026f-4407-9997-b1777aec6522" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="919f43e8-9c88-4ed2-a4a5-846421ebf33a">
+      <relationField Id="292ca239-3b61-4a60-b5e3-2a4ef77c4bbc" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="0fca627a-8998-4064-a343-4a17ea087658" relationID="15e4ece3-b260-4c18-a96f-13c43653a090" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="2bab6d63-7991-4a75-8bad-cdb22b61162d">
+      <relationField Id="1c9cb393-4246-4fa2-99b7-199864feef20" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="3be91c45-80f4-4195-9677-f14562e75d3c" relationID="77f82a06-08b2-4663-916e-b291289fc4d4" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="f197cb1a-ab45-467d-b30e-a1a12ace8c93">
+      <relationField Id="74911c13-09ba-4231-a01d-2d3640fb1f1a" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="eb7bcf77-9b87-429f-a151-c41e0841f7af" relationID="8f871c7c-e553-4689-96a6-fb16d68ab7ee" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="883acfc8-b34d-4823-8ab8-5552ce68adce">
+      <relationField Id="67b71e02-a17f-474a-92cc-236c1153f55e" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="e91a84e6-18b3-4714-9784-b9a855f91c6f" relationID="90129e04-0d21-44ea-8a18-1bb8945fe56f" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="e560a543-d309-4bc4-be94-a3b8d2479a59">
+      <relationField Id="01a15200-ed42-493c-a272-46d710ba80f4" sourceFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" targetFieldId="34e61289-d57b-40b0-93db-1b19e4c3105f" relationID="bd3ada6b-2d0b-48cc-84cb-4c994980a29b" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="82ad2484-996d-4e35-8dec-25c2b0a19cf8">
+      <relationField Id="6427cd04-cb10-44c8-9965-2f259aba6010" sourceFieldId="f88bd5fb-fc9d-4856-9b81-deda16793118" targetFieldId="1e79797c-6989-4aee-8333-a4f419372ba3" relationID="9ebc3ab5-ee2c-4a74-8475-547c912ba644" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="b36c644c-7976-4271-94e9-b4eb730dae3a">
+      <relationField Id="ebd2c59e-9c98-4887-99d4-d79472c7320d" sourceFieldId="13a02878-16e3-4b52-8ab7-5e9f5ca9417d" targetFieldId="da91712d-8a30-4a40-b03d-9280e2ec351c" relationID="dd760098-6953-4d6f-8ef0-850d5a8f3411" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="46fa1053-5844-47b2-ba4e-9482e6047e0f">
+      <relationField Id="37b92326-cacf-4f11-95bd-7353b11add2b" sourceFieldId="e5c78cc9-b277-4f25-9067-38366a5dc402" targetFieldId="6af0b3da-f975-4c43-8c55-d985b6a5286e" relationID="265810f0-dc2c-40cc-ab42-308f0cb97115" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="023b5c44-e25a-4fc3-88f9-5b62b78a80e6">
+      <relationField Id="15ed60d5-3728-408e-aeca-e99a70885feb" sourceFieldId="e5c78cc9-b277-4f25-9067-38366a5dc402" targetFieldId="a2f0ab4a-96da-475d-a91b-9c43b8e0c11f" relationID="3248145c-3365-4139-9cc0-c3d4a2744573" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="14d78041-7f52-4caa-afea-aa48b1f51eb0">
+      <relationField Id="96be2d3a-ec4b-4e53-8436-ec4212d9a3a3" sourceFieldId="bf82d0f5-348a-4bcd-9845-4507d755a054" targetFieldId="f7d30f8c-cb2b-49bf-a6bd-cbc5460be543" relationID="918e874d-cacf-43de-9492-5b4902dfa68d" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="f0879d3b-0eaf-4337-9eb0-569f3ca5d3d4">
+      <relationField Id="626f13e5-3afd-4655-9c5a-e244411a944b" sourceFieldId="f8cc88c5-59b4-46d2-8bb5-93f2286ba637" targetFieldId="efd8b265-ba78-4405-a1a3-fd00e3783a34" relationID="90cddf75-148e-4794-a99e-1396400df019" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="48b612ad-c189-47dc-b598-ed6e233f3414">
+      <relationField Id="ec3504f0-f726-468a-8fad-77824aa6337d" sourceFieldId="2585db0a-d555-474c-9fac-8bb96f38458c" targetFieldId="e707de0b-3e16-4353-9606-0adcb38f2feb" relationID="ca8bfcde-1366-485c-8681-bf477df627fd" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="8d319967-c0ed-4f9b-94a2-3b9d37357a52">
+      <relationField Id="e5294be6-cd40-4521-9824-7c347e94a77f" sourceFieldId="97e10a76-ef4b-4c19-92ea-da99dad7f638" targetFieldId="9886f37e-922e-4d24-a6b4-33d2ba380d06" relationID="a4aaebb9-4391-4434-946c-73b3a51f8397" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="4e1ffe0d-4414-4540-ae66-7446ef9e66b7">
+      <relationField Id="a00cc603-2585-409d-ae3c-cde20e1b6af0" sourceFieldId="0d7ed77e-94ba-47fb-8d5d-ac3439b00b1a" targetFieldId="32cbba48-d90d-4edc-8fc8-f21ea5a19b7f" relationID="e2a7e5eb-cd09-49f3-8aac-db8e86446d82" />
+    </nHydrateModelHasRelationFields>
+    <nHydrateModelHasRelationFields Id="994b48fc-5799-418e-899d-8174cf01150a">
+      <relationField Id="344960ba-55ed-49e3-82bd-b083ece320fc" sourceFieldId="0d7ed77e-94ba-47fb-8d5d-ac3439b00b1a" targetFieldId="3cb31c9c-9a31-42f4-8c79-5d9eb86bd9b2" relationID="fc269f50-dba3-4786-85a3-b46addffcc6c" />
+    </nHydrateModelHasRelationFields>
+  </relationFields>
+</nHydrateModel>
