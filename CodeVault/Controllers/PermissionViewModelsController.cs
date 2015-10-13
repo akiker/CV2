@@ -71,16 +71,15 @@ namespace CodeVault.Controllers
         // GET: PermissionViewModels/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PermissionViewModel permissionViewModel = db.PermissionViewModels.Find(id);
-            if (permissionViewModel == null)
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName));
+            var result = query.Select(p => new PermissionViewModel(p)).FirstOrDefault();
+            facade.DisposeUnitOfWork();
+            if (result == null)
             {
                 return HttpNotFound();
             }
-            return View(permissionViewModel);
+            return View(result);
         }
 
         // POST: PermissionViewModels/Edit/5
