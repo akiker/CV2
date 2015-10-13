@@ -183,6 +183,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PermissionDetailsViewModelsController.cs" />
     <Compile Include="Controllers\PermissionViewModelsController.cs" />
     <Compile Include="Controllers\ProductViewModelsController.cs" />
     <Compile Include="Controllers\SoftwareController.cs" />
@@ -299,7 +300,6 @@
     <Content Include="Content\kendo\2015.3.930\fonts\glyphs\KendoUIGlyphs.woff" />
     <Content Include="Content\kendo\2015.3.930\images\kendoui.ttf" />
     <Content Include="Content\kendo\2015.3.930\images\kendoui.woff" />
-    <None Include="Controllers\SoftwareController.cs.bak" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1358,6 +1358,7 @@
     <Content Include="Scripts\kendo\2015.3.930\kendo.window.min.js.map" />
     <Content Include="Views\Software\KendoTest.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\PermissionDetailsViewModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

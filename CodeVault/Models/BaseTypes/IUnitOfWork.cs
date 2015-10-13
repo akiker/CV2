@@ -8,6 +8,10 @@ namespace CodeVault.Models.BaseTypes
 
         IRepository<Request> RequestRepo { get; }
 
+        IRepository<ProductPermission> PermissionRepo { get; }
+
+        IRepository<ProductPermissionDetail> PermissionDetailRepo { get; }
+
         /// <summary>
         /// Used to save the changes to the underlying data store
         /// </summary>

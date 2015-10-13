@@ -23,6 +23,7 @@ namespace CodeVault.Models.ViewModels
             Status = product.ProductStatus.ToString();
             PrimaryContact = product.ProductContacts.FirstOrDefault(t => t.ProductContactRoleId == 2);
             Permissions = new PermissionViewModel(product);
+            PermissionDetails = Permissions.PermissionDetails;
         }
 
         public int Id { get; set; }
@@ -40,7 +41,7 @@ namespace CodeVault.Models.ViewModels
         public string Status { get; set; }
 
         public PermissionViewModel Permissions { get; set; }
-        public PermissionDetailViewModel PermissionDetails { get; private set; }
+        public ICollection<PermissionDetailViewModel> PermissionDetails { get; private set; }
         public ProductContact PrimaryContact { get; private set; }
     }
 }

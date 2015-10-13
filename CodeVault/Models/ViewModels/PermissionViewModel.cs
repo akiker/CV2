@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace CodeVault.Models.ViewModels
 {
@@ -25,8 +26,6 @@ namespace CodeVault.Models.ViewModels
             var permission = db.ProductPermissions.Where(p => p.ProductId == viewProduct.ProductId).FirstOrDefault();
             var permissionDetail = db.ProductPermissionDetails.Where(p => p.ProductId == viewProduct.ProductId);
             var localAccountVerification = db.LocalAdminVerification.Where(p => p.ProductId == viewProduct.ProductId).FirstOrDefault();
-
-            //var product = db.Products.Include("ProductsPermission").Include("ProductPermissionDetails").Include("LocalAccountVerification").Where(p => p.ProductId == viewProduct.ProductId).FirstOrDefault();
             
             this.Id = viewProduct.ProductId;
             this.ElevatedRightsRequired = permission == null ? false:permission.ElevatedRightsRequired;
@@ -36,17 +35,18 @@ namespace CodeVault.Models.ViewModels
             this.LaVerified = localAccountVerification == null ? false : localAccountVerification.LocalAdminVerificationComplete;
             this.WorksWithLa = localAccountVerification == null ? false : localAccountVerification.WorksWithLocalAdminAccount;
             this.DoesNotWorkWithLa = this.WorksWithLa ? false:true;
-            this.Permissions = new HashSet<PermissionDetailViewModel>();
+            this.PermissionDetails = new HashSet<PermissionDetailViewModel>();
 
             foreach (var perm in permissionDetail)
             {
-                var permissionViewModel = new PermissionDetailViewModel(perm);
-                this.Permissions.Add(permissionViewModel);
+                var permissionDetailViewModel = new PermissionDetailViewModel(perm);
+                this.PermissionDetails.Add(permissionDetailViewModel);
             }
         }
 
         [Key]
         public int Id { get; set; }
+        [DisplayName("Elevated Rights Required")]
         public bool ElevatedRightsRequired { get; set; }
         public bool RequiresAdminRightsBasic { get; set; }
         public bool RequiresAdminRightsAdvanced { get; set; }
@@ -54,7 +54,7 @@ namespace CodeVault.Models.ViewModels
         public bool LaVerified { get; set; }
         public bool WorksWithLa { get; set; }
         public bool DoesNotWorkWithLa { get; set; }
-        public ICollection<PermissionDetailViewModel> Permissions { get; set; }
+        public ICollection<PermissionDetailViewModel> PermissionDetails { get; set; }
     }
 
     public class PermissionDetailViewModel

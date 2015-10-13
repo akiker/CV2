@@ -12,6 +12,8 @@ namespace CodeVault.Models.BaseTypes
         private bool disposed = false;
         private IRepository<Product> productRepo = null;
         private IRepository<Request> requestRepo = null;
+        private IRepository<ProductPermission> permissionRepo = null;
+        private IRepository<ProductPermissionDetail> permissionDetailRepo = null;
 
         #endregion Stores
 
@@ -34,6 +36,26 @@ namespace CodeVault.Models.BaseTypes
                 if (this.requestRepo == null)
                     this.requestRepo = new Repository<Request>(this.dbContext);
                 return this.requestRepo;
+            }
+        }
+
+        public IRepository<ProductPermission> PermissionRepo
+        {
+            get
+            {
+                if (this.permissionRepo == null)
+                    this.permissionRepo = new Repository<ProductPermission>(this.dbContext);
+                return this.permissionRepo;
+            }
+        }
+
+        public IRepository<ProductPermissionDetail> PermissionDetailRepo
+        {
+            get
+            {
+                if (this.permissionDetailRepo == null)
+                    this.permissionDetailRepo = new Repository<ProductPermissionDetail>(this.dbContext);
+                return this.permissionDetailRepo;
             }
         }
 

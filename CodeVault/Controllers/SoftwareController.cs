@@ -37,6 +37,7 @@ namespace CodeVault.Controllers
 
             return Json(result.ToDataSourceResult(request));
         }
+
         public ActionResult Details(int? id)
         {
             if (id == null)

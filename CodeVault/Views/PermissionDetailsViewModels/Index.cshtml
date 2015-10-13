@@ -1,0 +1,27 @@
+﻿
+@(Html.Kendo().Grid<CodeVault.Models.ViewModels.PermissionDetailViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.Permission);
+        columns.Bound(c => c.Type);
+        columns.Bound(c => c.GroupUser);
+        columns.Bound(c => c.Location);
+      })
+      .ColumnMenu()
+      .Pageable()
+      .Navigatable()
+      .Selectable(selectable => {
+            selectable.Mode(GridSelectionMode.Single);
+            selectable.Type(GridSelectionType.Row);
+      })
+      .Sortable(sortable => {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("PermissionDetailViewModels_Read", "PermissionDetailsViewModels"))
+      )
+)

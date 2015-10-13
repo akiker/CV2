@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using CodeVault.Models;
 using CodeVault.Models.ViewModels;
 using CodeVault.Models.BaseTypes;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace CodeVault.Controllers
 {
@@ -27,6 +29,16 @@ namespace CodeVault.Controllers
             return View(result);
         }
 
+        public ActionResult PermissionViewModel_Read([DataSourceRequest]DataSourceRequest request)
+        {
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p != null, o => o.OrderBy(n => n.ProductName));
+            var result = query.Select(p => new PermissionViewModel(p));
+            facade.DisposeUnitOfWork();
+
+            return Json(result.ToDataSourceResult(request));
+        }
+
         // GET: PermissionViewModels/Details/5
         public ActionResult Details(int? id)
         {
@@ -37,12 +49,13 @@ namespace CodeVault.Controllers
             IUnitOfWork unitOfWork = facade.GetUnitOfWork();
             var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new PermissionViewModel(p)).FirstOrDefault();
+            var detail = result.PermissionDetails.ToList();
             facade.DisposeUnitOfWork();
             if (result == null)
             {
                 return HttpNotFound();
             }
-            return View(result);
+            return View(detail);
         }
 
         // GET: PermissionViewModels/Create

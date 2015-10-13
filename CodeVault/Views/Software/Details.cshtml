@@ -6,7 +6,7 @@
 }
 
 <div class="container">
-    <h4>@ViewBag.DetailTitle</h4>
+    <h4>@ViewBag.Title</h4>
     <form class="form-horizontal" role="form">
         <div class="form-group">
             @(Html.Kendo().TabStrip()
@@ -52,46 +52,28 @@ tabstrip.Add().Text("Overview")
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" }):
                 <p>
                     @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                    Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
                 </p>
             </div>
         </div>
-        @*<div style="padding: 1em;">
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Name):
-                        @Html.DisplayFor(model => model.Name)
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.PrimaryContact.ProductContactName, "Primary Contact"):
-                        @Html.DisplayFor(model => model.PrimaryContact.ProductContactName)
-                    </div>
-                </div>
-                <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
-            </div>*@
-        @*<span class="rainy">&nbsp;</span>*@
-
     </text>);
 tabstrip.Add().Text("Permissions")
 .Content(@<text>
         <div>
-            <div class="k-form-checkbox-row">
+            <div class="k-form-checkbox-row" style="padding-top:1em;">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">Admin Rights</div>
+                        <div class="panel-title">Administrative Rights</div>
                     </div>
-                    <div class="panel-body">
-                        <label class="k-checkbox-label">Requires Admin Rights for Basic Functionality</label>
-                        <input class="k-checkbox k-checkbox" id="Permissions_RequiresAdminRightsAdvanced" name="Permissions.RequiresAdminRightsAdvanced" type="checkbox" value="true">
+                    <div class="panel-body disabled">
+                        @Html.Kendo().CheckBox().Name("elevatedRightsRequired").Label("Elevated Rights Required").Checked(Model.Permissions.ElevatedRightsRequired).HtmlAttributes(new { style = "readonly" })
                         <br />
-                        <label class="k-checkbox-label">Requires Admin Rights for Advanced Functionality</label>
-                        <input class="k-checkbox k-checkbox" id="Permissions_RequiresAdminRightsBasic" name="Permissions.RequiresAdminRightsBasic" type="checkbox" value="true">
+                        @*<label class="k-checkbox-label">Requires Admin Rights for Advanced Functionality</label>
+                            <input class="k-checkbox k-checkbox" id="Permissions_RequiresAdminRightsBasic" name="Permissions.RequiresAdminRightsBasic" type="checkbox" value=@Model.Permissions.RequiresAdminRightsBasic>*@
+                        @Html.Kendo().CheckBoxFor(model => model.Permissions.RequiresAdminRightsAdvanced).Label("Requires Admin Rights for Advanced Functionality")
                         <br />
-                        <label class="k-checkbox-label">Requires Admin Rights for Update Functionality</label>
-                        <input class="k-checkbox k-checkbox" id="Permissions_RequiresAdminRightsUpdate" name="Permissions.RequiresAdminRightsUpdate" type="checkbox" value="true">
+                        @Html.Kendo().CheckBoxFor(model => model.Permissions.RequiresAdminRightsBasic).Label("Requires Admin Rights for Basic Functionality")
+                        <br />
+                        @Html.Kendo().CheckBoxFor(model => model.Permissions.RequiresAdminRightsUpdate).Label("Requires Admin Rights for Updates")
                     </div>
                 </div>
             </div>
@@ -101,11 +83,12 @@ tabstrip.Add().Text("Permissions")
                         <div class="panel-title">Local Account Verification</div>
                     </div>
                     <div class="panel-body">
-                        <label class="k-checkbox-label">Works with LA</label>
-                        <input class="k-checkbox" id="Permissions_WorksWithLA" name="Permissions.WorksWithLA" type="radio" value="0">
+                        @Html.Kendo().CheckBoxFor(model => model.Permissions.LaVerified).Label("LA Verification Complete")
                         <br />
-                        <label class="k-checkbox-label">Does not work with LA</label>
-                        <input class="k-checkbox k-checkbox" id="Permissions_DoesNotWorkWithLa" name="Permissions.DoesNotWorkWithLa" type="radio" value="0">
+                        @Html.Kendo().CheckBoxFor(model => model.Permissions.WorksWithLa).Label("Works with LA Account")
+                        <br />
+                        @Html.Kendo().CheckBoxFor(model => model.Permissions.DoesNotWorkWithLa).Label("Does not work with LA Account")
+                        <br />
                     </div>
                 </div>
             </div>
@@ -115,65 +98,37 @@ tabstrip.Add().Text("Permissions")
                         <div class="panel-title">Permission Details</div>
                     </div>
                     <div class="panel-body">
-                        
-                        <p> Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
+                        @(Html.Kendo().Grid<CodeVault.Models.ViewModels.PermissionDetailViewModel>()
+      .Name("gridPermissionDetails")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.Permission);
+          columns.Bound(c => c.Type);
+          columns.Bound(c => c.GroupUser);
+          columns.Bound(c => c.Location);
+      })
+      .ColumnMenu()
+      .Pageable()
+      .Navigatable()
+      .Selectable(selectable =>
+      {
+          selectable.Mode(GridSelectionMode.Single);
+          selectable.Type(GridSelectionType.Row);
+      })
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("PermissionDetailViewModels_Read", "PermissionDetailsViewModels", new { productId = Model.Id }))
+      )
+                        )
                     </div>
                 </div>
             </div>
-
-
-            @*Administrative Rights: @Html.Kendo().CheckBoxFor(model => model.Permissions.DoesNotWorkWithLa).Enable(false)*@
-
-
-            @*<label style="text-align:left;">
-                    Administrative Rights: &nbsp;
-                    @Html.CheckBoxFor(model => model.Permissions.ElevatedRightsRequired)
-                </label>*@
-            @*@Html.LabelFor(model => model.Permissions.ElevatedRightsRequired, htmlAttributes: new { @class = "control-label" }):*@
-
-
-
-
-            @*<div style="padding: 1em;">
-                <div class="row">
-                    <div class="col-md-10">
-                        <h4 style="width:100%;text-align:left;border-bottom: 1px solid #000; line-height:0.1em;margin:10px 0 20px;padding:0 10px"><span style="padding:0 10px;">Administrative Rights</span></h4>
-                        @Html.LabelFor(model => model.Permissions.ElevatedRightsRequired, "Elevated Rights Required"): &nbsp;@Html.DisplayFor(model => model.Permissions.ElevatedRightsRequired)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Permissions.RequiresAdminRightsBasic, "Requires Admin Rights for Basic Functionality"): &nbsp;@Html.DisplayFor(model => model.Permissions.RequiresAdminRightsBasic)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Permissions.RequiresAdminRightsAdvanced, "Requires Admin Rights for Advanced Functionality"): &nbsp;@Html.DisplayFor(model => model.Permissions.RequiresAdminRightsAdvanced)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Permissions.RequiresAdminRightsUpdate, "Requires Admin Rights for Updates"): &nbsp;@Html.DisplayFor(model => model.Permissions.RequiresAdminRightsUpdate)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Permissions.LaVerified, "Local Admin (LA) Verified"): &nbsp;@Html.DisplayFor(model => model.Permissions.LaVerified)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Permissions.WorksWithLa, "Works with LA Account"): &nbsp;@Html.DisplayFor(model => model.Permissions.WorksWithLa)
-                    </div>
-                </div>*@
-
-
-
 </text>);
 })
             )
@@ -181,104 +136,9 @@ tabstrip.Add().Text("Permissions")
         <p>
             @Html.ActionLink("Back to List", "Index")
         </p>
+    </div>
 </form>
-
 </div>
-
-<style type="text/css">
-    :root .css3-radios label,
-    :root .css3-radios input[type="radio"] + span,
-    :root .css3-radios input[type="radio"] + span::before,
-    :root .css3-checkboxes label,
-    :root .css3-checkboxes input[type="checkbox"] + span,
-    :root .css3-checkboxes input[type="checkbox"] + span::before {
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    :root .css3-radios,
-    :root .css3-checkboxes {
-        position: relative;
-    }
-
-        :root .css3-radios label *,
-        :root .css3-checkboxes label * {
-            cursor: pointer;
-        }
-
-        :root .css3-radios input[type="radio"],
-        :root .css3-checkboxes input[type="checkbox"] {
-            opacity: 0;
-            position: absolute;
-        }
-
-            :root .css3-radios input[type="radio"] + span,
-            :root .css3-checkboxes input[type="checkbox"] + span {
-                font: normal 11px/14px Arial, Sans-serif;
-                color: #333;
-            }
-
-        :root .css3-radios label:hover span::before,
-        :root .css3-checkboxes label:hover span::before {
-            -moz-box-shadow: 0 0 2px #ccc;
-            -webkit-box-shadow: 0 0 2px #ccc;
-            box-shadow: 0 0 2px #ccc;
-        }
-
-        :root .css3-radios label:hover span,
-        :root .css3-checkboxes label:hover span {
-            color: #000;
-        }
-
-        :root .css3-radios input[type="radio"] + span::before,
-        :root .css3-checkboxes input[type="checkbox"] + span::before {
-            content: "";
-            width: 12px;
-            height: 12px;
-            margin: 0 4px 0 0;
-            border: solid 1px #a8a8a8;
-            line-height: 14px;
-            text-align: center;
-            -moz-border-radius: 100%;
-            -webkit-border-radius: 100%;
-            border-radius: 100%;
-            background: #f6f6f6;
-            background: -moz-radial-gradient(#f6f6f6, #dfdfdf);
-            background: -webkit-radial-gradient(#f6f6f6, #dfdfdf);
-            background: -ms-radial-gradient(#f6f6f6, #dfdfdf);
-            background: -o-radial-gradient(#f6f6f6, #dfdfdf);
-            background: radial-gradient(#f6f6f6, #dfdfdf);
-        }
-
-        :root .css3-radios input[type="radio"]:checked + span::before,
-        :root .css3-checkboxes input[type="checkbox"]:checked + span::before {
-            color: #666;
-        }
-
-        :root .css3-radios input[type="radio"]:disabled + span,
-        :root .css3-checkboxes input[type="checkbox"]:disabled + span {
-            cursor: default;
-            -moz-opacity: .4;
-            -webkit-opacity: .4;
-            opacity: .4;
-        }
-
-        :root .css3-checkboxes input[type="checkbox"] + span::before {
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            border-radius: 2px;
-        }
-
-        :root .css3-radios input[type="radio"]:checked + span::before {
-            content: "\2022";
-            font-size: 24px;
-        }
-
-        :root .css3-checkboxes input[type="checkbox"]:checked + span::before {
-            content: "\2714";
-            font-size: 12px;
-        }
-</style>
 
 
 

@@ -362,5 +362,7 @@ namespace CodeVault.Models
         public System.Data.Entity.DbSet<CodeVault.Models.ViewModels.ProductViewModel> ProductViewModels { get; set; }
 
         public System.Data.Entity.DbSet<CodeVault.Models.ViewModels.PermissionViewModel> PermissionViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<CodeVault.Models.ViewModels.PermissionDetailViewModel> PermissionDetailViewModels { get; set; }
     }
 }

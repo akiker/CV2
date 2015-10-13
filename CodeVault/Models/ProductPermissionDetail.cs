@@ -1,14 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using CodeVault.Models.BaseTypes;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
+using System;
 
 namespace CodeVault.Models
 {
     [JsonObject(IsReference = true)]
     [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/CodeVault.Models")]
     [Table("ProductPermissionDetails", Schema = "CV2")]
-    public class ProductPermissionDetail
+    public class ProductPermissionDetail : EntityBase
     {
         [DataMember]
         [Key]
@@ -30,5 +32,15 @@ namespace CodeVault.Models
 
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
+
+        protected override void RegisterValidationMethods()
+        {
+            
+        }
+
+        protected override void ResetProperties()
+        {
+            
+        }
     }
 }
