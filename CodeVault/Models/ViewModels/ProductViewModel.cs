@@ -41,7 +41,6 @@ namespace CodeVault.Models.ViewModels
             }
 
             SoftwarePolicy = new SoftwarePolicyViewModel(product);
-
             if(SoftwarePolicy != null)
             {
                 foreach (var group in SoftwarePolicy.GroupAssociations)

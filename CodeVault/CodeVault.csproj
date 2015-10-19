@@ -274,10 +274,10 @@
     <Compile Include="Models\SystemRequirement.cs" />
     <Compile Include="Models\Utilities\FileSizeFormatter.cs" />
     <Compile Include="Models\Utilities\PropertyMapper.cs" />
+    <Compile Include="Models\ViewModels\LicenseViewModel.cs" />
     <Compile Include="Models\ViewModels\PermissionViewModel.cs" />
     <Compile Include="Models\ViewModels\SoftwarePolicyViewModel.cs" />
     <Compile Include="Models\ViewModels\DependencyViewModel.cs" />
-    <Compile Include="Models\ViewModels\PrerequisiteViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\WindowsInstallerRuleOperatorType.cs" />
     <Compile Include="Models\WindowsInstallerRulePropertyType.cs" />

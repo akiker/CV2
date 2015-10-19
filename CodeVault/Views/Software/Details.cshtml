@@ -69,9 +69,9 @@ tabstrip.Add().Text("Overview")
 
                 </div>
             </div>*@
-            <blockquote>
-                <p>Policy Category: @Model.SoftwarePolicy.PolicyType</p>
-            </blockquote>
+            <div class="blockquote-box blockquote-danger clearfix">
+                <h4>Permissible for use by: @Model.SoftwarePolicy.PolicyType</h4>
+            </div>
            
             @Html.Partial("_SoftwarePolicies")
     </text>);
