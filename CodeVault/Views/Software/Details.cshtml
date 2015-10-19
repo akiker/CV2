@@ -56,15 +56,34 @@ tabstrip.Add().Text("Overview")
             </div>
         </div>
     </text>);
+    tabstrip.Add().Text("Dependencies")
+    .Content(@<text>
+        @Html.Partial("_PreInstallDependencies")
+        @Html.Partial("_PostInstallDependencies")
+    </text>);
+    tabstrip.Add().Text("Personal Software Policy")
+    .Content(@<text>
+            <br />
+            @*<div class="row">
+                <div class="col-md-10">
+
+                </div>
+            </div>*@
+            <blockquote>
+                <p>Policy Category: @Model.SoftwarePolicy.PolicyType</p>
+            </blockquote>
+           
+            @Html.Partial("_SoftwarePolicies")
+    </text>);
 tabstrip.Add().Text("Permissions")
 .Content(@<text>
-        <div>
+        <fieldset class="disabled">
             <div class="k-form-checkbox-row" style="padding-top:1em;">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Administrative Rights</div>
                     </div>
-                    <div class="panel-body disabled">
+                    <div class="panel-body">
                         @Html.Kendo().CheckBox().Name("elevatedRightsRequired").Label("Elevated Rights Required").Checked(Model.Permissions.ElevatedRightsRequired).HtmlAttributes(new { style = "readonly" })
                         <br />
                         @*<label class="k-checkbox-label">Requires Admin Rights for Advanced Functionality</label>
@@ -93,46 +112,12 @@ tabstrip.Add().Text("Permissions")
                 </div>
             </div>
             <div class="k-form-checkbox-row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-title">Permission Details</div>
-                    </div>
-                    <div class="panel-body">
-                        @(Html.Kendo().Grid<CodeVault.Models.ViewModels.PermissionDetailViewModel>()
-      .Name("gridPermissionDetails")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.Permission);
-          columns.Bound(c => c.Type);
-          columns.Bound(c => c.GroupUser);
-          columns.Bound(c => c.Location);
-      })
-      .ColumnMenu()
-      .Pageable()
-      .Navigatable()
-      .Selectable(selectable =>
-      {
-          selectable.Mode(GridSelectionMode.Single);
-          selectable.Type(GridSelectionType.Row);
-      })
-      .Sortable(sortable =>
-      {
-          sortable.SortMode(GridSortMode.SingleColumn);
-      })
-      .Filterable()
-      .Scrollable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Read(read => read.Action("PermissionDetailViewModels_Read", "PermissionDetailsViewModels", new { productId = Model.Id }))
-      )
-                        )
-                    </div>
-                </div>
+                @Html.Partial("_SoftwarePermissions")
             </div>
 </text>);
 })
             )
-        </div>
+        </fieldset>
         <p>
             @Html.ActionLink("Back to List", "Index")
         </p>

@@ -9,41 +9,110 @@
           .Columns(columns =>
           {
               columns.Bound(c => c.Name).ClientTemplate("<a href='" +
-                    Url.Action("Details", "Software") + "/#= Id #'" + ">#= Name #</a>");
+                    Url.Action("Details", "Software") + "/#= Id #'" + ">#= Name #</a>").Width(225);
               columns.Bound(c => c.Manufacturer);
               columns.Bound(c => c.Description);
               columns.Bound(c => c.Version);
+              columns.Bound(c => c.Status);
+              columns.Bound(c => c.PrimaryContact);
               columns.Bound(c => c.CreatedOnDate).Filterable(false).Sortable(false).Format("{0:MM/dd/yyyy}");
           })
-          .Pageable(pager => pager.Refresh(true)).Pageable(pager => pager.ButtonCount(10))
-          .Navigatable()
-          .HtmlAttributes(new { style = "height:500px;" })
-          .Selectable(selectable =>
+          .ToolBar(toolbar =>
           {
-              selectable.Mode(GridSelectionMode.Single);
-              selectable.Type(GridSelectionType.Row);
+              toolbar.Template(
+                @<Text>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                            <input type="text" class="form-control" id='searchBox' placeholder="Search for...">
+                        </div>
+                        
+                    </div>
+                </div>
+                    
+                </Text>);
           })
-          .Sortable(sortable =>
-          {
-              sortable.SortMode(GridSortMode.SingleColumn);
-          })
-          .Filterable(filterable => filterable.Mode(GridFilterMode.Menu))
-          .Scrollable()
-          .Events(events =>
-          {
-              events.Edit("onEdit");
-              events.Change("onChange");
-          })
-          .DataSource(dataSource => dataSource
-              .Ajax()
-              .PageSize(15)
-              .Model(model => model.Id(p => p.Id))
-              .Read(read => read.Action("ProductViewModels_Read", "Software"))
-              .ServerOperation(true)
-        )
+                .Pageable(pager => pager.Refresh(true)).Pageable(pager => pager.ButtonCount(10))
+                .Navigatable()
+                .HtmlAttributes(new { style = "height:600px;" })
+                .Selectable(selectable =>
+                {
+                    selectable.Mode(GridSelectionMode.Single);
+                    selectable.Type(GridSelectionType.Row);
+                })
+                .Sortable(sortable =>
+                {
+                    sortable.SortMode(GridSortMode.SingleColumn);
+                })
+                .Filterable(filterable => filterable.Mode(GridFilterMode.Menu))
+                .Scrollable()
+                .Events(events =>
+                {
+                    events.Edit("onEdit");
+                    events.Change("onChange");
+                })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(15)
+                .Model(model => model.Id(p => p.Id))
+                .Read(read => read.Action("ProductViewModels_Read", "Software"))
+                .ServerOperation(true)
+                )
     )
 </div>
 
+@*<script type="text/javascript">
+    function addSearch() {
+        return { searchbox: $('#searchBox').val() };
+    }
+    $('#searchBox').keyup(function () {
+        $('#grid').data('kendoGrid').dataSource.query(
+
+            );
+    });
+</script>*@
+
+
+<script>
+$(document).ready(function () {
+    $("#searchBox").keyup(function () {
+
+        var value = $("#searchBox").val();
+        grid = $("#grid").data("kendoGrid");
+
+        if (value) {
+            grid.dataSource.filter({
+                logic: "or",
+                filters: [
+                    {
+                        field: "Name", operator: "contains", value: value
+                    },
+                    {
+                        field: "Status", operator: "contains", value: value
+                    },
+                    {
+                        field: "Version", operator: "contains", value: value
+                    },
+                    {
+                        field: "Manufacturer", operator: "contains", value: value
+                    }
+                ]
+            });
+        } else {
+            grid.dataSource.filter({});
+        }
+    });
+});
+</script>
+
+<script type="text/x-kendo-template" id="template">
+    <div class="toolbar">
+        <label class="form-control" for="category">Show products by category:</label>
+        <input type="search" id="category" style="width: 150px" />
+    </div>
+</script>
 
 <script type="text/x-kendo-template" id="template">
     <div id="details-container">

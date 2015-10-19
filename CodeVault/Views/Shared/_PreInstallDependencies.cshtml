@@ -1,0 +1,35 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">Pre-Install</div>
+    </div>
+    <div class="panel-body">
+        @(Html.Kendo().Grid<CodeVault.Models.ViewModels.DependencyViewModel>()
+      .Name("gridPreInstallDependencies")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.Name);
+          columns.Bound(c => c.Version);
+          columns.Bound(c => c.InstallOrder);
+      })
+      .ColumnMenu()
+      .Resizable(resizing => resizing.Columns(true))
+      .Pageable()
+      .Navigatable()
+      .Selectable(selectable =>
+      {
+          selectable.Mode(GridSelectionMode.Single);
+          selectable.Type(GridSelectionType.Row);
+      })
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("PreInstallDependencyViewModel_Read", "Software", new { id = Model.Id }))
+      )
+        )
+    </div>
+</div>

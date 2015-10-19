@@ -38,6 +38,39 @@ namespace CodeVault.Controllers
             return Json(result.ToDataSourceResult(request));
         }
 
+
+        public ActionResult SoftwarePolicyGroupAssociationViewModel_Read([DataSourceRequest]DataSourceRequest request, int id)
+        {
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            //var temp = unitOfWork.ProductRepo.GetById(1);
+            //temp.SoftwarePolicy;
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName), "SoftwarePolicy");
+            var productViewModel = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
+            facade.DisposeUnitOfWork();
+            var result = productViewModel.SoftwarePolicyGroupAssociations;
+            return Json(result.ToDataSourceResult(request));
+        }
+
+        public ActionResult PreInstallDependencyViewModel_Read([ DataSourceRequest]DataSourceRequest request, int id)
+        {
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName),"Dependencies");
+            var productViewModel = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
+            facade.DisposeUnitOfWork();
+            var result = productViewModel.PreInstallDependencies;
+            return Json(result.ToDataSourceResult(request));
+        }
+
+        public ActionResult PostInstallDependencyViewModel_Read([DataSourceRequest]DataSourceRequest request, int id)
+        {
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName),"Dependencies");
+            var productViewModel = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
+            facade.DisposeUnitOfWork();
+            var result = productViewModel.PostInstallDependencies;
+            return Json(result.ToDataSourceResult(request));
+        }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -48,7 +81,7 @@ namespace CodeVault.Controllers
             var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
             facade.DisposeUnitOfWork();
-            //ProductViewModel productViewModel = db.ProductViewModels.Find(id);
+            
             if (result == null)
             {
                 return HttpNotFound();
@@ -57,28 +90,36 @@ namespace CodeVault.Controllers
             return View(result);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ProductViewModels_Update([DataSourceRequest]DataSourceRequest request, ProductViewModel productViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var entity = new ProductViewModel
-                {
-                    Id = productViewModel.Id,
-                    Name = productViewModel.Name,
-                    Manufacturer = productViewModel.Manufacturer,
-                    Description = productViewModel.Description,
-                    Version = productViewModel.Version,
-                    CreatedOnDate = productViewModel.CreatedOnDate
-                };
+        //private IEnumerable<DependencyViewModel> GetPreInstallDependencies(int productId)
+        //{
+        //    //IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+        //    //var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == productId, o => o.OrderBy(n => n.ProductName));
+        //    //var result = query.Select(p => new ProductViewModel(p));
+        //    //facade.DisposeUnitOfWork();
+        //    //var temp = result.Select(d => d.Dependencies).Where(d => d.depen)
+            
+        //    //List<DependencyViewModel> depViewModels = new List<DependencyViewModel>(); 
 
-                db.ProductViewModels.Attach(entity);
-                db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+        //    //var db = new CV2Context(); 
+        //    //var query = db.Products.Where(d => d.ProductId == productId).FirstOrDefault();
+        //    //List<Dependencies> dependencies = query.Dependencies.Where(d => d.DependencyType == Models.DependencyType.PreInstall).ToList();
+        //    //foreach (var dep in dependencies)
+        //    //{
+        //    //    DependencyViewModel depViewModel = new DependencyViewModel(dep);
+        //    //    depViewModels.Add(depViewModel);
+        //    //}
+        //    //return depViewModels;
+        //}
 
-            return Json(new[] { productViewModel }.ToDataSourceResult(request, ModelState));
-        }
+        //private IEnumerable<DependencyViewModel> GetPostInstallDependencies(int productId)
+        //{
+        //    var db = new CV2Context();
+        //    var query = db.Dependencies.Where(d => d.BaseProductId == productId && d.DependencyType == Models.DependencyType.PostInstall).AsEnumerable();
+        //    var result = query.Select(p => new DependencyViewModel(p));
+            
+        //    return result;
+        //}
+
 
         protected override void Dispose(bool disposing)
         {

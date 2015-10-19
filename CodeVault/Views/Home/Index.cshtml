@@ -14,7 +14,6 @@
                     <p>Use the menu and links to search for software and discover line of business configuration records.</p>
                 </div>
             </div>
-
             <br />
             <div class="row">
                 <div class="col-xs-12 col-md-8">
@@ -36,8 +35,7 @@
                     .DataValueField("Value")
                     .HtmlAttributes(new { style = "width:100%;" })
                     .Events(e => e.Change("change"))
-                    .BindTo(new List<SelectListItem>
-                        ()
+                    .BindTo(new List<SelectListItem>()
                         {
                         new SelectListItem()
                         {
@@ -69,15 +67,12 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 
 <div class="container">
     <hr style="background-color: #CE4C00; height: 2px" />
-
     <div class="row">
         <div class="col-md-4">
             <h3 style="color:#78A22F;">Service Delivery Team News</h3>
@@ -89,3 +84,6 @@
         </div>
     </div>
 </div>
+
+@Scripts.Render("~/bundles/bootstrap")
+@*@RenderSection("scripts", required: false)*@
