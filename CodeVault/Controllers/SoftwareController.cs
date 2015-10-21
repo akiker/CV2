@@ -21,11 +21,11 @@ namespace CodeVault.Controllers
 
         public ActionResult Index()
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
-            var result = query.Select(p => new ProductViewModel(p)).ToList();
-            facade.DisposeUnitOfWork();
-            return View(result);
+            //IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            //var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
+            //var result = query.Select(p => new ProductViewModel(p)).ToList();
+            //facade.DisposeUnitOfWork();
+            return View();
         }
 
         public ActionResult ProductViewModels_Read([DataSourceRequest]DataSourceRequest request)
