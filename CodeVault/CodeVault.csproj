@@ -1364,6 +1364,7 @@
     <Content Include="Views\Shared\_PostInstallDependencies.cshtml" />
     <Content Include="Views\Shared\_SoftwarePermissions.cshtml" />
     <Content Include="Views\Shared\_SoftwarePolicies.cshtml" />
+    <Content Include="Views\Shared\_Licenses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

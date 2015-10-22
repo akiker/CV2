@@ -1,0 +1,36 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">Post-Install</div>
+    </div>
+    <div class="panel-body">
+        @(Html.Kendo().Grid<CodeVault.Models.ViewModels.LicenseDetailViewModel>()
+      .Name("gridLicenseDetails")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.LicenseType);
+          columns.Bound(c => c.SKU);
+          columns.Bound(c => c.Notes);
+          columns.Bound(c => c.Owner);
+      })
+      .ColumnMenu()
+      .Resizable(resizing => resizing.Columns(true))
+      .Pageable()
+      .Navigatable()
+      .Selectable(selectable =>
+      {
+          selectable.Mode(GridSelectionMode.Single);
+          selectable.Type(GridSelectionType.Row);
+      })
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("LicenseViewModel_Read", "LicenseViewModel", new { id = Model.Id }))
+      )
+        )
+    </div>
+</div>

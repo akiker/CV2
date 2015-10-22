@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +23,10 @@ namespace CodeVault.Models.ViewModels
             Version = product.ProductVersion;
             CreatedOnDate = product.CreatedOnDate;
             Status = product.ProductStatus.ToString();
+            ProductType = product.ProductType == null ? string.Empty : product.ProductType.ProductTypeName;
+            Category = product.ProductCategory == null ? string.Empty :  product.ProductCategory.ProductCategoryName;
+            ProductCode = product.ProductCode;
+            UpgradeCode = product.ProductUpgradeCode;
             //PrimaryContact = product.ProductContacts.FirstOrDefault(t => t.ProductContactRoleId == 2);
             Permissions = new PermissionViewModel(product);
             PermissionDetails = Permissions.PermissionDetails;
@@ -48,7 +54,6 @@ namespace CodeVault.Models.ViewModels
                     SoftwarePolicyGroupAssociations.Add(group);
                 }
             }
-            
         }
 
         public int Id { get; set; }
@@ -64,6 +69,15 @@ namespace CodeVault.Models.ViewModels
         public DateTime CreatedOnDate { get; set; }
 
         public string Status { get; set; }
+
+        [DisplayName("Type")]
+        public string ProductType { get; set; }
+
+        public string Category { get; set; }
+        [DisplayName("Product Code")]
+        public string ProductCode { get; set; }
+        [DisplayName("Upgrade Code")]
+        public string UpgradeCode { get; set; }
 
         public PermissionViewModel Permissions { get; set; }
         public ICollection<PermissionDetailViewModel> PermissionDetails { get; private set; }

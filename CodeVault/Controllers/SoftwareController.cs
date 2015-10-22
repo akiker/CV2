@@ -21,10 +21,6 @@ namespace CodeVault.Controllers
 
         public ActionResult Index()
         {
-            //IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            //var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
-            //var result = query.Select(p => new ProductViewModel(p)).ToList();
-            //facade.DisposeUnitOfWork();
             return View();
         }
 
@@ -33,17 +29,14 @@ namespace CodeVault.Controllers
             IUnitOfWork unitOfWork = facade.GetUnitOfWork();
             var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new ProductViewModel(p));
+            
             facade.DisposeUnitOfWork();
-
             return Json(result.ToDataSourceResult(request));
         }
-
 
         public ActionResult SoftwarePolicyGroupAssociationViewModel_Read([DataSourceRequest]DataSourceRequest request, int id)
         {
             IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            //var temp = unitOfWork.ProductRepo.GetById(1);
-            //temp.SoftwarePolicy;
             var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName), "SoftwarePolicy");
             var productViewModel = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
             facade.DisposeUnitOfWork();
@@ -78,7 +71,7 @@ namespace CodeVault.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName));
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName), "ProductCategory,ProductType");
             var result = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
             facade.DisposeUnitOfWork();
             

@@ -8,7 +8,6 @@ namespace CodeVault.Models.ViewModels
 {
     public class DependencyViewModel
     {
-        private ICollection<Dependencies> dep;
         private CV2Context db = new CV2Context();
 
         public DependencyViewModel()

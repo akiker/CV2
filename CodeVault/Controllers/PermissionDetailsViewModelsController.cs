@@ -16,7 +16,6 @@ namespace CodeVault.Controllers
 {
     public class PermissionDetailsViewModelsController : Controller
     {
-        private CV2Context db = new CV2Context();
         IDALFacade facade = new DALFacade();
 
         public ActionResult Index()
@@ -30,17 +29,6 @@ namespace CodeVault.Controllers
             var query = unitOfWork.PermissionDetailRepo.GetByQuery(p => p.ProductId == productId, o => o.OrderBy(n => n.ProductPermissionDetailId));
             var result = query.Select(p => new PermissionDetailViewModel(p));
             facade.DisposeUnitOfWork();
-            
-            //IQueryable<PermissionDetailViewModel> permissiondetailviewmodels = db.PermissionDetailViewModels;
-            //DataSourceResult result = permissiondetailviewmodels.ToDataSourceResult(request, c => new PermissionDetailViewModel 
-            //{
-            //    PermissionDetailViewModel = c.PermissionDetailViewModel,
-            //    Id = c.Id,
-            //    Permission = c.Permission,
-            //    Type = c.Type,
-            //    GroupUser = c.GroupUser,
-            //    Location = c.Location
-            //});
 
             return Json(result.ToDataSourceResult(request));
         }
@@ -60,7 +48,6 @@ namespace CodeVault.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
             base.Dispose(disposing);
         }
     }
