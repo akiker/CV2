@@ -64,6 +64,20 @@ namespace CodeVault.Controllers
             return Json(result.ToDataSourceResult(request));
         }
 
+        public ActionResult LicenseDetailViewModel_Read([DataSourceRequest]DataSourceRequest request, int id)
+        {
+            ICollection<LicenseDetailViewModel> result = new HashSet<LicenseDetailViewModel>();
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var licenses = unitOfWork.LicenseRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductId), "LicenseType").ToList();
+            foreach (var license in licenses)
+            {
+                var licViewModel = licenses.Select(l => new LicenseDetailViewModel(l)).FirstOrDefault();
+                result.Add(licViewModel);
+            }
+            facade.DisposeUnitOfWork();
+            return Json(result.ToDataSourceResult(request));
+        }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -79,8 +93,38 @@ namespace CodeVault.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DetailTitle = string.Format("{0} {1}", result.Name, result.Version);
+            if (ContainsInvalid(result.Version))
+            {
+                ViewBag.DetailTitle = result.Name;
+            }
+            else if (result.Name.Contains(result.Version))
+            {
+                ViewBag.DetailTitle = result.Name;
+            }
+            else
+            {
+                ViewBag.DetailTitle = string.Format("{0} {1}", result.Name, result.Version);
+            }
             return View(result);
+        }
+
+        private bool ContainsInvalid(string value)
+        {
+            var invalid = new List<string>();
+            invalid.Add("na");
+            invalid.Add("O");
+            invalid.Add("0");
+            invalid.Add("n/a");
+            if(invalid.Contains(value.ToLower().Trim()))
+            {
+                return true;
+            }
+            return false;
+            //var items = new List<string>()
+            //{
+            //    new string {"Request Software" },
+            //    new SelectListItem {Value = "2", Text = "Request Configuration Record" }
+            //};
         }
 
         //private IEnumerable<DependencyViewModel> GetPreInstallDependencies(int productId)

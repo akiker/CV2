@@ -1,0 +1,42 @@
+﻿@model CodeVault.Models.Product
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">Group Association(s)</div>
+    </div>
+    <div class="panel-body">
+        @(Html.Kendo().Grid<CodeVault.Models.Product>()
+      .Name("gridConfigRecordOptionalSoftware")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.ProductName).ClientTemplate("<a href='" +
+                    Url.Action("Details", "Software") + "/#= Id #'" + ">#= Name #</a>").Width(225);
+          columns.Bound(c => c.ProductManufacturer);
+          columns.Bound(c => c.ProductDescription);
+          columns.Bound(c => c.ProductVersion);
+          columns.Bound(c => c.ProductStatus);
+          columns.Bound(c => c.CreatedOnDate).Filterable(false).Sortable(false).Format("{0:MM/dd/yyyy}");
+      })
+      .ColumnMenu()
+      .Resizable(resizing => resizing.Columns(true))
+      .Pageable()
+      .Navigatable()
+      .Selectable(selectable =>
+      {
+          selectable.Mode(GridSelectionMode.Single);
+          selectable.Type(GridSelectionType.Row);
+      })
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("ConfigRecord_Optional_Products_Read", "ConfigRecord", new { id = Model.ProductId }))
+      )
+        )
+    </div>
+</div>
+

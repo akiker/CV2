@@ -182,8 +182,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ConfigRecordController.cs" />
     <Compile Include="Controllers\DependenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LicenseViewModelController.cs" />
     <Compile Include="Controllers\PermissionDetailsViewModelsController.cs" />
     <Compile Include="Controllers\PermissionViewModelsController.cs" />
     <Compile Include="Controllers\ProductViewModelsController.cs" />
@@ -1365,6 +1367,12 @@
     <Content Include="Views\Shared\_SoftwarePermissions.cshtml" />
     <Content Include="Views\Shared\_SoftwarePolicies.cshtml" />
     <Content Include="Views\Shared\_Licenses.cshtml" />
+    <Content Include="Views\Software\Test.cshtml" />
+    <Content Include="Views\LicenseViewModel\Index.cshtml" />
+    <Content Include="Views\Shared\_ProductClassification.cshtml" />
+    <Content Include="Views\Shared\_ProductDetails.cshtml" />
+    <Content Include="Views\Shared\_ConfigRecordOptionalSoftware.cshtml" />
+    <Content Include="Views\ConfigRecord\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

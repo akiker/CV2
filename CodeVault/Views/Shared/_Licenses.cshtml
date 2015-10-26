@@ -1,6 +1,6 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">
-        <div class="panel-title">Post-Install</div>
+        <div class="panel-title">License</div>
     </div>
     <div class="panel-body">
         @(Html.Kendo().Grid<CodeVault.Models.ViewModels.LicenseDetailViewModel>()
@@ -29,7 +29,7 @@
       .Scrollable()
       .DataSource(dataSource => dataSource
           .Ajax()
-          .Read(read => read.Action("LicenseViewModel_Read", "LicenseViewModel", new { id = Model.Id }))
+          .Read(read => read.Action("LicenseDetailViewModel_Read", "Software", new { id = Model.Id }))
       )
         )
     </div>

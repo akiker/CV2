@@ -29,27 +29,17 @@
                         <h5 class="panel-title"><span class="glyphicon glyphicon-question-sign"></span> How Do I?</h5>
                     </div>
                     <div class="panel-body">
-                        @(Html.Kendo().DropDownList()
-                    .Name("help")
-                    .DataTextField("Text")
-                    .DataValueField("Value")
-                    .HtmlAttributes(new { style = "width:100%;" })
-                    .Events(e => e.Change("change"))
-                    .BindTo(new List<SelectListItem>()
-                        {
-                        new SelectListItem()
-                        {
-                        Text = "Request Software",
-                        Value = "1",
-                        },
-                        new SelectListItem()
-                        {
-                        Text = "Request Configuration Record",
-                        Value = "2",
-                        },
-                        })
-                        .Value("1")
+
+                        @( Html.Kendo().DropDownList().Name("kdropdownlist")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read => { read.Action("GetHowtoTopics", "Home"); });
+                            })
+                            .HtmlAttributes(new { style = "width:100%;" })
                         )
+
                     </div>
                 </div>
             </div>
@@ -75,7 +65,6 @@
         </div>
     </div>
 </div>
-
 <div class="container">
     <hr style="background-color: #CE4C00; height: 2px" />
     <div class="row">
@@ -89,6 +78,5 @@
         </div>
     </div>
 </div>
-
 @Scripts.Render("~/bundles/bootstrap")
-@*@RenderSection("scripts", required: false)*@
+

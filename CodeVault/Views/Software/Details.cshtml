@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
-    <h4>@ViewBag.Title</h4>
+    <h4>@ViewBag.DetailTitle</h4>
     <form class="form-horizontal" role="form">
         <div class="form-group">
             @(Html.Kendo().TabStrip()
@@ -33,17 +33,18 @@ tabstrip.Add().Text("Overview")
                     </div>
                 </div>
             </div>
-            @*<h4 class="glyphicon glyphicon-info-sign clearfix">Permissible for use by: @Model.SoftwarePolicy.PolicyType</h4>*@
-        
-
         @Html.Partial("_SoftwarePolicies")
     </text>);
-    tabstrip.Add().Text("License")
+    tabstrip.Add().Text("Licensensing")
     .Content(@<text>
         <br />
-        
         @Html.Partial("_Licenses")
     </text>);
+    @*tabstrip.Add().Text("Test")
+    .Content(@<text>
+        <br />
+        @Html.Partial("_TestOAuthGrid")
+    </text>);*@
 tabstrip.Add().Text("Permissions")
 .Content(@<text>
         <fieldset class="disabled">

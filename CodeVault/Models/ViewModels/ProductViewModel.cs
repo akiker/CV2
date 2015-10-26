@@ -33,6 +33,7 @@ namespace CodeVault.Models.ViewModels
             PostInstallDependencies = new HashSet<DependencyViewModel>();
             PreInstallDependencies = new HashSet<DependencyViewModel>();
             SoftwarePolicyGroupAssociations = new HashSet<SoftwarePolicyGroupAssociationViewModel>();
+            Licenses = new HashSet<LicenseDetailViewModel>();
             foreach (var dep in product.Dependencies)
             {
                 DependencyViewModel depView = new DependencyViewModel(dep);
@@ -53,6 +54,12 @@ namespace CodeVault.Models.ViewModels
                 {
                     SoftwarePolicyGroupAssociations.Add(group);
                 }
+            }
+
+            foreach (var license in product.Licenses)
+            {
+                LicenseDetailViewModel licView = new LicenseDetailViewModel(license);
+                Licenses.Add(licView);
             }
         }
 
@@ -90,5 +97,7 @@ namespace CodeVault.Models.ViewModels
         public SoftwarePolicyViewModel SoftwarePolicy { get; set; }
 
         public ICollection<SoftwarePolicyGroupAssociationViewModel> SoftwarePolicyGroupAssociations { get; set; }
+
+        public ICollection<LicenseDetailViewModel> Licenses { get; set; }
     }
 }

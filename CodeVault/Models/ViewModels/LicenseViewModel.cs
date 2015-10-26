@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeVault.Models.BaseTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,19 +10,23 @@ namespace CodeVault.Models.ViewModels
     public class LicenseViewModel
     {
         CV2Context db = new CV2Context();
+        IDALFacade facade = new DALFacade();
 
         public LicenseViewModel()
         {
 
         }
 
-        public LicenseViewModel(int productId)
+        public LicenseViewModel(int id)
         {
-            var licenses = db.Licenses.Include("LicenseKeys").Where(p => p.ProductId == productId);
             Licenses = new HashSet<LicenseDetailViewModel>();
-            foreach (var license in licenses)
+            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var query = unitOfWork.LicenseRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductId), "LicenseKeys,LicenseType");
+            var result = query.Select(p => p);
+
+            foreach (var item in result)
             {
-                LicenseDetailViewModel licenseDetailView = new LicenseDetailViewModel(license);
+                LicenseDetailViewModel licenseDetailView = new LicenseDetailViewModel(item);
                 Licenses.Add(licenseDetailView);
             }
         }
@@ -37,8 +42,8 @@ namespace CodeVault.Models.ViewModels
             SKU = viewLicense.LicenseSku;
             Notes = viewLicense.LicenseNotes;
             Owner = viewLicense.LicenseOwner;
-            LicenseKeys = new HashSet<LicenseKey>();
-            LicenseKeys = viewLicense.LicenseKeys;
+            //LicenseKeys = new HashSet<LicenseKey>();
+            //LicenseKeys = viewLicense.LicenseKeys;
             Id = viewLicense.ProductId;
         }
 

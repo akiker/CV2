@@ -12,6 +12,10 @@ namespace CodeVault.Models.BaseTypes
 
         IRepository<ProductPermissionDetail> PermissionDetailRepo { get; }
 
+        IRepository<License> LicenseRepo { get; }
+
+        IRepository<CosmicConfigRecord> ConfigRecordRepo { get; }
+
         /// <summary>
         /// Used to save the changes to the underlying data store
         /// </summary>

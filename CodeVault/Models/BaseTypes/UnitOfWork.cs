@@ -14,6 +14,8 @@ namespace CodeVault.Models.BaseTypes
         private IRepository<Request> requestRepo = null;
         private IRepository<ProductPermission> permissionRepo = null;
         private IRepository<ProductPermissionDetail> permissionDetailRepo = null;
+        private IRepository<License> licenseRepo = null;
+        private IRepository<CosmicConfigRecord> configRecordRepo = null;
 
         #endregion Stores
 
@@ -56,6 +58,26 @@ namespace CodeVault.Models.BaseTypes
                 if (this.permissionDetailRepo == null)
                     this.permissionDetailRepo = new Repository<ProductPermissionDetail>(this.dbContext);
                 return this.permissionDetailRepo;
+            }
+        }
+
+        public IRepository<License> LicenseRepo
+        {
+            get
+            {
+                if (this.licenseRepo == null)
+                    this.licenseRepo = new Repository<License>(this.dbContext);
+                return this.licenseRepo;
+            }
+        }
+
+        public IRepository<CosmicConfigRecord> ConfigRecordRepo
+        {
+            get
+            {
+                if (this.configRecordRepo == null)
+                    this.configRecordRepo = new Repository<CosmicConfigRecord>(this.dbContext);
+                return this.configRecordRepo;
             }
         }
 

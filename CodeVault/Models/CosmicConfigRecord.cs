@@ -1,11 +1,13 @@
 namespace CodeVault.Models
 {
+    using BaseTypes;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System;
 
     [Table("CosmicConfigRecords", Schema = "CV2")]
-    public partial class CosmicConfigRecord
+    public partial class CosmicConfigRecord : EntityBase
     {
         public CosmicConfigRecord()
         {
@@ -23,5 +25,15 @@ namespace CodeVault.Models
         public string CosmicConfigRecordCreatedBy { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
+
+        protected override void RegisterValidationMethods()
+        {
+
+        }
+
+        protected override void ResetProperties()
+        {
+            
+        }
     }
 }
