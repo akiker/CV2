@@ -19,6 +19,8 @@ namespace CodeVault.Controllers
         private CV2Context db = new CV2Context();
         IDALFacade facade = new DALFacade();
 
+        private IEnumerable<ProductViewModel> products; 
+
         public ActionResult Index()
         {
             return View();
@@ -27,7 +29,7 @@ namespace CodeVault.Controllers
         public ActionResult ProductViewModels_Read([DataSourceRequest]DataSourceRequest request)
         {
             IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName),"SoftwarePolicy,Depedencies,Licenses");
             var result = query.Select(p => new ProductViewModel(p));
             
             facade.DisposeUnitOfWork();
@@ -108,7 +110,7 @@ namespace CodeVault.Controllers
             return View(result);
         }
 
-        private bool ContainsInvalid(string value)
+        private static bool ContainsInvalid(string value)
         {
             var invalid = new List<string>();
             invalid.Add("na");
