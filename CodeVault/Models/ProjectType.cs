@@ -1,11 +1,11 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("ProjectTypes", Schema = "CV2")]
-    public partial class ProjectType
+    public class ProjectType
     {
         public ProjectType()
         {

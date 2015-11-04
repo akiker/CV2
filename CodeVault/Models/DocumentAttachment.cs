@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace CodeVault.Models
 {
@@ -11,32 +11,16 @@ namespace CodeVault.Models
     public class DocumentAttachment
     {
         [Key]
-        public int AttachementId
-        {
-            get;
-            set;
-        }
+        public int AttachementId { get; set; }
 
         [Required]
-        public string AttachmentName
-        {
-            get;
-            set;
-        }
+        public string AttachmentName { get; set; }
 
         [Required]
-        public byte[] AttachmentContents
-        {
-            get;
-            set;
-        }
+        public byte[] AttachmentContents { get; set; }
 
         [Required]
-        public string AttachmentExtension
-        {
-            get;
-            set;
-        }
+        public string AttachmentExtension { get; set; }
 
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]

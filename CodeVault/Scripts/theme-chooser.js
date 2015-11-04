@@ -1,30 +1,32 @@
-﻿(function () {
+﻿(function() {
     function cookie(key, value, end, path, domain, secure) {
         if (arguments.length === 1) {
             return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
         }
 
-        if (!key || /^(?:expires|max\-age|path|domain|secure)$/i.test(key)) { return false; }
+        if (!key || /^(?:expires|max\-age|path|domain|secure)$/i.test(key)) {
+            return false;
+        }
         var expires = "";
         if (end) {
             switch (end.constructor) {
-                case Number:
-                    expires = end === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + end;
-                    break;
-                case String:
-                    expires = "; expires=" + end;
-                    break;
-                case Date:
-                    expires = "; expires=" + end.toUTCString();
-                    break;
+            case Number:
+                expires = end === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + end;
+                break;
+            case String:
+                expires = "; expires=" + end;
+                break;
+            case Date:
+                expires = "; expires=" + end.toUTCString();
+                break;
             }
         }
         document.cookie = encodeURIComponent(key) + "=" + encodeURIComponent(value) + expires + (domain ? "; domain=" + domain : "") + (path ? "; path=" + path : "") + (secure ? "; secure" : "");
         return true;
     }
 
-    $(document).ready(function () {
-        ThemeChooser.publishTheme(window.kendoTheme);
+    $(document).ready(function() {
+        themeChooser.publishTheme(window.kendoTheme);
     });
 
     var doc = document,
@@ -43,8 +45,8 @@
         },
         skinRegex = /kendo\.[\w\-]+(\.min)?\.(less|css)/i;
 
-    var Details = kendo.ui.Widget.extend({
-        init: function (element, options) {
+    var details = kendo.ui.Widget.extend({
+        init: function(element, options) {
             kendo.ui.Widget.fn.init.call(this, element, options);
 
             this._summary = this.element.find(".tc-activator")
@@ -57,7 +59,7 @@
         options: {
             name: "Details"
         },
-        toggle: function () {
+        toggle: function() {
             var options = this.options;
             var show = this._container.is(":visible");
             var animation = kendo.fx(this._container).expand("vertical");
@@ -68,10 +70,10 @@
         }
     });
 
-    kendo.ui.plugin(Details);
+    kendo.ui.plugin(details);
 
-    var ThemeChooser = kendo.ui.ListView.extend({
-        init: function (element, options) {
+    var themeChooser = kendo.ui.ListView.extend({
+        init: function(element, options) {
             kendo.ui.ListView.fn.init.call(this, element, options);
 
             this.bind("change", this._updateTheme);
@@ -82,17 +84,17 @@
             selectable: true,
             value: ""
         },
-        dataItem: function (element) {
+        dataItem: function(element) {
             var uid = $(element).closest("[data-uid]").attr("data-uid");
             return this.dataSource.getByUid(uid);
         },
-        _updateTheme: function (e) {
+        _updateTheme: function(e) {
             // make the item available to event listeners
             e.item = this.dataItem(this.select());
 
             // change theme
             var themeName = e.item.value;
-            var commonFile = ThemeChooser.getCommonUrl();
+            var commonFile = themeChooser.getCommonUrl();
 
             if (/material/i.test(themeName) && !/material/i.test(commonFile)) {
                 commonFile = "common-material";
@@ -108,10 +110,10 @@
                 commonFile = "common";
             }
 
-            ThemeChooser.changeThemePair(themeName, commonFile, true)
+            themeChooser.changeThemePair(themeName, commonFile, true)
                 .then(proxy(this.trigger, this, "transition"));
         },
-        value: function (value) {
+        value: function(value) {
             if (!arguments.length) {
                 var dataItem = this.dataItem(this.select());
                 return dataItem.name;
@@ -128,7 +130,7 @@
         }
     });
 
-    var ThemeChooserViewModel = kendo.observable({
+    var themeChooserViewModel = kendo.observable({
         themes: [
             { value: "default", name: "Default", colors: ["#ef6f1c", "#e24b17", "#5a4b43"] },
             { value: "blueopal", name: "Blue Opal", colors: ["#076186", "#7ed3f6", "#94c0d2"] },
@@ -160,21 +162,21 @@
         selectedSize: window.kendoCommonFile
     });
 
-    kendo.ui.plugin(ThemeChooser);
-    window.ThemeChooserViewModel = ThemeChooserViewModel;
+    kendo.ui.plugin(themeChooser);
+    window.ThemeChooserViewModel = themeChooserViewModel;
 
-    $(document).ready(function () {
-        kendo.bind($("[data-rel=themechooser]"), ThemeChooserViewModel);
+    $(document).ready(function() {
+        kendo.bind($("[data-rel=themechooser]"), themeChooserViewModel);
     });
 
-    extend(ThemeChooser, {
-        preloadStylesheet: function (file, callback) {
+    extend(themeChooser, {
+        preloadStylesheet: function(file, callback) {
             var deferred = $.Deferred();
             var element = $("<link rel='stylesheet' media='print' href='" + file + "' />");
             element.appendTo("head");
             deferred.then(callback);
 
-            setTimeout(function () {
+            setTimeout(function() {
                 deferred.resolve();
                 element.remove();
             }, 100);
@@ -182,39 +184,39 @@
             return deferred.promise();
         },
 
-        getCurrentCommonLink: function () {
-            return $("head link").filter(function () {
+        getCurrentCommonLink: function() {
+            return $("head link").filter(function() {
                 return (/kendo\.common/gi).test(this.href);
             });
         },
 
-        getCurrentThemeLink: function () {
-            return $("head link").filter(function () {
+        getCurrentThemeLink: function() {
+            return $("head link").filter(function() {
                 return (/kendo\./gi).test(this.href) && !(/common|rtl|dataviz|mobile/gi).test(this.href);
             });
         },
 
-        getCommonUrl: function (common) {
-            var currentCommonUrl = ThemeChooser.getCurrentCommonLink().attr("href");
+        getCommonUrl: function(common) {
+            var currentCommonUrl = themeChooser.getCurrentCommonLink().attr("href");
 
             return currentCommonUrl.replace(skinRegex, "kendo." + common + "$1.$2");
         },
 
-        getThemeUrl: function (themeName) {
-            var currentThemeUrl = ThemeChooser.getCurrentThemeLink().attr("href");
+        getThemeUrl: function(themeName) {
+            var currentThemeUrl = themeChooser.getCurrentThemeLink().attr("href");
 
             return currentThemeUrl.replace(skinRegex, "kendo." + themeName + "$1.$2");
         },
 
-        replaceCommon: function (commonName) {
-            var newCommonUrl = ThemeChooser.getCommonUrl(commonName),
-                themeLink = ThemeChooser.getCurrentCommonLink();
+        replaceCommon: function(commonName) {
+            var newCommonUrl = themeChooser.getCommonUrl(commonName),
+                themeLink = themeChooser.getCurrentCommonLink();
 
-            ThemeChooser.updateLink(themeLink, newCommonUrl);
+            themeChooser.updateLink(themeLink, newCommonUrl);
             cookie("commonFile", commonName, Infinity, "/");
         },
 
-        updateLink: function (link, url) {
+        updateLink: function(link, url) {
             var exampleElement = $("#example");
             var less = window.less;
             var isLess = /\.less$/.test(link.attr("href"));
@@ -225,7 +227,7 @@
             if (isLess) {
                 $("head style[id^='less']").remove();
 
-                less.sheets = $("head link[href$='.less']").map(function () {
+                less.sheets = $("head link[href$='.less']").map(function() {
                     return this;
                 });
 
@@ -237,19 +239,19 @@
             }
         },
 
-        replaceTheme: function (themeName) {
-            var newThemeUrl = ThemeChooser.getThemeUrl(themeName),
+        replaceTheme: function(themeName) {
+            var newThemeUrl = themeChooser.getThemeUrl(themeName),
                 oldThemeName = $(doc).data("kendoSkin"),
-                themeLink = ThemeChooser.getCurrentThemeLink();
+                themeLink = themeChooser.getCurrentThemeLink();
 
-            ThemeChooser.updateLink(themeLink, newThemeUrl);
+            themeChooser.updateLink(themeLink, newThemeUrl);
             $(doc.documentElement).removeClass("k-" + oldThemeName).addClass("k-" + themeName);
 
-            ThemeChooser.publishTheme(themeName);
+            themeChooser.publishTheme(themeName);
             cookie("theme", themeName, Infinity, "/");
         },
 
-        publishTheme: function (themeName) {
+        publishTheme: function(themeName) {
             var themable = ["Chart", "TreeMap", "Diagram", "StockChart", "Sparkline", "RadialGauge", "LinearGauge"];
 
             if (kendo.dataviz && themeName) {
@@ -269,15 +271,15 @@
             $("#example").trigger("kendo:skinChange");
         },
 
-        currentlyUsing: function (href) {
+        currentlyUsing: function(href) {
             if (/common/.test(href)) {
-                return ThemeChooser.getCurrentCommonLink().attr("href") == href;
+                return themeChooser.getCurrentCommonLink().attr("href") == href;
             } else {
-                return ThemeChooser.getCurrentThemeLink().attr("href") == href;
+                return themeChooser.getCurrentThemeLink().attr("href") == href;
             }
         },
 
-        animateCssChange: function (options) {
+        animateCssChange: function(options) {
             options = $.extend({ complete: $.noop, replace: $.noop }, options);
 
             var prefetch = options.prefetch;
@@ -286,25 +288,25 @@
                 prefetch = [prefetch];
             }
 
-            prefetch = $.grep(prefetch, function (x) {
-                return !ThemeChooser.currentlyUsing(x);
+            prefetch = $.grep(prefetch, function(x) {
+                return !themeChooser.currentlyUsing(x);
             });
 
             if (!prefetch.length) {
                 return;
             }
 
-            $.when.apply($, $.map(prefetch, ThemeChooser.preloadStylesheet)).then(function () {
+            $.when.apply($, $.map(prefetch, themeChooser.preloadStylesheet)).then(function() {
                 var example = $("#example");
 
                 example.kendoStop().kendoAnimate(extend({}, animation.hide, {
-                    complete: function (element) {
+                    complete: function(element) {
                         if (element[0] == example[0]) {
                             example.css("visibility", "hidden");
 
                             options.replace();
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 example
                                     .css("visibility", "visible")
                                     .kendoStop()
@@ -322,47 +324,47 @@
             });
         },
 
-        changeCommon: function (commonName, animate) {
-            ThemeChooser.animateCssChange({
-                prefetch: ThemeChooser.getCommonUrl(commonName),
-                replace: function () {
-                    ThemeChooser.replaceCommon(commonName);
+        changeCommon: function(commonName, animate) {
+            themeChooser.animateCssChange({
+                prefetch: themeChooser.getCommonUrl(commonName),
+                replace: function() {
+                    themeChooser.replaceCommon(commonName);
                 }
             });
         },
 
-        changeTheme: function (themeName, animate, complete) {
+        changeTheme: function(themeName, animate, complete) {
             // Set transparent background to the chart area.
             extend(kendo.dataviz.ui.themes[themeName].chart, { chartArea: { background: "transparent" } });
 
             if (animate) {
-                ThemeChooser.animateCssChange({
-                    prefetch: ThemeChooser.getThemeUrl(themeName),
-                    replace: function () {
-                        ThemeChooser.replaceTheme(themeName);
+                themeChooser.animateCssChange({
+                    prefetch: themeChooser.getThemeUrl(themeName),
+                    replace: function() {
+                        themeChooser.replaceTheme(themeName);
                     },
                     complete: complete
                 });
             } else {
-                ThemeChooser.replaceTheme(themeName);
+                themeChooser.replaceTheme(themeName);
             }
         },
 
-        changeThemePair: function (themeName, commonName, animate) {
+        changeThemePair: function(themeName, commonName, animate) {
             var deferred = $.Deferred();
 
-            ThemeChooser.animateCssChange({
+            themeChooser.animateCssChange({
                 prefetch: [
-                    ThemeChooser.getCommonUrl(commonName),
-                    ThemeChooser.getThemeUrl(themeName)
+                    themeChooser.getCommonUrl(commonName),
+                    themeChooser.getThemeUrl(themeName)
                 ],
-                replace: function () {
+                replace: function() {
                     window.kendoTheme = themeName;
                     window.kendoCommonFile = commonName;
-                    ThemeChooser.replaceCommon(commonName);
-                    ThemeChooser.replaceTheme(themeName);
+                    themeChooser.replaceCommon(commonName);
+                    themeChooser.replaceTheme(themeName);
                 },
-                complete: function () {
+                complete: function() {
                     deferred.resolve();
                 }
             });
@@ -371,5 +373,5 @@
         }
     });
 
-    window.kendoThemeChooser = ThemeChooser;
+    window.kendoThemeChooser = themeChooser;
 })();

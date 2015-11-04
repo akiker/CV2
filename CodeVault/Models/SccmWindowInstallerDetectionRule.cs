@@ -1,8 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class SccmWindowInstallerDetectionRule : SccmRule
+    public class SccmWindowInstallerDetectionRule : SccmRule
     {
         [Required]
         public string ProductCode { get; set; }

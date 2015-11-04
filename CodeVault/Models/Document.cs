@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("Documents", Schema = "CV2")]
-    public partial class Document
+    public class Document
     {
         public Document()
         {
@@ -45,10 +45,6 @@ namespace CodeVault.Models
 
         public virtual ICollection<KeyWord> KeyWords { get; set; }
 
-        public virtual ICollection<DocumentAttachment> Attachments
-        {
-            get;
-            set;
-        }
+        public virtual ICollection<DocumentAttachment> Attachments { get; set; }
     }
 }

@@ -1,10 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("LicenseTypes", Schema = "CV2")]
-    public partial class LicenseType
+    public class LicenseType
     {
         [Key]
         public int LicenseTypeId { get; set; }

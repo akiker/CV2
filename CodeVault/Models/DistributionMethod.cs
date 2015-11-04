@@ -5,6 +5,6 @@ namespace CodeVault.Models
         Manual = 0,
         Sccm = 1,
         Cosmic = 2,
-        OS = 3
+        Os = 3
     }
 }

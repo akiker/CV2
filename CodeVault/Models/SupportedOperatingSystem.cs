@@ -1,10 +1,10 @@
-﻿namespace CodeVault.Models
-{
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace CodeVault.Models
+{
     [Table("SupportedOperatingSystems", Schema = "CV2")]
-    public partial class SupportedOperatingSystem
+    public class SupportedOperatingSystem
     {
         [Key]
         public int SupportedOperatingSystemId { get; set; }
@@ -13,7 +13,7 @@
         public string SupportedOperatingSystemName { get; set; }
 
         [Required]
-        public OSBitness OSBitness { get; set; }
+        public OsBitness OsBitness { get; set; }
 
         public int ProductId { get; set; }
 

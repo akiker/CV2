@@ -1,33 +1,49 @@
-﻿using CodeVault.Models;
+﻿using System.Data.Entity;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using CodeVault.Models;
 using CodeVault.Models.BaseTypes;
-using CodeVault.Models.ViewModels;
+using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace CodeVault.Controllers
 {
     public class LicenseViewModelController : Controller
     {
-        IDALFacade facade = new DALFacade();
+        private readonly Cv2Context _db;
+        public LicenseViewModelController()
+        {
+            _db = new Cv2Context();
+        }
+
         // GET: LicenseViewModel
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult LicenseViewModel_Read([DataSourceRequest]DataSourceRequest request, int id)
+        public async Task<ActionResult> LicenseViewModel_Read([DataSourceRequest] DataSourceRequest request, int id)
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.LicenseRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductId),"LicenseKeys,LicenseType");
-            var result = query.Select(p => new LicenseViewModel(id));
-            facade.DisposeUnitOfWork();
-
+            var query = await _db.Licenses.Where(p => p.ProductId == id).ToListAsync();
+            var result = from l in query
+                         select new LicenseViewModel()
+                         {
+                             Id = l.ProductId,
+                             LicenseType = l.LicenseType.LicenseTypeName,
+                             Notes = l.LicenseNotes,
+                             Owner = l.LicenseOwner,
+                             Sku = l.LicenseSku
+                         };
             return Json(result.ToDataSourceResult(request));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

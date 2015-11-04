@@ -1,17 +1,16 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using CodeVault.Models.BaseTypes;
+using EntityFramework.Triggers;
+using Newtonsoft.Json;
+
 namespace CodeVault.Models
 {
-    using BaseTypes;
-    using EntityFramework.Triggers;
-    using Newtonsoft.Json;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Runtime.Serialization;
-    using System;
-
     [JsonObject(IsReference = true)]
     [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/CodeVault.Models")]
     [Table("Licenses", Schema = "CV2")]
-    public partial class License : EntityBase, ITriggerable
+    public class License : EntityBase, ITriggerable
     {
         public License()
         {
@@ -46,12 +45,10 @@ namespace CodeVault.Models
 
         protected override void RegisterValidationMethods()
         {
-            
         }
 
         protected override void ResetProperties()
         {
-            
         }
     }
 }

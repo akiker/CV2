@@ -1,75 +1,114 @@
-﻿@model CodeVault.Models.ViewModels.PermissionViewModel
+﻿@model CodeVault.ViewModels.PermissionViewModel
+
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Details</h2>
 
+
 <div>
+
     <h4>PermissionViewModel</h4>
-    <hr />
+
+    <hr/>
+
     <dl class="dl-horizontal">
+
         <dt>
+
             @Html.DisplayNameFor(model => model.ElevatedRightsRequired)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.ElevatedRightsRequired)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsBasic)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.RequiresAdminRightsBasic)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsAdvanced)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.RequiresAdminRightsAdvanced)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsUpdate)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.RequiresAdminRightsUpdate)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.LaVerified)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.LaVerified)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.WorksWithLa)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.WorksWithLa)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.DoesNotWorkWithLa)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.DoesNotWorkWithLa)
         </dd>
 
+
     </dl>
+
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
+
     @Html.ActionLink("Back to List", "Index")
 </p>

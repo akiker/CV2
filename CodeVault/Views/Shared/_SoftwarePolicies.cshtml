@@ -1,66 +1,65 @@
-﻿
+﻿@using CodeVault.ViewModels
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">Group Association(s)</div>
     </div>
     <div class="panel-body">
-        @(Html.Kendo().Grid<CodeVault.Models.ViewModels.SoftwarePolicyGroupAssociationViewModel>()
-      .Name("gridSoftwarePolicies")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.DisplayName);
-          columns.Bound(c => c.Description);
-          columns.Bound(c => c.GroupName);
-          columns.Bound(c => c.SupportLevel);
-      })
-      .ColumnMenu()
-      .Resizable(resizing => resizing.Columns(true))
-      .Pageable()
-      .Navigatable()
-      .Selectable(selectable =>
-      {
-          selectable.Mode(GridSelectionMode.Single);
-          selectable.Type(GridSelectionType.Row);
-      })
-      .Sortable(sortable =>
-      {
-          sortable.SortMode(GridSortMode.SingleColumn);
-      })
-      .Filterable()
-      .Scrollable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Read(read => read.Action("SoftwarePolicyGroupAssociationViewModel_Read", "Software", new { id = Model.Id }))
-      )
-        )
+        @(Html.Kendo().Grid<SoftwarePolicyGroupAssociationViewModel>()
+              .Name("gridSoftwarePolicies")
+              .Columns(columns =>
+              {
+                  columns.Bound(c => c.DisplayName);
+                  columns.Bound(c => c.Description);
+                  columns.Bound(c => c.GroupName);
+                  columns.Bound(c => c.SupportLevel);
+              })
+              .ColumnMenu()
+              .Resizable(resizing => resizing.Columns(true))
+              .Pageable()
+              .Navigatable()
+              .Selectable(selectable =>
+              {
+                  selectable.Mode(GridSelectionMode.Single);
+                  selectable.Type(GridSelectionType.Row);
+              })
+              .Sortable(sortable => { sortable.SortMode(GridSortMode.SingleColumn); })
+              .Filterable()
+              .Scrollable()
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Read(read => read.Action("SoftwarePolicyGroupAssociationViewModel_Read", "SoftwarePolicyGroupAssociationViewModel", new {id = Model.Id}))
+              )
+              )
     </div>
 </div>
 
 <div class="panel panel-default" id="accordian">
     <div class="panel-heading">
-        <div class="panel-title"><span class="glyphicon glyphicon-question-sign"></span> <a data-toggle="collapse" data-parent="#accordian" href="#policyHelp">Help - Personal Software Policy Definitions</a></div>
+        <div class="panel-title">
+            <span class="glyphicon glyphicon-question-sign"></span> <a data-toggle="collapse" data-parent="#accordian" href="#policyHelp">Help - Personal Software Policy Definitions</a>
+        </div>
     </div>
     <div id="policyHelp" class="panel-collapse collapse">
         <div class="panel-body">
             <h4>All software products undergo a review and are placed into one of the following categories:</h4>
-            <br />
+            <br/>
             <dl>
                 <dt>WFDC</dt>
-                <dd>Products in this category are part of the WFDC image and <strong>approved</strong> for use across the enterprise.<br /><em>(Examples: Internet Explorer, Microsoft Office, etc.)</em></dd>
+                <dd>Products in this category are part of the WFDC image and <strong>approved</strong> for use across the enterprise.<br/><em>(Examples: Internet Explorer, Microsoft Office, etc.)</em></dd>
                 <dt>WFA</dt>
-                <dd>Products in this category are added to the base WFDC image and <strong>approved</strong> for use for all Wells Fargo Advisors users.<br /><em>(Examples: Adobe Reader, Thomson Reuters SmartStation, etc.)</em></dd>
+                <dd>Products in this category are added to the base WFDC image and <strong>approved</strong> for use for all Wells Fargo Advisors users.<br/><em>(Examples: Adobe Reader, Thomson Reuters SmartStation, etc.)</em></dd>
                 <dt>LOB Standard</dt>
-                <dd>Products in this category are <stong>approved</stong> for particular LOB groups or channels.<br /><em>(Examples: Genesys Universal Softphone,SwiftView Viewer, etc.)</em></dd>
+                <dd>Products in this category are <stong>approved</stong> for particular LOB groups or channels.<br/><em>(Examples: Genesys Universal Softphone,SwiftView Viewer, etc.)</em></dd>
                 <dt>LOB Optional</dt>
-                <dd>Products in this category are <stong>approved</stong> for particular LOB groups or channels, but not automatically granted to all members of the group due to licensing or managements discretion.<br /><em>(Examples: Microsoft Project, Microsoft Visio, etc.)</em></dd>
+                <dd>Products in this category are <stong>approved</stong> for particular LOB groups or channels, but not automatically granted to all members of the group due to licensing or managements discretion.<br/><em>(Examples: Microsoft Project, Microsoft Visio, etc.)</em></dd>
                 <dt>LOB Non-Standard</dt>
-                <dd>Products in this category are not IT owned or fully supported, but have been <strong>approved</strong> for <strong>limited</strong> use within LOB groups or channels. <br />These products are often not packaged and require a technician dispatch for installation and a MAC request for an appropriate license.<br /><em>(Examples: Principle Morningstar, Adobe eLearning Suite, etc.)</em></dd>
+                <dd>Products in this category are not IT owned or fully supported, but have been <strong>approved</strong> for <strong>limited</strong> use within LOB groups or channels. <br/>These products are often not packaged and require a technician dispatch for installation and a MAC request for an appropriate license.<br/><em>(Examples: Principle Morningstar, Adobe eLearning Suite, etc.)</em></dd>
                 <dt>LOB By-Exception</dt>
-                <dd>Products in this category are not IT owned or supported and <strong>not approved</strong> for use within LOB groups or channels, but may be requested on an exception basis with PSP board approval.<br />These products are often not packaged and require a technician dispatch for installation and MAC request for an appropriate license.<br /><em>(Examples: Schneider Electric, TAC 1, etc.)</em></dd>
+                <dd>Products in this category are not IT owned or supported and <strong>not approved</strong> for use within LOB groups or channels, but may be requested on an exception basis with PSP board approval.<br/>These products are often not packaged and require a technician dispatch for installation and MAC request for an appropriate license.<br/><em>(Examples: Schneider Electric, TAC 1, etc.)</em></dd>
                 <dt>LOB Restricted</dt>
-                <dd>Products in this category are not IT owned or supported and <strong>not approved</strong> for use within LOB groups or channels.<br />These products have been reviewed and denied for use within the environment due to compliance, legal, or security conceerns.</dd>
+                <dd>Products in this category are not IT owned or supported and <strong>not approved</strong> for use within LOB groups or channels.<br/>These products have been reviewed and denied for use within the environment due to compliance, legal, or security conceerns.</dd>
             </dl>
         </div>
-    </div> 
+    </div>
 </div>
 <script src="~/Scripts/bootstrap.min.js"></script>

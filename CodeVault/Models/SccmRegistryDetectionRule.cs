@@ -1,8 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class SccmRegistryDetectionRule : SccmRule
+    public class SccmRegistryDetectionRule : SccmRule
     {
         [Required]
         public RegistryHiveType RegistryHive { get; set; }

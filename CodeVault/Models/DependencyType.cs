@@ -4,10 +4,8 @@ namespace CodeVault.Models
 {
     public enum DependencyType
     {
-        [Description("Pre-Install")]
-        PreInstall = 0,
+        [Description("Pre-Install")] PreInstall = 0,
 
-        [Description("Post-Install")]
-        PostInstall = 1
+        [Description("Post-Install")] PostInstall = 1
     }
 }

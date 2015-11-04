@@ -1,11 +1,10 @@
-﻿
-namespace CodeVault.Models
+﻿namespace CodeVault.Models
 {
     public static class InstallConditionExtension
     {
         public static SystemRequirement CreateNewSystemRequirementWithDefaults()
         {
-            var systemRequirement = new SystemRequirement()
+            var systemRequirement = new SystemRequirement
             {
                 MinimumColorQuality = string.Empty,
                 MinimumPhysicalMemory = string.Empty,
@@ -17,23 +16,23 @@ namespace CodeVault.Models
 
         public static SoftwareRequirement CreateNewSoftwareRequirementWithDefaults()
         {
-            var softwareRequirement = new SoftwareRequirement()
+            var softwareRequirement = new SoftwareRequirement
             {
                 InternetExplorerVersion = string.Empty,
-                IISVersion = string.Empty,
+                IisVersion = string.Empty,
                 DotNetVersion = string.Empty,
                 AdobeReaderVersion = string.Empty,
                 JavaRuntimeVersion = string.Empty,
-                JDKVersion = string.Empty,
+                JdkVersion = string.Empty,
                 DirectXVersion = string.Empty,
                 InstalledOfficeApplicationName = string.Empty,
                 InstalledOfficeApplicationVersion = string.Empty,
-                SQLExpressVersion = string.Empty,
-                SQLCompactVersion = string.Empty,
-                VSTORuntimeVersion = string.Empty,
-                InstalledOffice2003PIA = string.Empty,
-                InstalledOffice2007PIA = string.Empty,
-                InstalledOffice2010PIA = string.Empty,
+                SqlExpressVersion = string.Empty,
+                SqlCompactVersion = string.Empty,
+                VstoRuntimeVersion = string.Empty,
+                InstalledOffice2003Pia = string.Empty,
+                InstalledOffice2007Pia = string.Empty,
+                InstalledOffice2010Pia = string.Empty,
                 OfficeSharedInteropAssembly = string.Empty,
                 PowerShellVersion = string.Empty
             };
@@ -42,19 +41,19 @@ namespace CodeVault.Models
 
         public static OsRequirement CreateNewOperatingSystemRequirementWithDefaults()
         {
-            var operatingSystemRequirement = new OsRequirement()
-             {
-                 WindowsXP_32Bit = true,
-                 WindowsVista_32Bit = true,
-                 Windows7_32Bit = true,
-                 Windows8_32Bit = true,
-                 Windows81_32Bit = true,
-                 WindowsXP_64Bit = true,
-                 WindowsVista_64Bit = true,
-                 Windows7_64Bit = true,
-                 Windows8_64Bit = true,
-                 Windows81_64Bit = true
-             };
+            var operatingSystemRequirement = new OsRequirement
+            {
+                WindowsXp32Bit = true,
+                WindowsVista32Bit = true,
+                Windows732Bit = true,
+                Windows832Bit = true,
+                Windows8132Bit = true,
+                WindowsXp64Bit = true,
+                WindowsVista64Bit = true,
+                Windows764Bit = true,
+                Windows864Bit = true,
+                Windows8164Bit = true
+            };
             return operatingSystemRequirement;
         }
     }

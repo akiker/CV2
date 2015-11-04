@@ -6,15 +6,19 @@
         <div class="col-xs-12 col-md-8 placeholder">
             <div class="media">
                 <div class="media-left media-middle">
-                    <a href="#"><img class="media-object" src="~/Images/stock_tech_selection_290x179.png" alt="Wells Fargo Advisors" /></a>
+                    <a href="#">
+                        <img class="media-object" src="~/Images/stock_tech_selection_290x179.png" alt="Wells Fargo Advisors"/>
+                    </a>
                 </div>
                 <div class="media-body">
                     <h4>Welcome to CodeVault!</h4>
-                    <h5><strong>Your one stop shop for Service Delivery Team engagement</strong></h5>
+                    <h5>
+                        <strong>Your one stop shop for Service Delivery Team engagement</strong>
+                    </h5>
                     <p>Use the menu and links to search for software and discover line of business configuration records.</p>
                 </div>
             </div>
-            <br />
+            <br/>
             <div class="row">
                 <div class="col-xs-12 col-md-8">
                     <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
@@ -31,14 +35,11 @@
                     <div class="panel-body">
 
                         @( Html.Kendo().DropDownList().Name("kdropdownlist")
-                            .DataTextField("Text")
-                            .DataValueField("Value")
-                            .DataSource(source =>
-                            {
-                                source.Read(read => { read.Action("GetHowtoTopics", "Home"); });
-                            })
-                            .HtmlAttributes(new { style = "width:100%;" })
-                        )
+                               .DataTextField("Text")
+                               .DataValueField("Value")
+                               .DataSource(source => { source.Read(read => { read.Action("GetHowtoTopics", "Home"); }); })
+                               .HtmlAttributes(new {style = "width:100%;"})
+                              )
 
                     </div>
                 </div>
@@ -49,16 +50,16 @@
                         <h5 class="panel-title"><span class="glyphicon glyphicon-star-empty"></span> Shortcuts</h5>
                     </div>
                     <div class="panel-body">
-                        <a href="http://cosmic.hosting.wellsfargo.com/default.aspx" title="COSMIC">COSMIC</a><br />
-                        <a href="http://fossware.wellsfargo.com:7101/oer/cmee/index.jsp" title="Free and Open Source Software">FOSSWARE</a><br />
-                        <a href="https://lancentral.wellsfargo.com/LC2/">LAN Central</a><br />
-                        <a href="https://procurement.portal.wellsfargo.com/portal/site/Procurementsite/">Procurement</a><br />
-                        <a href="http://portal.teamworks.wellsfargo.com/view/Pages/default.aspx">Teamworks</a><br />
-                        <a href="http://tigportal.homestead.wellsfargo.com/euc/DTSD2/EUC-SDS/Team-SDS/Lists/WFDCFileStaging/Default View.aspx">WFDC File Staging Calendar</a><br />
-                        <a href="http://wrmt.hosting.wellsfargo.com/" title="Only to be used for TOG/TIS resources, LOBs should request via the MAC using a TRF form.">Workstation Rights Management Tool (WRMT)</a><br />
-                        <a href="http://rc.wellsfargo.com/RequestCenter">Request Center</a><br />
-                        <a href="http://tis.homestead.wellsfargo.com/sites/ssdt/det/wfademp/wfade/codevault/Lists/Lab Management/AllItems.aspx">Lab Management</a><br />
-                        <a href="http://tis.homestead.wellsfargo.com/sites/ssdt/det/wfademp/wfade/products/Wiki Pages/Home.aspx">Life Cycle Management</a><br />
+                        <a href="http://cosmic.hosting.wellsfargo.com/default.aspx" title="COSMIC">COSMIC</a><br/>
+                        <a href="http://fossware.wellsfargo.com:7101/oer/cmee/index.jsp" title="Free and Open Source Software">FOSSWARE</a><br/>
+                        <a href="https://lancentral.wellsfargo.com/LC2/">LAN Central</a><br/>
+                        <a href="https://procurement.portal.wellsfargo.com/portal/site/Procurementsite/">Procurement</a><br/>
+                        <a href="http://portal.teamworks.wellsfargo.com/view/Pages/default.aspx">Teamworks</a><br/>
+                        <a href="http://tigportal.homestead.wellsfargo.com/euc/DTSD2/EUC-SDS/Team-SDS/Lists/WFDCFileStaging/Default View.aspx">WFDC File Staging Calendar</a><br/>
+                        <a href="http://wrmt.hosting.wellsfargo.com/" title="Only to be used for TOG/TIS resources, LOBs should request via the MAC using a TRF form.">Workstation Rights Management Tool (WRMT)</a><br/>
+                        <a href="http://rc.wellsfargo.com/RequestCenter">Request Center</a><br/>
+                        <a href="http://tis.homestead.wellsfargo.com/sites/ssdt/det/wfademp/wfade/codevault/Lists/Lab Management/AllItems.aspx">Lab Management</a><br/>
+                        <a href="http://tis.homestead.wellsfargo.com/sites/ssdt/det/wfademp/wfade/products/Wiki Pages/Home.aspx">Life Cycle Management</a><br/>
                     </div>
                 </div>
             </div>
@@ -66,17 +67,16 @@
     </div>
 </div>
 <div class="container">
-    <hr style="background-color: #CE4C00; height: 2px" />
+    <hr style="background-color: #CE4C00; height: 2px"/>
     <div class="row">
         <div class="col-md-4">
-            <h3 style="color:#78A22F;">Service Delivery Team News</h3>
+            <h3 style="color: #78A22F;">Service Delivery Team News</h3>
             <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
         </div>
         <div class="col-md-4">
-            <h3 style="color:#78A22F;">Announcements</h3>
+            <h3 style="color: #78A22F;">Announcements</h3>
             <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
         </div>
     </div>
 </div>
 @Scripts.Render("~/bundles/bootstrap")
-

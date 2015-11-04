@@ -1,10 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("ProductContacts", Schema = "CV2")]
-    public partial class ProductContact
+    public class ProductContact
     {
         [Key]
         public int ProductContactId { get; set; }

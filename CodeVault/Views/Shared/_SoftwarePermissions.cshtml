@@ -1,38 +1,40 @@
-﻿
+﻿@using CodeVault.ViewModels
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">Permission Details</div>
-    </div>
-    <div class="panel-body">
-        @(Html.Kendo().Grid<CodeVault.Models.ViewModels.PermissionDetailViewModel>()
-      .Name("gridPermissionDetails")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.Permission);
-          columns.Bound(c => c.Type);
-          columns.Bound(c => c.GroupUser);
-          columns.Bound(c => c.Location);
-      })
-      .ColumnMenu()
-      .Resizable(resizing => resizing.Columns(true))
-      .Pageable()
-      .Navigatable()
-      .Selectable(selectable =>
-      {
-          selectable.Mode(GridSelectionMode.Single);
-          selectable.Type(GridSelectionType.Row);
-      })
-      .Sortable(sortable =>
-      {
-          sortable.SortMode(GridSortMode.SingleColumn);
-      })
-      .Filterable()
-      .Scrollable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Read(read => read.Action("PermissionDetailViewModels_Read", "PermissionDetailsViewModels", new { productId = Model.Id }))
-      )
-        )
-    </div>
-</div>
 
+    <div class="panel-heading">
+
+        <div class="panel-title">Permission Details</div>
+
+    </div>
+
+    <div class="panel-body">
+
+        @(Html.Kendo().Grid<PermissionDetailViewModel>()
+              .Name("gridPermissionDetails")
+              .Columns(columns =>
+              {
+                  columns.Bound(c => c.Permission);
+                  columns.Bound(c => c.Type);
+                  columns.Bound(c => c.GroupUser);
+                  columns.Bound(c => c.Location);
+              })
+              .ColumnMenu()
+              .Resizable(resizing => resizing.Columns(true))
+              .Pageable()
+              .Navigatable()
+              .Selectable(selectable =>
+              {
+                  selectable.Mode(GridSelectionMode.Single);
+                  selectable.Type(GridSelectionType.Row);
+              })
+              .Sortable(sortable => { sortable.SortMode(GridSortMode.SingleColumn); })
+              .Filterable()
+              .Scrollable()
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Read(read => read.Action("PermissionDetailViewModels_Read", "PermissionDetailsViewModels", new {productId = Model.Id}))
+              )
+              )
+    </div>
+
+</div>

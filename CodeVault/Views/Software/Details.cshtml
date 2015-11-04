@@ -1,4 +1,4 @@
-﻿@model CodeVault.Models.ViewModels.ProductViewModel
+﻿@model CodeVault.ViewModels.ProductViewModel
 @{
     ViewBag.Title = "Software Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,92 +8,84 @@
     <form class="form-horizontal" role="form">
         <div class="form-group">
             @(Html.Kendo().TabStrip()
-.Name("tabstrip")
-.Scrollable(false)
-.Items(tabstrip =>
-{
-tabstrip.Add().Text("Overview")
-    .Selected(true)
-    .Content(@<text>
-            @Html.Partial("_ProductDetails")
-            @Html.Partial("_ProductClassification")
-    </text>);
-    tabstrip.Add().Text("Dependencies")
-    .Content(@<text>
-        @Html.Partial("_PreInstallDependencies")
-        @Html.Partial("_PostInstallDependencies")
-    </text>);
-    tabstrip.Add().Text("Personal Software Policy")
-    .Content(@<text>
-        <br />
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        Who is allowed to use this software? @Model.SoftwarePolicy.PolicyType
-                    </div>
-                </div>
-            </div>
-        @Html.Partial("_SoftwarePolicies")
-    </text>);
-    tabstrip.Add().Text("Licensensing")
-    .Content(@<text>
-        <br />
-        @Html.Partial("_Licenses")
-    </text>);
-    @*tabstrip.Add().Text("Test")
-    .Content(@<text>
-        <br />
-        @Html.Partial("_TestOAuthGrid")
-    </text>);*@
-tabstrip.Add().Text("Permissions")
-.Content(@<text>
-        <fieldset class="disabled">
-            <div class="k-form-checkbox-row" style="padding-top:1em;">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-title">Administrative Rights</div>
-                    </div>
-                    <div class="panel-body">
-                        @Html.Kendo().CheckBox().Name("elevatedRightsRequired").Label("Elevated Rights Required").Checked(Model.Permissions.ElevatedRightsRequired).HtmlAttributes(new { style = "readonly" })
+                  .Name("tabstrip")
+                  .Scrollable(false)
+                  .Items(tabstrip =>
+                  {
+                      tabstrip.Add().Text("Overview")
+                          .Selected(true)
+                          .Content(@<text>
+                            @Html.Partial("_ProductDetails")
+                            @Html.Partial("_ProductClassification")
+                        </text>);
+                      tabstrip.Add().Text("Dependencies")
+                          .Content(@<text>
+                        @Html.Partial("_PreInstallDependencies")
+                        @Html.Partial("_PostInstallDependencies")
+                        </text>);
+                      tabstrip.Add().Text("Personal Software Policy")
+                          .Content(@<text>
                         <br />
-                        @*<label class="k-checkbox-label">Requires Admin Rights for Advanced Functionality</label>
-                            <input class="k-checkbox k-checkbox" id="Permissions_RequiresAdminRightsBasic" name="Permissions.RequiresAdminRightsBasic" type="checkbox" value=@Model.Permissions.RequiresAdminRightsBasic>*@
-                        @Html.Kendo().CheckBoxFor(model => model.Permissions.RequiresAdminRightsAdvanced).Label("Requires Admin Rights for Advanced Functionality")
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    Who is allowed to use this software? @Model.SoftwarePolicyType
+                                </div>
+                            </div>
+                        </div>
+                        @Html.Partial("_SoftwarePolicies")
+                        </text>);
+                      tabstrip.Add().Text("Licensensing")
+                          .Content(@<text>
                         <br />
-                        @Html.Kendo().CheckBoxFor(model => model.Permissions.RequiresAdminRightsBasic).Label("Requires Admin Rights for Basic Functionality")
-                        <br />
-                        @Html.Kendo().CheckBoxFor(model => model.Permissions.RequiresAdminRightsUpdate).Label("Requires Admin Rights for Updates")
-                    </div>
-                </div>
-            </div>
-            <div class="k-form-checkbox-row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-title">Local Account Verification</div>
-                    </div>
-                    <div class="panel-body">
-                        @Html.Kendo().CheckBoxFor(model => model.Permissions.LaVerified).Label("LA Verification Complete")
-                        <br />
-                        @Html.Kendo().CheckBoxFor(model => model.Permissions.WorksWithLa).Label("Works with LA Account")
-                        <br />
-                        @Html.Kendo().CheckBoxFor(model => model.Permissions.DoesNotWorkWithLa).Label("Does not work with LA Account")
-                        <br />
-                    </div>
-                </div>
-            </div>
-            <div class="k-form-checkbox-row">
-                @Html.Partial("_SoftwarePermissions")
-            </div>
-</text>);
-
-})
+                        @Html.Partial("_Licenses")
+                        </text>);
+            tabstrip.Add().Text("Permissions")
+                .Content(@<text>
+                    <fieldset class="disabled">
+                        <div class="k-form-checkbox-row" style="padding-top: 1em;">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title">Administrative Rights</div>
+                                </div>
+                                <div class="panel-body">
+                                    @Html.Kendo().CheckBox().Name("elevatedRightsRequired").Label("Elevated Rights Required").Checked(Model.ElevatedRightsRequired).HtmlAttributes(new { style = "readonly" })
+                                    <br />
+                                    @Html.Kendo().CheckBoxFor(model => model.RequiresAdminRightsAdvanced).Label("Requires Admin Rights for Advanced Functionality")
+                                    <br />
+                                    @Html.Kendo().CheckBoxFor(model => model.RequiresAdminRightsBasic).Label("Requires Admin Rights for Basic Functionality")
+                                    <br />
+                                    @Html.Kendo().CheckBoxFor(model => model.RequiresAdminRightsUpdate).Label("Requires Admin Rights for Updates")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="k-form-checkbox-row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title">Local Account Verification</div>
+                                </div>
+                                <div class="panel-body">
+                                    @Html.Kendo().CheckBoxFor(model => model.LocalAccountVerificationComplete).Label("LA Verification Complete")
+                                    <br />
+                                    @Html.Kendo().CheckBoxFor(model => model.WorksWithLocalAccount).Label("Works with LA Account")
+                                    <br />
+                                    @Html.Kendo().CheckBoxFor(model => model.DoesNotWorkWithLocalAccount).Label("Does not work with LA Account")
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="k-form-checkbox-row">
+                            @Html.Partial("_SoftwarePermissions")
+                        </div>
+                    </fieldset>
+                </text>);
+                  })
             )
-        </fieldset>
-        <p>
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-    </div>
-</form>
+            <p>
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        </div>
+    </form>
 </div>
 <script>
     $(document).ready(function () {

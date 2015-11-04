@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace CodeVault.Models
 {
     [JsonObject(IsReference = true)]
     [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/CodeVault.Models")]
     [Table("Dependencies", Schema = "CV2")]
-    public partial class Dependencies
+    public class Dependencies
     {
         [Key, ForeignKey("BaseProduct"), Column(Order = 0)]
         public int BaseProductId { get; set; }

@@ -1,38 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using CodeVault.Models.Utilities;
+using CodeVault.ViewModels;
+using EntityFramework.Triggers;
+using NLog;
+
 namespace CodeVault.Models
 {
-    using CodeVault.Models;
-    using CV2.Models.Utilities;
-    using EntityFramework.Triggers;
-    using NLog;
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Common;
-    using System.Data.Entity;
-    using System.Data.Entity.Core.Metadata.Edm;
-    using System.Data.Entity.Core.Objects;
-    using System.Data.Entity.Infrastructure;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    public partial class CV2Context : DbContext
+    public class Cv2Context : DbContext
     {
-        private Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Dictionary<Type, EntitySetBase> MappingCache = new Dictionary<Type, EntitySetBase>();
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public CV2Context()
+        public Cv2Context()
             : base("name=CV2Context")
         {
-            this.Configuration.LazyLoadingEnabled = false;
-            this.Configuration.ProxyCreationEnabled = false;
+            //Configuration.LazyLoadingEnabled = false;
+            //Configuration.ProxyCreationEnabled = false;
+            Database.Log = sql => Debug.Write(sql);
         }
 
-        public CV2Context(string databaseName)
+        public Cv2Context(string databaseName)
             : base(databaseName)
         {
         }
 
-        public CV2Context(DbConnection connection, bool ownsConnection)
-            : base(connection, contextOwnsConnection: ownsConnection)
+        public Cv2Context(DbConnection connection, bool ownsConnection)
+            : base(connection, ownsConnection)
         {
         }
 
@@ -84,7 +87,7 @@ namespace CodeVault.Models
 
         public virtual DbSet<ProductPermissionDetail> ProductPermissionDetails { get; set; }
 
-        public virtual DbSet<LAVerification> LocalAdminVerification { get; set; }
+        public virtual DbSet<LaVerification> LocalAdminVerification { get; set; }
 
         public virtual DbSet<RequestHistory> RequestHistories { get; set; }
 
@@ -114,20 +117,34 @@ namespace CodeVault.Models
 
         public virtual DbSet<WorkQueue> WorkQueues { get; set; }
 
+        private ObjectContext SelfContext => (this as IObjectContextAdapter).ObjectContext;
+
+        public DbSet<ProductViewModel> ProductViewModels { get; set; }
+
+        public DbSet<PermissionDetailViewModel> PermissionDetailViewModels { get; set; }
+
+        public DbSet<LicenseViewModel> LicenseDetailViewModels { get; set; }
+
         public int SaveChanges(string userName, int productId, string journalEntryFieldNameOrTitle)
         {
-            foreach (var entity in this.ChangeTracker.Entries().Where(p => p.State == EntityState.Added || p.State == EntityState.Deleted || p.State == EntityState.Modified))
+            foreach (
+                var entry in
+                    ChangeTracker.Entries()
+                        .Where(
+                            p =>
+                                p.State == EntityState.Added || p.State == EntityState.Deleted ||
+                                p.State == EntityState.Modified)
+                        .SelectMany(
+                            entity =>
+                                GetJournalEntriesForChange(entity, userName, productId, journalEntryFieldNameOrTitle)))
             {
-                foreach (JournalEntry entry in this.GetJournalEntriesForChange(entity, userName, productId, journalEntryFieldNameOrTitle))
-                {
-                    this.JournalEntries.Add(entry);
-                }
+                JournalEntries.Add(entry);
             }
             return this.SaveChangesWithTriggers(base.SaveChanges);
         }
 
         /// <summary>
-        /// Saves changes to the underlying provider
+        ///     Saves changes to the underlying provider
         /// </summary>
         /// <param name="userName">User performing the update</param>
         /// <param name="productId">ProductId of the parent product</param>
@@ -135,12 +152,16 @@ namespace CodeVault.Models
         /// <returns></returns>
         public int SaveChanges(string userName, int productId, int childProductId)
         {
-            foreach (var entity in this.ChangeTracker.Entries().Where(p => p.State == EntityState.Added || p.State == EntityState.Deleted || p.State == EntityState.Modified))
+            foreach (
+                var entry in
+                    ChangeTracker.Entries()
+                        .Where(
+                            p =>
+                                p.State == EntityState.Added || p.State == EntityState.Deleted ||
+                                p.State == EntityState.Modified)
+                        .SelectMany(entity => GetJournalEntriesForChange(entity, userName, productId, childProductId)))
             {
-                foreach (JournalEntry entry in this.GetJournalEntriesForChange(entity, userName, productId, childProductId))
-                {
-                    this.JournalEntries.Add(entry);
-                }
+                JournalEntries.Add(entry);
             }
             return this.SaveChangesWithTriggers(base.SaveChanges);
         }
@@ -156,215 +177,226 @@ namespace CodeVault.Models
         }
 
         /// <summary>
-        /// Overloaded call to add a journal entry to one to many entities like product->documents
+        ///     Overloaded call to add a journal entry to one to many entities like product->documents
         /// </summary>
         /// <param name="entry"></param>
         /// <param name="userName"></param>
         /// <param name="parentProductId"></param>
         /// <param name="journalFieldNameOrTitle"></param>
         /// <returns></returns>
-        private List<JournalEntry> GetJournalEntriesForChange(DbEntityEntry entry, string userName, int parentProductId, string journalFieldNameOrTitle)
+        private IEnumerable<JournalEntry> GetJournalEntriesForChange(DbEntityEntry entry, string userName,
+            int parentProductId, string journalFieldNameOrTitle)
         {
-            List<JournalEntry> result = new List<JournalEntry>();
-            var parentProduct = this.Products.Find(parentProductId);
-            var entitySetBase = this.GetEntitySet(entry.Entity.GetType());
-            PropertyMapper propertyMapper = new PropertyMapper();
-            string displayText = propertyMapper.GetFriendlyTextForProperty(entitySetBase.Name) ?? entitySetBase.Name;
+            var result = new List<JournalEntry>();
+            var parentProduct = Products.Find(parentProductId);
+            var entitySetBase = GetEntitySet(entry.Entity.GetType());
+            var propertyMapper = new PropertyMapper();
+            var displayText = propertyMapper.GetFriendlyTextForProperty(entitySetBase.Name) ?? entitySetBase.Name;
 
-            if (entry.State == EntityState.Added)
+            switch (entry.State)
             {
-                result.Add(new JournalEntry()
-                {
-                    JournalEntryCreatedBy = userName,
-                    JournalEntryCreatedOn = System.DateTime.Now,
-                    JournalEntryText = string.Format("<html><span style=\"font-size: 9pt;\"><b>Added:</b> {0} -&gt; '{1}'</span></html>", displayText, journalFieldNameOrTitle),
-                    JournalEntryType = JournalEntryType.System,
-                    ProductId = parentProductId
-                });
-                logger.Info("Added: {0} -> '{1}'", displayText, journalFieldNameOrTitle);
-            }
-            else if (entry.State == EntityState.Deleted)
-            {
-                result.Add(new JournalEntry()
-                {
-                    JournalEntryCreatedBy = userName,
-                    JournalEntryCreatedOn = System.DateTime.Now,
-                    JournalEntryText = string.Format("<html><span style=\"font-size: 9pt;\"><b>Removed:</b> {0} -&gt; '{1}'</span></html>", displayText, journalFieldNameOrTitle),
-                    JournalEntryType = JournalEntryType.System,
-                    ProductId = parentProductId
-                });
-                logger.Info("Removed: {0} -> '{1}'", displayText, journalFieldNameOrTitle);
-            }
-            else if (entry.State == EntityState.Modified)
-            {
-                foreach (var propertyName in entry.OriginalValues.PropertyNames)
-                {
-                    //Only capture the values that have changed
-                    if (!object.Equals(entry.OriginalValues.GetValue<object>(propertyName), entry.CurrentValues.GetValue<object>(propertyName)))
+                case EntityState.Added:
+                    result.Add(new JournalEntry
                     {
-                        string currentValue = entry.CurrentValues.GetValue<object>(propertyName) == null ? "Null" : entry.CurrentValues.GetValue<object>(propertyName).ToString();
+                        JournalEntryCreatedBy = userName,
+                        JournalEntryCreatedOn = DateTime.Now,
+                        JournalEntryText =
+                            $"<html><span style=\"font-size: 9pt;\"><b>Added:</b> {displayText} -&gt; '{journalFieldNameOrTitle}'</span></html>",
+                        JournalEntryType = JournalEntryType.System,
+                        ProductId = parentProductId
+                    });
+                    _logger.Info("Added: {0} -> '{1}'", displayText, journalFieldNameOrTitle);
+                    break;
+                case EntityState.Deleted:
+                    result.Add(new JournalEntry
+                    {
+                        JournalEntryCreatedBy = userName,
+                        JournalEntryCreatedOn = DateTime.Now,
+                        JournalEntryText =
+                            $"<html><span style=\"font-size: 9pt;\"><b>Removed:</b> {displayText} -&gt; '{journalFieldNameOrTitle}'</span></html>",
+                        JournalEntryType = JournalEntryType.System,
+                        ProductId = parentProductId
+                    });
+                    _logger.Info("Removed: {0} -> '{1}'", displayText, journalFieldNameOrTitle);
+                    break;
+                case EntityState.Modified:
+                    foreach (var propertyName in entry.OriginalValues.PropertyNames)
+                    {
+                        //Only capture the values that have changed
+                        if (Equals(entry.OriginalValues.GetValue<object>(propertyName),
+                            entry.CurrentValues.GetValue<object>(propertyName))) continue;
+                        var currentValue = entry.CurrentValues.GetValue<object>(propertyName) == null
+                            ? "Null"
+                            : entry.CurrentValues.GetValue<object>(propertyName).ToString();
                         currentValue = string.IsNullOrEmpty(currentValue) ? "Null" : currentValue;
                         if (currentValue.Contains("System.Byte[]"))
                         {
-                            var currentByteValue = (byte[])entry.CurrentValues.GetValue<object>(propertyName);
+                            var currentByteValue = (byte[]) entry.CurrentValues.GetValue<object>(propertyName);
                             var formattedHolder = FileSizeFormatter.ToFormattedString(currentByteValue.LongLength);
                             currentValue = formattedHolder.Number + " " + formattedHolder.Suffix;
                         }
-                        string originalValue = entry.OriginalValues.GetValue<object>(propertyName) == null ? "Null" : entry.OriginalValues.GetValue<object>(propertyName).ToString();
+                        var originalValue = entry.OriginalValues.GetValue<object>(propertyName) == null
+                            ? "Null"
+                            : entry.OriginalValues.GetValue<object>(propertyName).ToString();
                         originalValue = string.IsNullOrEmpty(originalValue) ? "Null" : originalValue;
                         if (originalValue.Contains("System.Byte[]"))
                         {
-                            var originalByteValue = (byte[])entry.OriginalValues.GetValue<object>(propertyName);
+                            var originalByteValue = (byte[]) entry.OriginalValues.GetValue<object>(propertyName);
                             var formattedHolder = FileSizeFormatter.ToFormattedString(originalByteValue.LongLength);
                             originalValue = formattedHolder.Number + " " + formattedHolder.Suffix;
                         }
                         displayText = propertyMapper.GetFriendlyTextForProperty(propertyName) ?? propertyName;
 
-                        result.Add(new JournalEntry()
+                        result.Add(new JournalEntry
                         {
                             JournalEntryCreatedBy = userName,
-                            JournalEntryCreatedOn = System.DateTime.Now,
-                            JournalEntryText = string.Format("<html><span style=\"font-size: 9pt;\"><b>Changed:</b> {0} -&gt; <i>Old Value: '{1}'</i> <b>New Value: '{2}'</b></span></html>", displayText, originalValue, currentValue),
+                            JournalEntryCreatedOn = DateTime.Now,
+                            JournalEntryText =
+                                $"<html><span style=\"font-size: 9pt;\"><b>Changed:</b> {displayText} -&gt; <i>Old Value: '{originalValue}'</i> <b>New Value: '{currentValue}'</b></span></html>",
                             JournalEntryType = JournalEntryType.System,
                             ProductId = parentProductId
                         });
-                        logger.Info("Changed: {0} -> Old Value: '{1}' New Value: {2}", displayText, originalValue, currentValue);
+                        _logger.Info("Changed: {0} -> Old Value: '{1}' New Value: {2}", displayText, originalValue,
+                            currentValue);
                     }
-                }
+                    break;
+                case EntityState.Detached:
+                    break;
+                case EntityState.Unchanged:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             return result;
         }
 
         /// <summary>
-        /// Overloaded call to add a journal entry to nested entities like product->dependency
+        ///     Overloaded call to add a journal entry to nested entities like product->dependency
         /// </summary>
         /// <param name="entry"></param>
         /// <param name="userName"></param>
         /// <param name="parentProductId"></param>
         /// <param name="childProductId"></param>
         /// <returns></returns>
-        private List<JournalEntry> GetJournalEntriesForChange(DbEntityEntry entry, string userName, int parentProductId, int childProductId)
+        private IEnumerable<JournalEntry> GetJournalEntriesForChange(DbEntityEntry entry, string userName,
+            int parentProductId, int childProductId)
         {
-            List<JournalEntry> result = new List<JournalEntry>();
+            var result = new List<JournalEntry>();
 
-            var parentProduct = this.Products.Find(parentProductId);
-            var childProduct = this.Products.Find(childProductId);
+            var parentProduct = Products.Find(parentProductId);
+            var childProduct = Products.Find(childProductId);
 
-            var entitySetBase = this.GetEntitySet(entry.Entity.GetType());
-            PropertyMapper propertyMapper = new PropertyMapper();
-            string displayText = propertyMapper.GetFriendlyTextForProperty(entitySetBase.Name) ?? entitySetBase.Name;
+            var entitySetBase = GetEntitySet(entry.Entity.GetType());
+            var propertyMapper = new PropertyMapper();
+            var displayText = propertyMapper.GetFriendlyTextForProperty(entitySetBase.Name) ?? entitySetBase.Name;
 
-            if (entry.State == EntityState.Added)
+            switch (entry.State)
             {
-                result.Add(new JournalEntry()
-                {
-                    JournalEntryCreatedBy = userName,
-                    JournalEntryCreatedOn = System.DateTime.Now,
-                    JournalEntryText = string.Format("<html><span style=\"font-size: 9pt;\"><b>Added:</b> {0} -&gt; {1}</span></html>", displayText, childProduct.ProductName),
-                    JournalEntryType = JournalEntryType.System,
-                    ProductId = parentProductId
-                });
-                logger.Info("Added: {0} -> '{1}'", displayText, childProduct.ProductName);
-            }
-            else if (entry.State == EntityState.Deleted)
-            {
-                result.Add(new JournalEntry()
-                {
-                    JournalEntryCreatedBy = userName,
-                    JournalEntryCreatedOn = System.DateTime.Now,
-                    JournalEntryText = string.Format("<html><span style=\"font-size: 9pt;\"><b>Removed:</b> {0} -&gt; {1}</span></html>", displayText, childProduct.ProductName),
-                    JournalEntryType = JournalEntryType.System,
-                    ProductId = parentProductId
-                });
-                logger.Info("Removed: {0} -> '{1}'", displayText, childProduct.ProductName);
-            }
-            else if (entry.State == EntityState.Modified)
-            {
-                foreach (var propertyName in entry.OriginalValues.PropertyNames)
-                {
-                    //Only capture the values that have changed
-                    if (!object.Equals(entry.OriginalValues.GetValue<object>(propertyName), entry.CurrentValues.GetValue<object>(propertyName)))
+                case EntityState.Added:
+                    result.Add(new JournalEntry
                     {
-                        string currentValue = entry.CurrentValues.GetValue<object>(propertyName) == null ? "Null" : entry.CurrentValues.GetValue<object>(propertyName).ToString();
+                        JournalEntryCreatedBy = userName,
+                        JournalEntryCreatedOn = DateTime.Now,
+                        JournalEntryText =
+                            $"<html><span style=\"font-size: 9pt;\"><b>Added:</b> {displayText} -&gt; {childProduct.ProductName}</span></html>",
+                        JournalEntryType = JournalEntryType.System,
+                        ProductId = parentProductId
+                    });
+                    _logger.Info("Added: {0} -> '{1}'", displayText, childProduct.ProductName);
+                    break;
+                case EntityState.Deleted:
+                    result.Add(new JournalEntry
+                    {
+                        JournalEntryCreatedBy = userName,
+                        JournalEntryCreatedOn = DateTime.Now,
+                        JournalEntryText =
+                            $"<html><span style=\"font-size: 9pt;\"><b>Removed:</b> {displayText} -&gt; {childProduct.ProductName}</span></html>",
+                        JournalEntryType = JournalEntryType.System,
+                        ProductId = parentProductId
+                    });
+                    _logger.Info("Removed: {0} -> '{1}'", displayText, childProduct.ProductName);
+                    break;
+                case EntityState.Modified:
+                    foreach (var propertyName in entry.OriginalValues.PropertyNames)
+                    {
+                        //Only capture the values that have changed
+                        if (Equals(entry.OriginalValues.GetValue<object>(propertyName),
+                            entry.CurrentValues.GetValue<object>(propertyName))) continue;
+                        var currentValue = entry.CurrentValues.GetValue<object>(propertyName) == null
+                            ? "Null"
+                            : entry.CurrentValues.GetValue<object>(propertyName).ToString();
                         currentValue = string.IsNullOrEmpty(currentValue) ? "Null" : currentValue;
                         if (currentValue.Contains("System.Byte[]"))
                         {
-                            var currentByteValue = (byte[])entry.CurrentValues.GetValue<object>(propertyName);
+                            var currentByteValue = (byte[]) entry.CurrentValues.GetValue<object>(propertyName);
                             var formattedHolder = FileSizeFormatter.ToFormattedString(currentByteValue.LongLength);
                             currentValue = formattedHolder.Number + " " + formattedHolder.Suffix;
                         }
-                        string originalValue = entry.OriginalValues.GetValue<object>(propertyName) == null ? "Null" : entry.OriginalValues.GetValue<object>(propertyName).ToString();
+                        var originalValue = entry.OriginalValues.GetValue<object>(propertyName) == null
+                            ? "Null"
+                            : entry.OriginalValues.GetValue<object>(propertyName).ToString();
                         originalValue = string.IsNullOrEmpty(originalValue) ? "Null" : originalValue;
                         if (originalValue.Contains("System.Byte[]"))
                         {
-                            var originalByteValue = (byte[])entry.OriginalValues.GetValue<object>(propertyName);
+                            var originalByteValue = (byte[]) entry.OriginalValues.GetValue<object>(propertyName);
                             var formattedHolder = FileSizeFormatter.ToFormattedString(originalByteValue.LongLength);
                             originalValue = formattedHolder.Number + " " + formattedHolder.Suffix;
                         }
-
                         displayText = propertyMapper.GetFriendlyTextForProperty(propertyName) ?? propertyName;
-                        result.Add(new JournalEntry()
+                        result.Add(new JournalEntry
                         {
                             JournalEntryCreatedBy = userName,
-                            JournalEntryCreatedOn = System.DateTime.Now,
-                            JournalEntryText = string.Format("<html><span style=\"font-size: 9pt;\"><b>Changed:</b> {0} -&gt; <i>Old Value: '{1}'</i> <b>New Value: '{2}' </b></span></html>", displayText, originalValue, currentValue),
+                            JournalEntryCreatedOn = DateTime.Now,
+                            JournalEntryText =
+                                $"<html><span style=\"font-size: 9pt;\"><b>Changed:</b> {displayText} -&gt; <i>Old Value: '{originalValue}'</i> <b>New Value: '{currentValue}' </b></span></html>",
                             JournalEntryType = JournalEntryType.System,
                             ProductId = parentProductId
                         });
-                        logger.Info("Changed: {0} -> Old Value: '{1}' New Value: {2}", displayText, originalValue, currentValue);
+                        _logger.Info("Changed: {0} -> Old Value: '{1}' New Value: {2}", displayText, originalValue,
+                            currentValue);
                     }
-                }
+                    break;
+                case EntityState.Detached:
+                    break;
+                case EntityState.Unchanged:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             return result;
-        }
-
-        private readonly static Dictionary<Type, EntitySetBase> mappingCache = new Dictionary<Type, EntitySetBase>();
-
-        private ObjectContext SelfContext
-        {
-            get { return (this as IObjectContextAdapter).ObjectContext; }
         }
 
         private EntitySetBase GetEntitySet(Type type)
         {
             type = GetObjectType(type);
-            if (mappingCache.ContainsKey(type)) return mappingCache[type];
+            if (MappingCache.ContainsKey(type)) return MappingCache[type];
 
-            string baseTypeName = type.BaseType.Name;
-            string typeName = type.Name;
+            var baseTypeName = type.BaseType.Name;
+            var typeName = type.Name;
 
-            ObjectContext objContext = SelfContext;
-            var entitySetBase = objContext.MetadataWorkspace.GetItemCollection(DataSpace.SSpace)
+            var objContext = SelfContext;
+            var entitySetBase =
+                objContext.MetadataWorkspace.GetItemCollection(DataSpace.SSpace)
                     .GetItems<EntityContainer>()
-                    .SelectMany(c => c.BaseEntitySets
-                                    .Where(e => e.Name == typeName
-                                    || e.Name == baseTypeName))
+                    .SelectMany(c => c.BaseEntitySets.Where(e => e.Name == typeName || e.Name == baseTypeName))
                     .FirstOrDefault();
             if (entitySetBase == null)
             {
                 throw new ArgumentException("Entity type not found in GetEntitySet", typeName);
             }
-            mappingCache.Add(type, entitySetBase);
+            MappingCache.Add(type, entitySetBase);
             return entitySetBase;
         }
 
         internal string GetTableName(Type type)
         {
-            EntitySetBase entitySetBase = GetEntitySet(type);
-            return string.Format("[{0}].[{1}]", entitySetBase.Schema, entitySetBase.Table);
+            var entitySetBase = GetEntitySet(type);
+            return $"[{entitySetBase.Schema}].[{entitySetBase.Table}]";
         }
 
         internal Type GetObjectType(Type type)
         {
-            return System.Data.Entity.Core.Objects.ObjectContext.GetObjectType(type);
+            return ObjectContext.GetObjectType(type);
         }
-
-        public System.Data.Entity.DbSet<CodeVault.Models.ViewModels.ProductViewModel> ProductViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<CodeVault.Models.ViewModels.PermissionViewModel> PermissionViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<CodeVault.Models.ViewModels.PermissionDetailViewModel> PermissionDetailViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<CodeVault.Models.ViewModels.LicenseDetailViewModel> LicenseDetailViewModels { get; set; }
     }
 }

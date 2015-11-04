@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("WorkQueues", Schema = "CV2")]
-    public partial class WorkQueue
+    public class WorkQueue
     {
         public WorkQueue()
         {

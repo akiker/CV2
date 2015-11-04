@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using CodeVault.Models;
-using CodeVault.Models.ViewModels;
 using CodeVault.Models.BaseTypes;
+using CodeVault.ViewModels;
 
 namespace CodeVault.Controllers
 {
     public class ProductViewModelsController : Controller
     {
-        private CV2Context db = new CV2Context();
-        IDALFacade facade = new DALFacade();
+        private readonly Cv2Context _db = new Cv2Context();
+        private readonly IDalFacade _facade = new DalFacade(false);
 
         // GET: ProductViewModels
         public ActionResult Index()
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
+            var unitOfWork = _facade.GetUnitOfWork();
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled,
+                o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new ProductViewModel(p)).ToList();
-            facade.DisposeUnitOfWork();
+            _facade.DisposeUnitOfWork();
             return View(result);
         }
 
@@ -34,15 +31,15 @@ namespace CodeVault.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var unitOfWork = _facade.GetUnitOfWork();
             var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
-            facade.DisposeUnitOfWork();
+            _facade.DisposeUnitOfWork();
             if (result == null)
             {
                 return HttpNotFound();
             }
-            
+
             return View(result);
         }
 
@@ -57,12 +54,13 @@ namespace CodeVault.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Manufacturer,Description,Version,CreatedOnDate")] ProductViewModel productViewModel)
+        public ActionResult Create(
+            [Bind(Include = "Id,Name,Manufacturer,Description,Version,CreatedOnDate")] ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.ProductViewModels.Add(productViewModel);
-                db.SaveChanges();
+                _db.ProductViewModels.Add(productViewModel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -76,7 +74,7 @@ namespace CodeVault.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductViewModel productViewModel = db.ProductViewModels.Find(id);
+            var productViewModel = _db.ProductViewModels.Find(id);
             if (productViewModel == null)
             {
                 return HttpNotFound();
@@ -89,12 +87,13 @@ namespace CodeVault.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Manufacturer,Description,Version,CreatedOnDate")] ProductViewModel productViewModel)
+        public ActionResult Edit(
+            [Bind(Include = "Id,Name,Manufacturer,Description,Version,CreatedOnDate")] ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(productViewModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(productViewModel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(productViewModel);
@@ -107,7 +106,7 @@ namespace CodeVault.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductViewModel productViewModel = db.ProductViewModels.Find(id);
+            var productViewModel = _db.ProductViewModels.Find(id);
             if (productViewModel == null)
             {
                 return HttpNotFound();
@@ -120,9 +119,9 @@ namespace CodeVault.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductViewModel productViewModel = db.ProductViewModels.Find(id);
-            db.ProductViewModels.Remove(productViewModel);
-            db.SaveChanges();
+            var productViewModel = _db.ProductViewModels.Find(id);
+            _db.ProductViewModels.Remove(productViewModel);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -130,7 +129,7 @@ namespace CodeVault.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

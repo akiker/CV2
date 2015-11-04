@@ -1,80 +1,120 @@
-﻿@model CodeVault.Models.ViewModels.PermissionViewModel
+﻿@model CodeVault.ViewModels.PermissionViewModel
+
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Delete</h2>
 
+
 <h3>Are you sure you want to delete this?</h3>
+
 <div>
+
     <h4>PermissionViewModel</h4>
-    <hr />
+
+    <hr/>
+
     <dl class="dl-horizontal">
+
         <dt>
+
             @Html.DisplayNameFor(model => model.ElevatedRightsRequired)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.ElevatedRightsRequired)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsBasic)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.RequiresAdminRightsBasic)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsAdvanced)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.RequiresAdminRightsAdvanced)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsUpdate)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.RequiresAdminRightsUpdate)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.LaVerified)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.LaVerified)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.WorksWithLa)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.WorksWithLa)
         </dd>
 
+
         <dt>
+
             @Html.DisplayNameFor(model => model.DoesNotWorkWithLa)
         </dt>
 
+
         <dd>
+
             @Html.DisplayFor(model => model.DoesNotWorkWithLa)
         </dd>
 
+
     </dl>
 
-    @using (Html.BeginForm()) {
+
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+
+            <input type="submit" value="Delete" class="btn btn-default"/> |
+
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

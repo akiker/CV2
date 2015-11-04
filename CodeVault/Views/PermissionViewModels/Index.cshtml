@@ -1,70 +1,114 @@
-﻿@model IEnumerable<CodeVault.Models.ViewModels.PermissionViewModel>
+﻿@model IEnumerable<CodeVault.ViewModels.PermissionViewModel>
+
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Index</h2>
 
+
 <p>
+
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
+
     <tr>
+
         <th>
+
             @Html.DisplayNameFor(model => model.ElevatedRightsRequired)
         </th>
+
         <th>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsBasic)
         </th>
+
         <th>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsAdvanced)
         </th>
+
         <th>
+
             @Html.DisplayNameFor(model => model.RequiresAdminRightsUpdate)
         </th>
+
         <th>
+
             @Html.DisplayNameFor(model => model.LaVerified)
         </th>
+
         <th>
+
             @Html.DisplayNameFor(model => model.WorksWithLa)
         </th>
+
         <th>
+
             @Html.DisplayNameFor(model => model.DoesNotWorkWithLa)
         </th>
+
         <th></th>
+
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ElevatedRightsRequired)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequiresAdminRightsBasic)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequiresAdminRightsAdvanced)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequiresAdminRightsUpdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LaVerified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorksWithLa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DoesNotWorkWithLa)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.ElevatedRightsRequired)
+            </td>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.RequiresAdminRightsBasic)
+            </td>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.RequiresAdminRightsAdvanced)
+            </td>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.RequiresAdminRightsUpdate)
+            </td>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.LaVerified)
+            </td>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.WorksWithLa)
+            </td>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.DoesNotWorkWithLa)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+            </td>
+
+        </tr>
+    }
+
 
 </table>

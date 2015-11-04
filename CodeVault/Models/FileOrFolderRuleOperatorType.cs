@@ -1,34 +1,25 @@
-﻿namespace CodeVault.Models
-{
-    using System.ComponentModel;
+﻿using System.ComponentModel;
 
+namespace CodeVault.Models
+{
     public enum FileOrFolderRuleOperatorType
     {
-        [Description("Equals")]
-        Equals = 0,
+        [Description("Equals")] Equals = 0,
 
-        [Description("Not equal to")]
-        NotEqualTo,
+        [Description("Not equal to")] NotEqualTo,
 
-        [Description("Greater than or equal to")]
-        GreaterThanOrEqualTo,
+        [Description("Greater than or equal to")] GreaterThanOrEqualTo,
 
-        [Description("Greater than")]
-        GreaterThan,
+        [Description("Greater than")] GreaterThan,
 
-        [Description("Less than")]
-        LessThan,
+        [Description("Less than")] LessThan,
 
-        [Description("Less than or equal to")]
-        LessThanOrEqualTo,
+        [Description("Less than or equal to")] LessThanOrEqualTo,
 
-        [Description("Between")]
-        Between,
+        [Description("Between")] Between,
 
-        [Description("One of")]
-        OneOf,
+        [Description("One of")] OneOf,
 
-        [Description("None of")]
-        NoneOf
+        [Description("None of")] NoneOf
     }
 }

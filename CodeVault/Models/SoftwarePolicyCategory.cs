@@ -1,13 +1,11 @@
-﻿namespace CodeVault.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace CodeVault.Models
+{
     [Table("SoftwarePolicyCategories", Schema = "CV2")]
-    public partial class SoftwarePolicyCategory
+    public class SoftwarePolicyCategory
     {
         public SoftwarePolicyCategory()
         {
@@ -22,5 +20,3 @@
         public virtual ICollection<SoftwarePolicy> SoftwarePolicies { get; set; }
     }
 }
-
-

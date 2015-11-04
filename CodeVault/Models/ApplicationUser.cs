@@ -1,16 +1,16 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using EntityFramework.Triggers;
+using Newtonsoft.Json;
+
 namespace CodeVault.Models
 {
-    using EntityFramework.Triggers;
-    using Newtonsoft.Json;
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Runtime.Serialization;
-
     [JsonObject(IsReference = true)]
     [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/CodeVault.Models")]
     [Table("ApplicationUsers", Schema = "CV2")]
-    public partial class ApplicationUser : ITriggerable
+    public class ApplicationUser : ITriggerable
     {
         [DataMember]
         [Key]

@@ -1,168 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
-using CodeVault.Models.ViewModels;
 using CodeVault.Models;
 using CodeVault.Models.BaseTypes;
+using CodeVault.ViewModels;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using DependencyType = CodeVault.Models.DependencyType;
 
 namespace CodeVault.Controllers
 {
     public class SoftwareController : Controller
     {
-        private CV2Context db = new CV2Context();
-        IDALFacade facade = new DALFacade();
+        private readonly Cv2Context _db;
+        private readonly IDalFacade _facade = new DalFacade(false);
 
-        private IEnumerable<ProductViewModel> products; 
+        public SoftwareController()
+        {
+            _db = new Cv2Context();
+        }
 
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult ProductViewModels_Read([DataSourceRequest]DataSourceRequest request)
+        public async Task<ActionResult> ProductViewModels_Read([DataSourceRequest] DataSourceRequest request)
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName),"SoftwarePolicy,Depedencies,Licenses");
-            var result = query.Select(p => new ProductViewModel(p));
-            
-            facade.DisposeUnitOfWork();
+            //This is fast!!! Finally
+            var query = await _db.Products.Where(p => p.ProductStatus != ProductStatus.Canceled).ToListAsync();
+            var result = from p in query
+                select new ProductViewModel()
+                {
+                    Id = p.ProductId,
+                    Name = p.ProductName,
+                    Manufacturer = p.ProductManufacturer,
+                    Version = p.ProductVersion,
+                    Description = p.ProductDescription,
+                    Status = p.ProductStatus.ToString(),
+                    CreatedOnDate = p.CreatedOnDate
+                };
             return Json(result.ToDataSourceResult(request));
         }
 
-        public ActionResult SoftwarePolicyGroupAssociationViewModel_Read([DataSourceRequest]DataSourceRequest request, int id)
-        {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName), "SoftwarePolicy");
-            var productViewModel = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
-            facade.DisposeUnitOfWork();
-            var result = productViewModel.SoftwarePolicyGroupAssociations;
-            return Json(result.ToDataSourceResult(request));
-        }
-
-        public ActionResult PreInstallDependencyViewModel_Read([ DataSourceRequest]DataSourceRequest request, int id)
-        {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName),"Dependencies");
-            var productViewModel = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
-            facade.DisposeUnitOfWork();
-            var result = productViewModel.PreInstallDependencies;
-            return Json(result.ToDataSourceResult(request));
-        }
-
-        public ActionResult PostInstallDependencyViewModel_Read([DataSourceRequest]DataSourceRequest request, int id)
-        {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName),"Dependencies");
-            var productViewModel = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
-            facade.DisposeUnitOfWork();
-            var result = productViewModel.PostInstallDependencies;
-            return Json(result.ToDataSourceResult(request));
-        }
-
-        public ActionResult LicenseDetailViewModel_Read([DataSourceRequest]DataSourceRequest request, int id)
-        {
-            ICollection<LicenseDetailViewModel> result = new HashSet<LicenseDetailViewModel>();
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var licenses = unitOfWork.LicenseRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductId), "LicenseType").ToList();
-            foreach (var license in licenses)
-            {
-                var licViewModel = licenses.Select(l => new LicenseDetailViewModel(l)).FirstOrDefault();
-                result.Add(licViewModel);
-            }
-            facade.DisposeUnitOfWork();
-            return Json(result.ToDataSourceResult(request));
-        }
-
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName), "ProductCategory,ProductType");
-            var result = query.Select(p => new ProductViewModel(p)).FirstOrDefault();
-            facade.DisposeUnitOfWork();
-            
-            if (result == null)
+            var product  = await _db.Products.Where(p => p.ProductId == id).Include(p => p.SoftwarePolicy).Include(p => p.ProductCategory).Include(p => p.ProductType).Include(p => p.LocalAccountVerification).Include(p => p.ProductsPermissions).FirstOrDefaultAsync();
+            if (product == null)
             {
-                return HttpNotFound();
+                return HttpNotFound("Unable to retrieve the selected product");
             }
-            if (ContainsInvalid(result.Version))
+            var productViewModel = new ProductViewModel(product);
+
+            if (ContainsInvalid(productViewModel.Version))
             {
-                ViewBag.DetailTitle = result.Name;
+                ViewBag.DetailTitle = productViewModel.Name;
             }
-            else if (result.Name.Contains(result.Version))
+            else if (productViewModel.Name.Contains(productViewModel.Version))
             {
-                ViewBag.DetailTitle = result.Name;
+                ViewBag.DetailTitle = productViewModel.Name;
             }
             else
             {
-                ViewBag.DetailTitle = string.Format("{0} {1}", result.Name, result.Version);
+                ViewBag.DetailTitle = $"{productViewModel.Name} {productViewModel.Version}";
             }
-            return View(result);
+            return View(productViewModel);
         }
 
         private static bool ContainsInvalid(string value)
         {
-            var invalid = new List<string>();
-            invalid.Add("na");
-            invalid.Add("O");
-            invalid.Add("0");
-            invalid.Add("n/a");
-            if(invalid.Contains(value.ToLower().Trim()))
-            {
-                return true;
-            }
-            return false;
-            //var items = new List<string>()
-            //{
-            //    new string {"Request Software" },
-            //    new SelectListItem {Value = "2", Text = "Request Configuration Record" }
-            //};
+            var invalid = new List<string> {"na", "O", "0", "n/a"};
+            return invalid.Contains(value.ToLower().Trim());
         }
-
-        //private IEnumerable<DependencyViewModel> GetPreInstallDependencies(int productId)
-        //{
-        //    //IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-        //    //var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == productId, o => o.OrderBy(n => n.ProductName));
-        //    //var result = query.Select(p => new ProductViewModel(p));
-        //    //facade.DisposeUnitOfWork();
-        //    //var temp = result.Select(d => d.Dependencies).Where(d => d.depen)
-            
-        //    //List<DependencyViewModel> depViewModels = new List<DependencyViewModel>(); 
-
-        //    //var db = new CV2Context(); 
-        //    //var query = db.Products.Where(d => d.ProductId == productId).FirstOrDefault();
-        //    //List<Dependencies> dependencies = query.Dependencies.Where(d => d.DependencyType == Models.DependencyType.PreInstall).ToList();
-        //    //foreach (var dep in dependencies)
-        //    //{
-        //    //    DependencyViewModel depViewModel = new DependencyViewModel(dep);
-        //    //    depViewModels.Add(depViewModel);
-        //    //}
-        //    //return depViewModels;
-        //}
-
-        //private IEnumerable<DependencyViewModel> GetPostInstallDependencies(int productId)
-        //{
-        //    var db = new CV2Context();
-        //    var query = db.Dependencies.Where(d => d.BaseProductId == productId && d.DependencyType == Models.DependencyType.PostInstall).AsEnumerable();
-        //    var result = query.Select(p => new DependencyViewModel(p));
-            
-        //    return result;
-        //}
-
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
+            
             base.Dispose(disposing);
         }
     }

@@ -1,11 +1,11 @@
-﻿namespace CodeVault.Models
-{
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace CodeVault.Models
+{
     [Table("JournalCategories", Schema = "CV2")]
-    public partial class JournalCategory
+    public class JournalCategory
     {
         public JournalCategory()
         {

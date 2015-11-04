@@ -1,10 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("cv2.SccmReturnCodes")]
-    public partial class SccmReturnCode
+    public class SccmReturnCode
     {
         public int SccmReturnCodeId { get; set; }
 

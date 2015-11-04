@@ -1,11 +1,11 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("ProductCategories", Schema = "CV2")]
-    public partial class ProductCategory
+    public class ProductCategory
     {
         public ProductCategory()
         {

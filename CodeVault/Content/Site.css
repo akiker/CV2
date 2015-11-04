@@ -1,9 +1,10 @@
 ﻿body {
-    padding-top: 5px;
     padding-bottom: 20px;
+    padding-top: 5px;
 }
 
 /* Set padding to keep content from hitting the edges */
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -12,68 +13,104 @@
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
-.dl-horizontal dt {
-    white-space: normal;
-}
+
+.dl-horizontal dt { white-space: normal; }
 
 /* Set width on the form input elements since they're 100% wide by default */
+
 input,
 select,
-textarea {
-    max-width: 280px;
-}
+textarea { max-width: 280px; }
 
 .navbar-custom {
-	background-color:#BB0826;
-    color:#ffffff;
-  	border-radius:0;
-}
-  
-.navbar-custom .navbar-nav > li > a {
-  	color:#fff;
-  	padding-left:20px;
-  	padding-right:20px;
-}
-.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    background-color: #BB0826;
+    border-radius: 0;
     color: #ffffff;
-	background-color:transparent;
 }
-      
+
+.navbar-custom .navbar-nav > li > a {
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    background-color: transparent;
+    color: #ffffff;
+}
+
 .navbar-custom .navbar-nav > li > a:hover, .nav > li > a:focus {
-    text-decoration: none;
     background-color: #E61610;
+    text-decoration: none;
 }
-      
-.navbar-custom .navbar-brand {
-  	color:#eeeeee;
-}
-.navbar-custom .navbar-toggle {
-  	background-color:#eeeeee;
-}
-.navbar-custom .icon-bar {
-  	background-color:#E61610;
-}
+
+.navbar-custom .navbar-brand { color: #eeeeee; }
+
+.navbar-custom .navbar-toggle { background-color: #eeeeee; }
+
+.navbar-custom .icon-bar { background-color: #E61610; }
+
 .panel-heading h3 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     line-height: normal;
+    overflow: hidden;
     padding-top: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.popup-window-with-icon{
+
+.popup-window-with-icon {
     display: inline-block;
-    vertical-align:middle;
+    vertical-align: middle;
 }
-.glyphicon-lg{font-size:3em}
-.blockquote-box{border-left:5px solid #E6E6E6;margin-bottom:25px;padding:3px}
-.blockquote-box .square{width:100px;min-height:50px;margin-right:22px;text-align:center!important;background-color:#E6E6E6;padding:20px 0}
-.blockquote-box.blockquote-primary{border-color:#357EBD}
-.blockquote-box.blockquote-primary .square{background-color:#428BCA;color:#FFF}
-.blockquote-box.blockquote-success{border-color:#4CAE4C}
-.blockquote-box.blockquote-success .square{background-color:#5CB85C;color:#FFF}
-.blockquote-box.blockquote-info{border-color:#46B8DA}
-.blockquote-box.blockquote-info .square{background-color:#5BC0DE;color:#FFF}
-.blockquote-box.blockquote-warning{border-color:#EEA236}
-.blockquote-box.blockquote-warning .square{background-color:#F0AD4E;color:#FFF}
-.blockquote-box.blockquote-danger{border-color:#D43F3A}
-.blockquote-box.blockquote-danger .square{background-color:#D9534F;color:#FFF}
+
+.glyphicon-lg { font-size: 3em }
+
+.blockquote-box {
+    border-left: 5px solid #E6E6E6;
+    margin-bottom: 25px;
+    padding: 3px
+}
+
+.blockquote-box .square {
+    background-color: #E6E6E6;
+    margin-right: 22px;
+    min-height: 50px;
+    padding: 20px 0;
+    text-align: center !important;
+    width: 100px;
+}
+
+.blockquote-box.blockquote-primary { border-color: #357EBD }
+
+.blockquote-box.blockquote-primary .square {
+    background-color: #428BCA;
+    color: #FFF
+}
+
+.blockquote-box.blockquote-success { border-color: #4CAE4C }
+
+.blockquote-box.blockquote-success .square {
+    background-color: #5CB85C;
+    color: #FFF
+}
+
+.blockquote-box.blockquote-info { border-color: #46B8DA }
+
+.blockquote-box.blockquote-info .square {
+    background-color: #5BC0DE;
+    color: #FFF
+}
+
+.blockquote-box.blockquote-warning { border-color: #EEA236 }
+
+.blockquote-box.blockquote-warning .square {
+    background-color: #F0AD4E;
+    color: #FFF
+}
+
+.blockquote-box.blockquote-danger { border-color: #D43F3A }
+
+.blockquote-box.blockquote-danger .square {
+    background-color: #D9534F;
+    color: #FFF
+}

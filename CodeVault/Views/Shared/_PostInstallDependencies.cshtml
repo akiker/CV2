@@ -1,36 +1,33 @@
-﻿
+﻿@using CodeVault.ViewModels
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">Post-Install</div>
     </div>
     <div class="panel-body">
-        @(Html.Kendo().Grid<CodeVault.Models.ViewModels.DependencyViewModel>()
-      .Name("gridPostInstallDependencies")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.Name);
-          columns.Bound(c => c.Version);
-          columns.Bound(c => c.InstallOrder);
-      })
-      .ColumnMenu()
-      .Resizable(resizing => resizing.Columns(true))
-      .Pageable()
-      .Navigatable()
-      .Selectable(selectable =>
-      {
-          selectable.Mode(GridSelectionMode.Single);
-          selectable.Type(GridSelectionType.Row);
-      })
-      .Sortable(sortable =>
-      {
-          sortable.SortMode(GridSortMode.SingleColumn);
-      })
-      .Filterable()
-      .Scrollable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Read(read => read.Action("PostInstallDependencyViewModel_Read", "Software", new { id = Model.Id }))
-      )
+        @(Html.Kendo().Grid<DependencyViewModel>()
+              .Name("gridPostInstallDependencies")
+              .Columns(columns =>
+              {
+                  columns.Bound(c => c.Name);
+                  columns.Bound(c => c.Version);
+                  columns.Bound(c => c.InstallOrder);
+              })
+              .ColumnMenu()
+              .Resizable(resizing => resizing.Columns(true))
+              .Pageable()
+              .Navigatable()
+              .Selectable(selectable =>
+              {
+                  selectable.Mode(GridSelectionMode.Single);
+                  selectable.Type(GridSelectionType.Row);
+              })
+              .Sortable(sortable => { sortable.SortMode(GridSortMode.SingleColumn); })
+              .Filterable()
+              .Scrollable()
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Read(read => read.Action("PostInstallDependencyViewModel_Read", "Dependencies", new { id = Model.Id }))
+              )
         )
     </div>
 </div>

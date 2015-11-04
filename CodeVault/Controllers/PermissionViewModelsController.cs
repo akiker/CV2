@@ -1,40 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using CodeVault.Models;
-using CodeVault.Models.ViewModels;
 using CodeVault.Models.BaseTypes;
-using Kendo.Mvc.UI;
+using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 
 namespace CodeVault.Controllers
 {
     public class PermissionViewModelsController : Controller
     {
-        private CV2Context db = new CV2Context();
-        IDALFacade facade = new DALFacade();
+        private readonly Cv2Context _db = new Cv2Context();
+        private readonly IDalFacade _facade = new DalFacade(false);
 
         // GET: PermissionViewModels
         public ActionResult Index()
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled, o => o.OrderBy(n => n.ProductName));
+            var unitOfWork = _facade.GetUnitOfWork();
+            var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductStatus != ProductStatus.Canceled,
+                o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new PermissionViewModel(p)).ToList();
-            facade.DisposeUnitOfWork();
+            _facade.DisposeUnitOfWork();
             return View(result);
         }
 
-        public ActionResult PermissionViewModel_Read([DataSourceRequest]DataSourceRequest request)
+        public ActionResult PermissionViewModel_Read([DataSourceRequest] DataSourceRequest request)
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var unitOfWork = _facade.GetUnitOfWork();
             var query = unitOfWork.ProductRepo.GetByQuery(p => p != null, o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new PermissionViewModel(p));
-            facade.DisposeUnitOfWork();
+            _facade.DisposeUnitOfWork();
 
             return Json(result.ToDataSourceResult(request));
         }
@@ -46,11 +43,11 @@ namespace CodeVault.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var unitOfWork = _facade.GetUnitOfWork();
             var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new PermissionViewModel(p)).FirstOrDefault();
             var detail = result.PermissionDetails.ToList();
-            facade.DisposeUnitOfWork();
+            _facade.DisposeUnitOfWork();
             if (result == null)
             {
                 return HttpNotFound();
@@ -69,12 +66,16 @@ namespace CodeVault.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ElevatedRightsRequired,RequiresAdminRightsBasic,RequiresAdminRightsAdvanced,RequiresAdminRightsUpdate,LaVerified,WorksWithLa,DoesNotWorkWithLa")] PermissionViewModel permissionViewModel)
+        public ActionResult Create(
+            [Bind(
+                Include =
+                    "Id,ElevatedRightsRequired,RequiresAdminRightsBasic,RequiresAdminRightsAdvanced,RequiresAdminRightsUpdate,LaVerified,WorksWithLa,DoesNotWorkWithLa"
+                )] PermissionViewModel permissionViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.PermissionViewModels.Add(permissionViewModel);
-                db.SaveChanges();
+                _db.PermissionViewModels.Add(permissionViewModel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -84,10 +85,10 @@ namespace CodeVault.Controllers
         // GET: PermissionViewModels/Edit/5
         public ActionResult Edit(int? id)
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
+            var unitOfWork = _facade.GetUnitOfWork();
             var query = unitOfWork.ProductRepo.GetByQuery(p => p.ProductId == id, o => o.OrderBy(n => n.ProductName));
             var result = query.Select(p => new PermissionViewModel(p)).FirstOrDefault();
-            facade.DisposeUnitOfWork();
+            _facade.DisposeUnitOfWork();
             if (result == null)
             {
                 return HttpNotFound();
@@ -100,12 +101,16 @@ namespace CodeVault.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ElevatedRightsRequired,RequiresAdminRightsBasic,RequiresAdminRightsAdvanced,RequiresAdminRightsUpdate,LaVerified,WorksWithLa,DoesNotWorkWithLa")] PermissionViewModel permissionViewModel)
+        public ActionResult Edit(
+            [Bind(
+                Include =
+                    "Id,ElevatedRightsRequired,RequiresAdminRightsBasic,RequiresAdminRightsAdvanced,RequiresAdminRightsUpdate,LaVerified,WorksWithLa,DoesNotWorkWithLa"
+                )] PermissionViewModel permissionViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(permissionViewModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(permissionViewModel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(permissionViewModel);
@@ -118,7 +123,7 @@ namespace CodeVault.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PermissionViewModel permissionViewModel = db.PermissionViewModels.Find(id);
+            var permissionViewModel = _db.PermissionViewModels.Find(id);
             if (permissionViewModel == null)
             {
                 return HttpNotFound();
@@ -131,9 +136,9 @@ namespace CodeVault.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PermissionViewModel permissionViewModel = db.PermissionViewModels.Find(id);
-            db.PermissionViewModels.Remove(permissionViewModel);
-            db.SaveChanges();
+            var permissionViewModel = _db.PermissionViewModels.Find(id);
+            _db.PermissionViewModels.Remove(permissionViewModel);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -141,7 +146,7 @@ namespace CodeVault.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

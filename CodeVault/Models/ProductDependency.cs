@@ -1,10 +1,10 @@
-﻿namespace CodeVault.Models
-{
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace CodeVault.Models
+{
     [Table("ProductDependencies", Schema = "CV2")]
-    public partial class ProductDependency
+    public class ProductDependency
     {
         [Key]
         public int ProductDependencyId { get; set; }

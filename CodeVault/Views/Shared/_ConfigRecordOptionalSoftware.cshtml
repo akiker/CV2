@@ -1,42 +1,50 @@
-﻿@model CodeVault.Models.Product
-
+﻿@using CodeVault.ViewModels
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="panel-title">Group Association(s)</div>
+        <div class="panel-title">Optional Software</div>
     </div>
     <div class="panel-body">
-        @(Html.Kendo().Grid<CodeVault.Models.Product>()
-      .Name("gridConfigRecordOptionalSoftware")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.ProductName).ClientTemplate("<a href='" +
-                    Url.Action("Details", "Software") + "/#= Id #'" + ">#= Name #</a>").Width(225);
-          columns.Bound(c => c.ProductManufacturer);
-          columns.Bound(c => c.ProductDescription);
-          columns.Bound(c => c.ProductVersion);
-          columns.Bound(c => c.ProductStatus);
-          columns.Bound(c => c.CreatedOnDate).Filterable(false).Sortable(false).Format("{0:MM/dd/yyyy}");
-      })
-      .ColumnMenu()
-      .Resizable(resizing => resizing.Columns(true))
-      .Pageable()
-      .Navigatable()
-      .Selectable(selectable =>
-      {
-          selectable.Mode(GridSelectionMode.Single);
-          selectable.Type(GridSelectionType.Row);
-      })
-      .Sortable(sortable =>
-      {
-          sortable.SortMode(GridSortMode.SingleColumn);
-      })
-      .Filterable()
-      .Scrollable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Read(read => read.Action("ConfigRecord_Optional_Products_Read", "ConfigRecord", new { id = Model.ProductId }))
-      )
-        )
+        @(Html.Kendo().Grid<ProductViewModel>()
+              .Name("gridConfigRecordOptionSoftware")
+              .Columns(columns =>
+              {
+                  columns.Bound(c => c.Name).ClientTemplate("<a href='" +
+                                                            Url.Action("Details", "Software") + "/#= Id #'" + ">#= Name #</a>").Width(225).Title("Name");
+                  columns.Bound(c => c.Manufacturer).Title("Manufacturer");
+                  columns.Bound(c => c.Description).Title("Description");
+                  columns.Bound(c => c.Version).Title("Version");
+                  columns.Bound(c => c.Status).Title("Status");
+                  columns.Bound(c => c.CreatedOnDate).Filterable(false).Sortable(false).Format("{0:MM/dd/yyyy}");
+              })
+              .ColumnMenu()
+              .Resizable(resizing => resizing.Columns(true))
+              .Pageable(pager => pager.Refresh(true)).Pageable(pager => pager.ButtonCount(10))
+              .Navigatable()
+              .HtmlAttributes(new { style = "height:500px;" })
+              .Selectable(selectable =>
+              {
+                  selectable.Mode(GridSelectionMode.Single);
+                  selectable.Type(GridSelectionType.Row);
+              })
+              .Sortable(sortable => { sortable.SortMode(GridSortMode.SingleColumn); })
+              .Filterable()
+              .Scrollable()
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Model(model => model.Id(c => c.Id))
+                  .Read(read => read.Action("CosmicConfigRecordOptionalSoftware_Read", "ConfigRecord", new {id = @ViewBag.CurrentCosmicConfigRecordId}))
+                  .ServerOperation(true)
+              )
+              )
     </div>
 </div>
-
+<script type="text/javascript">
+    var detailsTemplate = kendo.template($("#template").html());
+    function showDetails(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#Details").data("kendoWindow");
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
+</script>

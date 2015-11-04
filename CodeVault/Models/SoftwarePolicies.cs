@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace CV2.BusinessLogic
+namespace CodeVault.Models
 {
     public static class SoftwarePolicyCategories
     {
         public static Dictionary<int, string> CategoryLookupList()
         {
-            Dictionary<int, string> values = new Dictionary<int, string>
+            var values = new Dictionary<int, string>
             {
-                {0,"WFDC Core"},
-                {1,"WFA Core"},
-                {2,"LOB"}
+                {0, "WFDC Core"},
+                {1, "WFA Core"},
+                {2, "LOB"}
             };
             return values;
         }
 
         public static Dictionary<int, string> LobSubCategoryLookupList()
         {
-            Dictionary<int, string> values = new Dictionary<int, string>
+            var values = new Dictionary<int, string>
             {
-                {0,"Standard"},
-                {1,"Optional"},
-                {2,"Non-Standard"},
-                {3,"By-Exception"},
-                {4,"Restricted"}
+                {0, "Standard"},
+                {1, "Optional"},
+                {2, "Non-Standard"},
+                {3, "By-Exception"},
+                {4, "Restricted"}
             };
             return values;
         }

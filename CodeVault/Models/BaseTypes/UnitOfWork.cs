@@ -1,119 +1,18 @@
-﻿using CodeVault.Models;
-using System;
+﻿using System;
 using System.Data.Entity;
 
 namespace CodeVault.Models.BaseTypes
 {
     internal class UnitOfWork : IUnitOfWork, IDisposable
     {
-        #region Stores
-
-        private DbContext dbContext = null;
-        private bool disposed = false;
-        private IRepository<Product> productRepo = null;
-        private IRepository<Request> requestRepo = null;
-        private IRepository<ProductPermission> permissionRepo = null;
-        private IRepository<ProductPermissionDetail> permissionDetailRepo = null;
-        private IRepository<License> licenseRepo = null;
-        private IRepository<CosmicConfigRecord> configRecordRepo = null;
-
-        #endregion Stores
-
-        #region Properties
-
-        public IRepository<Product> ProductRepo
-        {
-            get
-            {
-                if (this.productRepo == null)
-                    this.productRepo = new Repository<Product>(this.dbContext);
-                return this.productRepo;
-            }
-        }
-
-        public IRepository<Request> RequestRepo
-        {
-            get
-            {
-                if (this.requestRepo == null)
-                    this.requestRepo = new Repository<Request>(this.dbContext);
-                return this.requestRepo;
-            }
-        }
-
-        public IRepository<ProductPermission> PermissionRepo
-        {
-            get
-            {
-                if (this.permissionRepo == null)
-                    this.permissionRepo = new Repository<ProductPermission>(this.dbContext);
-                return this.permissionRepo;
-            }
-        }
-
-        public IRepository<ProductPermissionDetail> PermissionDetailRepo
-        {
-            get
-            {
-                if (this.permissionDetailRepo == null)
-                    this.permissionDetailRepo = new Repository<ProductPermissionDetail>(this.dbContext);
-                return this.permissionDetailRepo;
-            }
-        }
-
-        public IRepository<License> LicenseRepo
-        {
-            get
-            {
-                if (this.licenseRepo == null)
-                    this.licenseRepo = new Repository<License>(this.dbContext);
-                return this.licenseRepo;
-            }
-        }
-
-        public IRepository<CosmicConfigRecord> ConfigRecordRepo
-        {
-            get
-            {
-                if (this.configRecordRepo == null)
-                    this.configRecordRepo = new Repository<CosmicConfigRecord>(this.dbContext);
-                return this.configRecordRepo;
-            }
-        }
-
-        #endregion Properties
-
         #region Constructors
 
         public UnitOfWork(DbContext context)
         {
-            this.dbContext = context;
+            _dbContext = context;
         }
 
         #endregion Constructors
-
-        #region Public Methods
-
-        public void CommitChanges()
-        {
-            this.dbContext.SaveChanges();
-        }
-
-        #endregion Public Methods
-
-        #region Protected Methods
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                    this.dbContext.Dispose();
-            }
-            this.disposed = true;
-        }
-
-        #endregion Protected Methods
 
         #region IDisposable Overrides
 
@@ -124,5 +23,62 @@ namespace CodeVault.Models.BaseTypes
         }
 
         #endregion IDisposable Overrides
+
+        #region Public Methods
+
+        public void CommitChanges()
+        {
+            _dbContext.SaveChanges();
+        }
+
+        #endregion Public Methods
+
+        #region Protected Methods
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                    _dbContext.Dispose();
+            }
+            _disposed = true;
+        }
+
+        #endregion Protected Methods
+
+        #region Stores
+
+        private readonly DbContext _dbContext;
+        private bool _disposed;
+        private IRepository<Product> _productRepo;
+        private IRepository<Request> _requestRepo;
+        private IRepository<ProductPermission> _permissionRepo;
+        private IRepository<ProductPermissionDetail> _permissionDetailRepo;
+        private IRepository<License> _licenseRepo;
+        private IRepository<CosmicConfigRecord> _configRecordRepo;
+
+        #endregion Stores
+
+        #region Properties
+
+        public IRepository<Product> ProductRepo => _productRepo ?? (_productRepo = new Repository<Product>(_dbContext));
+
+        public IRepository<Request> RequestRepo => _requestRepo ?? (_requestRepo = new Repository<Request>(_dbContext));
+
+        public IRepository<ProductPermission> PermissionRepo
+            => _permissionRepo ?? (_permissionRepo = new Repository<ProductPermission>(_dbContext));
+
+        public IRepository<ProductPermissionDetail> PermissionDetailRepo => _permissionDetailRepo ??
+                                                                            (_permissionDetailRepo =
+                                                                                new Repository<ProductPermissionDetail>(
+                                                                                    _dbContext));
+
+        public IRepository<License> LicenseRepo => _licenseRepo ?? (_licenseRepo = new Repository<License>(_dbContext));
+
+        public IRepository<CosmicConfigRecord> ConfigRecordRepo
+            => _configRecordRepo ?? (_configRecordRepo = new Repository<CosmicConfigRecord>(_dbContext));
+
+        #endregion Properties
     }
 }

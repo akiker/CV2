@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("ApplicationRoles", Schema = "CV2")]
-    public partial class ApplicationRole
+    public class ApplicationRole
     {
         public ApplicationRole()
         {

@@ -1,9 +1,8 @@
-﻿using CodeVault.Models.BaseTypes;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
-using System;
+using CodeVault.Models.BaseTypes;
+using Newtonsoft.Json;
 
 namespace CodeVault.Models
 {
@@ -31,12 +30,10 @@ namespace CodeVault.Models
 
         protected override void RegisterValidationMethods()
         {
-            
         }
 
         protected override void ResetProperties()
         {
-            
         }
     }
 }

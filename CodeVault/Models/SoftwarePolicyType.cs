@@ -2,8 +2,8 @@
 {
     public enum SoftwarePolicyType
     {
-        WFDC = 0,
-        WFA,
-        LOB
+        Wfdc = 0,
+        Wfa,
+        Lob
     }
 }

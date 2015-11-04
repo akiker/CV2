@@ -1,17 +1,17 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("SoftwareRequirements", Schema = "CV2")]
-    public partial class SoftwareRequirement
+    public class SoftwareRequirement
     {
         [Key, ForeignKey("Product")]
         public int ProductId { get; set; }
 
         public string InternetExplorerVersion { get; set; }
 
-        public string IISVersion { get; set; }
+        public string IisVersion { get; set; }
 
         public string DotNetVersion { get; set; }
 
@@ -19,7 +19,7 @@ namespace CodeVault.Models
 
         public string JavaRuntimeVersion { get; set; }
 
-        public string JDKVersion { get; set; }
+        public string JdkVersion { get; set; }
 
         public string DirectXVersion { get; set; }
 
@@ -27,17 +27,17 @@ namespace CodeVault.Models
 
         public string InstalledOfficeApplicationVersion { get; set; }
 
-        public string SQLExpressVersion { get; set; }
+        public string SqlExpressVersion { get; set; }
 
-        public string SQLCompactVersion { get; set; }
+        public string SqlCompactVersion { get; set; }
 
-        public string VSTORuntimeVersion { get; set; }
+        public string VstoRuntimeVersion { get; set; }
 
-        public string InstalledOffice2003PIA { get; set; }
+        public string InstalledOffice2003Pia { get; set; }
 
-        public string InstalledOffice2007PIA { get; set; }
+        public string InstalledOffice2007Pia { get; set; }
 
-        public string InstalledOffice2010PIA { get; set; }
+        public string InstalledOffice2010Pia { get; set; }
 
         public string OfficeSharedInteropAssembly { get; set; }
 

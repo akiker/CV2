@@ -1,31 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using CodeVault.Models.BaseTypes;
+using Newtonsoft.Json;
+
 namespace CodeVault.Models
 {
-    using CodeVault.Models.BaseTypes;
-    using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Runtime.Serialization;
-
     [JsonObject(IsReference = true)]
     [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/CodeVault.Models")]
     [Table("Products", Schema = "CV2")]
-    public partial class Product : EntityBase
+    public sealed class Product : EntityBase
     {
         public Product()
         {
-            Dependencies = new HashSet<Dependencies>();
-            DistributionLocations = new HashSet<DistributionLocation>();
-            Documents = new HashSet<Document>();
-            JournalEntries = new HashSet<JournalEntry>();
-            Licenses = new HashSet<License>();
-            ProductContacts = new HashSet<ProductContact>();
-            SccmReturnCodes = new HashSet<SccmReturnCode>();
-            SccmRules = new HashSet<SccmRule>();
-            SupersededProducts = new HashSet<SupersededProducts>();
-            ProductKeyWords = new HashSet<ProductKeyWord>();
-            ProductPermissionDetails = new HashSet<ProductPermissionDetail>();
+
         }
 
         [Key, ForeignKey("Request")]
@@ -83,84 +73,88 @@ namespace CodeVault.Models
 
         [ForeignKey("ProductCategoryId")]
         [DataMember]
-        public virtual ProductCategory ProductCategory { get; set; } //one to many (e.g. a product category has many products)
+        public ProductCategory ProductCategory { get; set; }
+
+        //one to many (e.g. a product category has many products)
 
         public int? ProductTypeId { get; set; }
 
         [ForeignKey("ProductTypeId")]
         [DataMember]
-        public virtual ProductType ProductType { get; set; }
+        public ProductType ProductType { get; set; }
 
         public int? ProjectTypeId { get; set; }
 
         [ForeignKey("ProjectTypeId")]
         [DataMember]
-        public virtual ProjectType ProjectType { get; set; }
+        public ProjectType ProjectType { get; set; }
 
         [DataMember]
-        public virtual InstallDetail InstallDetail { get; set; } //One to one
+        public InstallDetail InstallDetail { get; set; } //One to one
 
         [DataMember]
-        public virtual SccmDeploymentDetail SccmDeploymentDetail { get; set; }
+        public SccmDeploymentDetail SccmDeploymentDetail { get; set; }
 
         [DataMember]
-        public virtual ICollection<JournalEntry> JournalEntries { get; set; } //one to many (e.g. a product has many journal entries)
+        public ICollection<JournalEntry> JournalEntries { get; set; } = new HashSet<JournalEntry>();
+
+        //one to many (e.g. a product has many journal entries)
 
         [DataMember]
-        public virtual ICollection<DistributionLocation> DistributionLocations { get; set; }
+        public ICollection<DistributionLocation> DistributionLocations { get; set; } = new HashSet<DistributionLocation>();
 
         [DataMember]
-        public virtual ICollection<SccmReturnCode> SccmReturnCodes { get; set; }
+        public ICollection<SccmReturnCode> SccmReturnCodes { get; set; } = new HashSet<SccmReturnCode>();
 
         public int? CosmicConfigRecordId { get; set; }
 
         [DataMember]
         [ForeignKey("CosmicConfigRecordId")]
-        public virtual CosmicConfigRecord CosmicConfigRecord { get; set; }
+        public CosmicConfigRecord CosmicConfigRecord { get; set; }
 
         [DataMember]
-        public virtual OsRequirement OsRequirements { get; set; }
+        public OsRequirement OsRequirements { get; set; }
 
         [DataMember]
-        public virtual SoftwarePolicy SoftwarePolicy { get; set; }
+        public SoftwarePolicy SoftwarePolicy { get; set; }
 
         [DataMember]
-        public virtual SoftwareRequirement SoftwareRequirements { get; set; }
+        public SoftwareRequirement SoftwareRequirements { get; set; }
 
         [DataMember]
-        public virtual SystemRequirement SystemRequirements { get; set; }
+        public SystemRequirement SystemRequirements { get; set; }
 
         [DataMember]
-        public virtual ProductPermission ProductsPermissions { get; set; }
+        public ProductPermission ProductsPermissions { get; set; }
 
         [DataMember]
-        public virtual LAVerification LocalAccountVerification { get; set; }
+        public LaVerification LocalAccountVerification { get; set; }
 
         [DataMember]
-        public virtual ICollection<ProductPermissionDetail> ProductPermissionDetails { get; set; }
+        public ICollection<ProductPermissionDetail> ProductPermissionDetails { get; set; } = new HashSet<ProductPermissionDetail>();
 
         [DataMember]
-        public virtual ICollection<Document> Documents { get; set; }
+        public ICollection<Document> Documents { get; set; } = new HashSet<Document>();
 
         [DataMember]
-        public virtual ICollection<License> Licenses { get; set; }
+        public ICollection<License> Licenses { get; set; } = new HashSet<License>();
 
         [DataMember]
-        public virtual ICollection<ProductContact> ProductContacts { get; set; }
+        public ICollection<ProductContact> ProductContacts { get; set; } = new HashSet<ProductContact>();
 
         [DataMember]
-        public virtual Request Request { get; set; }
+        public Request Request { get; set; }
 
         [DataMember]
-        public virtual ICollection<SccmRule> SccmRules { get; set; }
+        public ICollection<SccmRule> SccmRules { get; set; } = new HashSet<SccmRule>();
 
         [DataMember]
-        public virtual ICollection<Dependencies> Dependencies { get; set; }
+        public ICollection<Dependencies> Dependencies { get; set; } = new HashSet<Dependencies>();
 
         [DataMember]
-        public virtual ICollection<SupersededProducts> SupersededProducts { get; set; }
+        public ICollection<SupersededProducts> SupersededProducts { get; set; } = new HashSet<SupersededProducts>();
 
-        public virtual ICollection<ProductKeyWord> ProductKeyWords { get; set; }
+        public ICollection<ProductKeyWord> ProductKeyWords { get; set; } = new HashSet<ProductKeyWord>();
 
         protected override void RegisterValidationMethods()
         {

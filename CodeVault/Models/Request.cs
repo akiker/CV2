@@ -1,17 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using CodeVault.Models.BaseTypes;
+using Newtonsoft.Json;
+
 namespace CodeVault.Models
 {
-    using CodeVault.Models.BaseTypes;
-    using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Runtime.Serialization;
-
     [JsonObject(IsReference = true)]
     [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/CodeVault.Models")]
     [Table("Requests", Schema = "CV2")]
-    public partial class Request : EntityBase
+    public class Request : EntityBase
     {
         public Request()
         {

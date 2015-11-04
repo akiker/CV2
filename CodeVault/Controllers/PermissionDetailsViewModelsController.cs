@@ -1,53 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
-using CodeVault.Models.ViewModels;
 using CodeVault.Models;
 using CodeVault.Models.BaseTypes;
+using CodeVault.ViewModels;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 
 namespace CodeVault.Controllers
 {
     public class PermissionDetailsViewModelsController : Controller
     {
-        IDALFacade facade = new DALFacade();
+        private readonly Cv2Context _db;
+
+        public PermissionDetailsViewModelsController()
+        {
+               _db = new Cv2Context();
+        }
 
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult PermissionDetailViewModels_Read([DataSourceRequest]DataSourceRequest request, int productId)
+        public async Task<ActionResult> PermissionDetailViewModels_Read([DataSourceRequest] DataSourceRequest request, int id)
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.PermissionDetailRepo.GetByQuery(p => p.ProductId == productId, o => o.OrderBy(n => n.ProductPermissionDetailId));
-            var result = query.Select(p => new PermissionDetailViewModel(p));
-            facade.DisposeUnitOfWork();
+            var query = await _db.ProductPermissionDetails.Where(p => p.ProductId == id).OrderBy(p => p.ProductId).ToListAsync();
 
+            var result = from p in query
+                         select new PermissionDetailViewModel()
+                         {
+                             Id = p.ProductId,
+                             GroupUser = p.ProductPermissionGroupOrUserName,
+                             Location = p.ProductPermissionLocation,
+                             Permission = p.ProductPermissionDetailAcl.ToString(),
+                             Type = p.ProductPermissionDetailType.ToString()
+                         };
             return Json(result.ToDataSourceResult(request));
-        }
-
-        public ActionResult Details([DataSourceRequest]DataSourceRequest request, int productId)
-        {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.PermissionDetailRepo.GetByQuery(p => p.ProductId == productId, o => o.OrderBy(n => n.ProductPermissionDetailId));
-            var result = query.Select(p => new PermissionDetailViewModel(p));
-            facade.DisposeUnitOfWork();
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
-            return View(result.ToDataSourceResult(request));
         }
 
         protected override void Dispose(bool disposing)
         {
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace CV2.Models.Utilities
+namespace CodeVault.Models.Utilities
 {
     public static class FileSizeFormatter
     {
         public static FormattedFileSizeStringHolder ToFormattedString(long i)
         {
-            FormattedFileSizeStringHolder fsh = new FormattedFileSizeStringHolder();
+            var fsh = new FormattedFileSizeStringHolder();
             double readable = (i < 0 ? -i : i);
             if (i >= 0x1000000000000000) // Exabyte
             {
@@ -51,8 +51,8 @@ namespace CV2.Models.Utilities
 
         public static long FormattedStringAsLong(string formattedString)
         {
-            string[] formattedStringParts = formattedString.Split(' ');
-            long numericPortion = Convert.ToInt64(formattedStringParts[0]);
+            var formattedStringParts = formattedString.Split(' ');
+            var numericPortion = Convert.ToInt64(formattedStringParts[0]);
             double readable = (numericPortion < 0 ? -numericPortion : numericPortion);
             if (numericPortion >= 0x1000000000000000) // Exabyte
             {
@@ -93,12 +93,12 @@ namespace CV2.Models.Utilities
                 return 0;
             }
 
-            const long OneKb = 1024;
-            const long OneMb = OneKb * 1024;
-            const long OneGb = OneMb * 1024;
-            const long OneTb = OneGb * 1024;
+            const long oneKb = 1024;
+            const long oneMb = oneKb*1024;
+            const long oneGb = oneMb*1024;
+            const long oneTb = oneGb*1024;
             double returnValue;
-            string suffix = string.Empty;
+            var suffix = string.Empty;
 
             if (bytesString.IndexOf(" ") > 0)
             {
@@ -114,33 +114,33 @@ namespace CV2.Models.Utilities
             switch (suffix)
             {
                 case "KB":
-                    {
-                        returnValue *= OneKb;
-                        break;
-                    }
+                {
+                    returnValue *= oneKb;
+                    break;
+                }
 
                 case "MB":
-                    {
-                        returnValue *= OneMb;
-                        break;
-                    }
+                {
+                    returnValue *= oneMb;
+                    break;
+                }
 
                 case "GB":
-                    {
-                        returnValue *= OneGb;
-                        break;
-                    }
+                {
+                    returnValue *= oneGb;
+                    break;
+                }
 
                 case "TB":
-                    {
-                        returnValue *= OneTb;
-                        break;
-                    }
+                {
+                    returnValue *= oneTb;
+                    break;
+                }
 
                 default:
-                    {
-                        break;
-                    }
+                {
+                    break;
+                }
             }
 
             return Convert.ToInt64(returnValue);
@@ -150,7 +150,7 @@ namespace CV2.Models.Utilities
         // The default format is "0.### XB", e.g. "4.2 KB" or "1.434 GB"
         public static string GetBytesReadable(long i)
         {
-            string sign = (i < 0 ? "-" : "");
+            var sign = (i < 0 ? "-" : "");
             double readable = (i < 0 ? -i : i);
             string suffix;
             if (i >= 0x1000000000000000) // Exabyte
@@ -195,20 +195,8 @@ namespace CV2.Models.Utilities
 
     public class FormattedFileSizeStringHolder
     {
-        private string number;
+        public string Number { get; set; }
 
-        public string Number
-        {
-            get { return number; }
-            set { number = value; }
-        }
-
-        private string suffix;
-
-        public string Suffix
-        {
-            get { return suffix; }
-            set { suffix = value; }
-        }
+        public string Suffix { get; set; }
     }
 }

@@ -1,10 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("SystemRequirements", Schema = "CV2")]
-    public partial class SystemRequirement
+    public class SystemRequirement
     {
         [Key, ForeignKey("Product")]
         public int ProductId { get; set; }

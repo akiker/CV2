@@ -1,52 +1,88 @@
-﻿using CodeVault.Models;
-using CodeVault.Models.BaseTypes;
-using CodeVault.Models.ViewModels;
+﻿using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using CodeVault.Models;
+using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Net;
 
 namespace CodeVault.Controllers
 {
     public class ConfigRecordController : Controller
     {
-        IDALFacade facade = new DALFacade();
+        private readonly Cv2Context _db;
 
-        // GET: ConfigRecord
-        public ActionResult Index()
+        public ConfigRecordController()
         {
-            return View();
+                _db = new Cv2Context();
         }
 
-        public ActionResult ConfigRecords_Read([DataSourceRequest]DataSourceRequest request)
+        // GET: ConfigRecord
+        public async Task<ActionResult> Index()
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var query = unitOfWork.ConfigRecordRepo.GetByQuery(p => p.CosmicConfigRecordId != 0, o => o.OrderBy(n => n.CosmicConfigRecordName));
-            var result = query.Select(p => p);
+            var query =
+               await _db.CosmicConfigRecords.ToListAsync();
+            var result = from p in query
+                         select new ConfigRecordViewModel()
+                         {
+                             Id = p.CosmicConfigRecordId,
+                             Name = p.CosmicConfigRecordName,
+                             CreatedBy = p.CosmicConfigRecordCreatedBy
+                         };
+            return View(result);
+        }
 
-            facade.DisposeUnitOfWork();
+        public async Task<ActionResult> CosmicConfigRecordViewModel_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var query =
+               await _db.CosmicConfigRecords.ToListAsync();
+            var result = from p in query
+                         select new ConfigRecordViewModel()
+                         {
+                             Id = p.CosmicConfigRecordId,
+                             Name = p.CosmicConfigRecordName,
+                             CreatedBy = p.CosmicConfigRecordCreatedBy
+                         };
             return Json(result.ToDataSourceResult(request),JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ConfigRecord_Optional_Products_Read([DataSourceRequest]DataSourceRequest request, int id)
+        public async Task<ActionResult> CosmicConfigRecordOptionalSoftware_Read([DataSourceRequest] DataSourceRequest request, int id)
         {
-            IUnitOfWork unitOfWork = facade.GetUnitOfWork();
-            var configRecord = unitOfWork.ConfigRecordRepo.GetById(id);
-            var result = configRecord.Products.Select(p => new ProductViewModel(p));
-            //var result = query.Select(p => p.Products).ToList();
-            //var configRecord = dataContext.CosmicConfigRecords.Find(this.GenericConfig.ConfigRecordID);
-            //var products = configRecord.Products.Select(p => new ProductSummaryBdo(p));
+            var configRecord = await _db.CosmicConfigRecords.FirstOrDefaultAsync(c => c.CosmicConfigRecordId == id);
+            var query = configRecord.Products.OrderBy(p => p.ProductName).ToList();
+            var result = from p in query
+                         select new ProductViewModel()
+                         {
+                             Id = p.ProductId,
+                             Name = p.ProductName,
+                             Manufacturer = p.ProductManufacturer,
+                             Version = p.ProductVersion,
+                             Description = p.ProductDescription,
+                             Status = p.ProductStatus.ToString(),
+                             CreatedOnDate = p.CreatedOnDate
+                         };
+            return Json(result.ToDataSourceResult(request),JsonRequestBehavior.AllowGet);
+        }
 
-            foreach (var product in result)
+        public ActionResult Details(int? id)
+        {
+            var query = _db.CosmicConfigRecords.FirstOrDefault(c => c.CosmicConfigRecordId == id);
+            var result = new ConfigRecordViewModel()
             {
-                Console.WriteLine(product.Name);
-            }
+                Id = query.CosmicConfigRecordId,
+                Name = query.CosmicConfigRecordName,
+                CreatedBy = query.CosmicConfigRecordCreatedBy
+            };
+            ViewBag.CurrentCosmicConfigRecordId = id;
+            return View(result);
+        }
 
-            facade.DisposeUnitOfWork();
-            return Json(result.ToDataSourceResult(request));
+        protected override void Dispose(bool disposing)
+        {
+            _db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

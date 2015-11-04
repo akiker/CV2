@@ -1,28 +1,21 @@
+using System.ComponentModel;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel;
-
     public enum RegistryDataType
     {
-        [Description("String Value")]
-        REG_SZ = 0,
+        [Description("String Value")] RegSz = 0,
 
-        [Description("Binary Value")]
-        REG_BINARY,
+        [Description("Binary Value")] RegBinary,
 
-        [Description("DWORD (32-bit) Value")]
-        REG_DWORD,
+        [Description("DWORD (32-bit) Value")] RegDword,
 
-        [Description("DWORD (64-bit) Value")]
-        REG_QWORD,
+        [Description("DWORD (64-bit) Value")] RegQword,
 
-        [Description("Multi-String Value")]
-        REG_MULTI_SZ,
+        [Description("Multi-String Value")] RegMultiSz,
 
-        [Description("Expandable String Value")]
-        REG_EXPAND_SZ,
+        [Description("Expandable String Value")] RegExpandSz,
 
-        [Description("Zero-Length Binary Value")]
-        REG_NONE
+        [Description("Zero-Length Binary Value")] RegNone
     }
 }

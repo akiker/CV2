@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CodeVault.Models;
 
 namespace CodeVault.Models
 {
@@ -9,24 +8,24 @@ namespace CodeVault.Models
     {
         public static Dictionary<int, string> ClauseConnectorList()
         {
-            Dictionary<int, string> values = new Dictionary<int, string>
+            var values = new Dictionary<int, string>
             {
-                {0,""}, //Allows for empty clauses for first rule
-                {1,"Or"},
-                {2,"And"}
+                {0, ""}, //Allows for empty clauses for first rule
+                {1, "Or"},
+                {2, "And"}
             };
             return values;
         }
 
         private static SccmRegistryDetectionRule CreateNewRegistryRuleWithDefaults()
         {
-            var registryRule = new SccmRegistryDetectionRule()
+            var registryRule = new SccmRegistryDetectionRule
             {
                 UseDefaultValue = true,
                 RegKeyMustExist = true,
                 RegKeyAssociate32On64 = false,
-                RegistryDataType = RegistryDataType.REG_SZ,
-                RegistryHive = RegistryHiveType.HKEY_LOCAL_MACHINE,
+                RegistryDataType = RegistryDataType.RegSz,
+                RegistryHive = RegistryHiveType.HkeyLocalMachine,
                 RegistryKey = string.Empty,
                 RegistryValue = string.Empty,
                 RegRuleOperator = RegistryRuleOperatorType.Equals,
@@ -37,7 +36,7 @@ namespace CodeVault.Models
 
         private static SccmFileFolderDetectionRule CreateNewFileFolderRuleWithDefaults()
         {
-            var fileFolderRule = new SccmFileFolderDetectionRule()
+            var fileFolderRule = new SccmFileFolderDetectionRule
             {
                 FileOrFolderPath = string.Empty,
                 FileOrFolderAssociate32On64 = false,
@@ -53,18 +52,19 @@ namespace CodeVault.Models
 
         private static SccmWindowInstallerDetectionRule CreateNewWindowsInstallerRuleWithDefaults()
         {
-            var windowInstallerRule = new SccmWindowInstallerDetectionRule()
-             {
-                 MsiProductCodeMustExist = true,
-                 MsiRuleOperator = WindowsInstallerRuleOperatorType.Equals,
-                 MsiRuleProperty = WindowsInstallerRulePropertyType.Version,
-                 MsiRuleValue = string.Empty,
-                 ProductCode = string.Empty
-             };
+            var windowInstallerRule = new SccmWindowInstallerDetectionRule
+            {
+                MsiProductCodeMustExist = true,
+                MsiRuleOperator = WindowsInstallerRuleOperatorType.Equals,
+                MsiRuleProperty = WindowsInstallerRulePropertyType.Version,
+                MsiRuleValue = string.Empty,
+                ProductCode = string.Empty
+            };
             return windowInstallerRule;
         }
 
-        public static SccmRule CreateNewSccmRuleWithDefaults(ref Product product, SccmRuleType sccmRuleType, SccmRuleConnector sccmRuleConnector = SccmRuleConnector.Null)
+        public static SccmRule CreateNewSccmRuleWithDefaults(ref Product product, SccmRuleType sccmRuleType,
+            SccmRuleConnector sccmRuleConnector = SccmRuleConnector.Null)
         {
             SccmRule sccmRule;
             if (sccmRuleType.Equals(SccmRuleType.FileFolder))
@@ -94,78 +94,94 @@ namespace CodeVault.Models
 
         private static string ToFileFolderClause(SccmFileFolderDetectionRule fileFolderRule)
         {
-            StringBuilder clause = new StringBuilder();
+            var clause = new StringBuilder();
 
-            if (fileFolderRule.FileOrFolderRuleType == FileOrFolderRuleType.File && (fileFolderRule.FileOrFolderMustExist))
+            if (fileFolderRule.FileOrFolderRuleType == FileOrFolderRuleType.File &&
+                (fileFolderRule.FileOrFolderMustExist))
             {
                 clause.AppendFormat("File: {0} Exists", fileFolderRule.FileOrFolderName);
             }
-            else if (fileFolderRule.FileOrFolderRuleType == FileOrFolderRuleType.File && !fileFolderRule.FileOrFolderMustExist)
+            else if (fileFolderRule.FileOrFolderRuleType == FileOrFolderRuleType.File &&
+                     !fileFolderRule.FileOrFolderMustExist)
             {
-                clause.AppendFormat("File: {0} {1}: {2} {3}", fileFolderRule.FileOrFolderName, fileFolderRule.FileOrFolderRuleProperty, fileFolderRule.FileOrFolderRuleOperator, fileFolderRule.FileOrFolderRuleValue);
+                clause.AppendFormat("File: {0} {1}: {2} {3}", fileFolderRule.FileOrFolderName,
+                    fileFolderRule.FileOrFolderRuleProperty, fileFolderRule.FileOrFolderRuleOperator,
+                    fileFolderRule.FileOrFolderRuleValue);
             }
-            else if (fileFolderRule.FileOrFolderRuleType == FileOrFolderRuleType.Folder && fileFolderRule.FileOrFolderMustExist)
+            else if (fileFolderRule.FileOrFolderRuleType == FileOrFolderRuleType.Folder &&
+                     fileFolderRule.FileOrFolderMustExist)
             {
                 clause.AppendFormat("Folder: {0} exists", fileFolderRule.FileOrFolderPath);
             }
-            else if (fileFolderRule.FileOrFolderRuleType == FileOrFolderRuleType.Folder && !fileFolderRule.FileOrFolderMustExist)
+            else if (fileFolderRule.FileOrFolderRuleType == FileOrFolderRuleType.Folder &&
+                     !fileFolderRule.FileOrFolderMustExist)
             {
-                clause.AppendFormat("Folder: {0} {1}: {2}", fileFolderRule.FileOrFolderRuleProperty, fileFolderRule.FileOrFolderRuleOperator, fileFolderRule.FileOrFolderRuleValue);
+                clause.AppendFormat("Folder: {0} {1}: {2}", fileFolderRule.FileOrFolderRuleProperty,
+                    fileFolderRule.FileOrFolderRuleOperator, fileFolderRule.FileOrFolderRuleValue);
             }
             return clause.ToString();
         }
 
         private static string ToWindowsInstallerClause(SccmWindowInstallerDetectionRule windowsInstallerRule)
         {
-            StringBuilder clause = new StringBuilder();
+            var clause = new StringBuilder();
             if (windowsInstallerRule.MsiProductCodeMustExist)
             {
                 clause.AppendFormat("MSI Product Code: {0} Exists", windowsInstallerRule.ProductCode);
             }
             else
             {
-                clause.AppendFormat("MSI Product Code: {0} Version: {1} {2}", windowsInstallerRule.ProductCode, windowsInstallerRule.MsiRuleOperator, windowsInstallerRule.MsiRuleValue);
+                clause.AppendFormat("MSI Product Code: {0} Version: {1} {2}", windowsInstallerRule.ProductCode,
+                    windowsInstallerRule.MsiRuleOperator, windowsInstallerRule.MsiRuleValue);
             }
             return clause.ToString();
         }
 
         private static string ToRegistryClause(SccmRegistryDetectionRule registryRule)
         {
-            StringBuilder clause = new StringBuilder();
+            var clause = new StringBuilder();
             if (registryRule.RegKeyMustExist)
             {
                 if (registryRule.UseDefaultValue)
                 {
-                    clause.AppendFormat("{0}\\{1} Value: (Default) Exists", registryRule.RegistryHive, registryRule.RegistryKey);
+                    clause.AppendFormat("{0}\\{1} Value: (Default) Exists", registryRule.RegistryHive,
+                        registryRule.RegistryKey);
                 }
                 else
                 {
-                    clause.AppendFormat("{0}\\{1} Value: {2} Exists", registryRule.RegistryHive, registryRule.RegistryKey, registryRule.RegistryValue);
+                    clause.AppendFormat("{0}\\{1} Value: {2} Exists", registryRule.RegistryHive,
+                        registryRule.RegistryKey, registryRule.RegistryValue);
                 }
             }
             else
             {
                 if (registryRule.UseDefaultValue)
                 {
-                    clause.AppendFormat("{0}\\{1} Value: (Default) {2} {3}", registryRule.RegistryHive, registryRule.RegistryKey, registryRule.RegRuleOperator, registryRule.RegRuleValue);
+                    clause.AppendFormat("{0}\\{1} Value: (Default) {2} {3}", registryRule.RegistryHive,
+                        registryRule.RegistryKey, registryRule.RegRuleOperator, registryRule.RegRuleValue);
                 }
                 else
                 {
-                    clause.AppendFormat("{0}\\{1} Value: {2} {3} {4}", registryRule.RegistryHive, registryRule.RegistryKey, registryRule.RegistryValue, registryRule.RegRuleOperator, registryRule.RegRuleValue);
+                    clause.AppendFormat("{0}\\{1} Value: {2} {3} {4}", registryRule.RegistryHive,
+                        registryRule.RegistryKey, registryRule.RegistryValue, registryRule.RegRuleOperator,
+                        registryRule.RegRuleValue);
                 }
             }
             return clause.ToString();
         }
 
-        public static List<FormattedRuleHolder> CreateFormattedRulesList(List<SccmWindowInstallerDetectionRule> windowsInstallerRules, List<SccmRegistryDetectionRule> registryRules, List<SccmFileFolderDetectionRule> fileFolderRules)
+        public static List<FormattedRuleHolder> CreateFormattedRulesList(
+            List<SccmWindowInstallerDetectionRule> windowsInstallerRules, List<SccmRegistryDetectionRule> registryRules,
+            List<SccmFileFolderDetectionRule> fileFolderRules)
         {
-            List<FormattedRuleHolder> ruleHolderList = new List<FormattedRuleHolder>();
+            var ruleHolderList = new List<FormattedRuleHolder>();
             if (windowsInstallerRules != null)
             {
                 foreach (var rule in windowsInstallerRules)
                 {
-                    string clause = ToWindowsInstallerClause(rule);
-                    FormattedRuleHolder formattedRuleHolder = new FormattedRuleHolder(rule.SccmRuleId, "Windows Installer", rule.SccmRuleConnector, clause);
+                    var clause = ToWindowsInstallerClause(rule);
+                    var formattedRuleHolder = new FormattedRuleHolder(rule.SccmRuleId, "Windows Installer",
+                        rule.SccmRuleConnector, clause);
                     ruleHolderList.Add(formattedRuleHolder);
                 }
             }
@@ -174,8 +190,9 @@ namespace CodeVault.Models
             {
                 foreach (var rule in fileFolderRules)
                 {
-                    string clause = ToFileFolderClause(rule);
-                    FormattedRuleHolder formattedRuleHolder = new FormattedRuleHolder(rule.SccmRuleId, "File or Folder", rule.SccmRuleConnector, clause);
+                    var clause = ToFileFolderClause(rule);
+                    var formattedRuleHolder = new FormattedRuleHolder(rule.SccmRuleId, "File or Folder",
+                        rule.SccmRuleConnector, clause);
                     ruleHolderList.Add(formattedRuleHolder);
                 }
             }
@@ -184,13 +201,13 @@ namespace CodeVault.Models
             {
                 foreach (var rule in registryRules)
                 {
-                    string clause = ToRegistryClause(rule);
-                    FormattedRuleHolder formattedRuleHolder = new FormattedRuleHolder(rule.SccmRuleId, "Registry", rule.SccmRuleConnector, clause);
+                    var clause = ToRegistryClause(rule);
+                    var formattedRuleHolder = new FormattedRuleHolder(rule.SccmRuleId, "Registry",
+                        rule.SccmRuleConnector, clause);
                     ruleHolderList.Add(formattedRuleHolder);
                 }
             }
             return ruleHolderList.OrderBy(i => i.RuleId).ToList();
         }
-
     }
 }

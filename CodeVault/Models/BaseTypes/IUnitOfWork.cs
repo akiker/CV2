@@ -1,6 +1,4 @@
-﻿using CodeVault.Models;
-
-namespace CodeVault.Models.BaseTypes
+﻿namespace CodeVault.Models.BaseTypes
 {
     public interface IUnitOfWork
     {
@@ -17,7 +15,7 @@ namespace CodeVault.Models.BaseTypes
         IRepository<CosmicConfigRecord> ConfigRecordRepo { get; }
 
         /// <summary>
-        /// Used to save the changes to the underlying data store
+        ///     Used to save the changes to the underlying data store
         /// </summary>
         void CommitChanges();
     }

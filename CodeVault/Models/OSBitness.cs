@@ -1,8 +1,8 @@
 namespace CodeVault.Models
 {
-    public enum OSBitness
+    public enum OsBitness
     {
-        x32 = 0,
-        x64 = 1
+        X32 = 0,
+        X64 = 1
     }
 }

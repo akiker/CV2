@@ -1,11 +1,11 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("JournalEntries", Schema = "CV2")]
-    public partial class JournalEntry
+    public class JournalEntry
     {
         [Key]
         public int JournalEntryId { get; set; }

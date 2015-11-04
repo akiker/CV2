@@ -1,10 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CodeVault.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("RequestTypes", Schema = "CV2")]
-    public partial class RequestType
+    public class RequestType
     {
         [Key]
         public int RequestTypeId { get; set; }

@@ -1,13 +1,12 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using CodeVault.Models.BaseTypes;
+
 namespace CodeVault.Models
 {
-    using BaseTypes;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System;
-
     [Table("CosmicConfigRecords", Schema = "CV2")]
-    public partial class CosmicConfigRecord : EntityBase
+    public class CosmicConfigRecord : EntityBase
     {
         public CosmicConfigRecord()
         {
@@ -28,12 +27,10 @@ namespace CodeVault.Models
 
         protected override void RegisterValidationMethods()
         {
-
         }
 
         protected override void ResetProperties()
         {
-            
         }
     }
 }
