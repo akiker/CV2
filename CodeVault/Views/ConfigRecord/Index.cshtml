@@ -1,0 +1,82 @@
+﻿@model IEnumerable<CodeVault.ViewModels.ConfigRecordViewModel>
+
+@{
+    ViewBag.Title = "Configuration Records";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h4>Configuration Records</h4>
+    @(Html.Kendo().Grid(Model)
+          .Name("gridConfigRecords")
+          .Columns(columns =>
+          {
+              columns.Bound(c => c.Name).ClientTemplate("<a href='" +
+                                                        Url.Action("Details", "ConfigRecord") + "/#= Id #'" + ">#= Name #</a>").Width(225).Title("Name");
+              columns.Bound(c => c.Name);
+              columns.Bound(c => c.CreatedBy);
+          })
+          .ToolBar(toolbar =>
+          {
+              toolbar.Template(
+                @<Text>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                            <input type="text" class="form-control" id='searchBox' placeholder="Search for...">
+                        </div>
+                    </div>
+                </div>
+                </Text>);
+          })
+          .Pageable(pager => pager.Refresh(true)).Pageable(pager => pager.ButtonCount(10))
+          .Navigatable()
+          .HtmlAttributes(new { style = "height:600px;" })
+          .Selectable(selectable =>
+          {
+              selectable.Mode(GridSelectionMode.Single);
+              selectable.Type(GridSelectionType.Row);
+          })
+          .Sortable(sortable => { sortable.SortMode(GridSortMode.SingleColumn); })
+          .Filterable(filterable => filterable.Mode(GridFilterMode.Menu))
+          .Scrollable()
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(15)
+              .Model(model => model.Id(p => p.Id))
+              .Read(read => read.Action("CosmicConfigRecordViewModel_Read", "ConfigRecord"))
+              .ServerOperation(true)
+          )
+    )
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#searchBox").keyup(function() {
+
+            var value = $("#searchBox").val();
+            grid = $("#gridConfigRecords").data("kendoGrid");
+
+            if (value) {
+                grid.dataSource.filter({
+                    logic: "or",
+                    filters: [
+                        {
+                            field: "Name",
+                            operator: "contains",
+                            value: value
+                        },
+                        {
+                            field: "CreatedBy",
+                            operator: "contains",
+                            value: value
+                        }
+                    ]
+                });
+            } else {
+                grid.dataSource.filter({});
+            }
+        });
+    });
+</script>
