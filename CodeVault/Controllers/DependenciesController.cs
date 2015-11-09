@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using CodeVault.Models;
-using CodeVault.Models.BaseTypes;
 using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -30,7 +29,7 @@ namespace CodeVault.Controllers
         {
             var query = await _db.Dependencies.Where(d => d.BaseProductId == id && d.DependencyType == DependencyType.PreInstall).OrderBy(d => d.InstallOrder).ToListAsync();
             var result = from d in query
-                select new DependencyViewModel()
+                select new DependencyViewModel
                 {
                     Id = d.BaseProductId,
                     Version = d.Dependency.ProductVersion,
@@ -44,7 +43,7 @@ namespace CodeVault.Controllers
         {
             var query = await _db.Dependencies.Where(d => d.BaseProductId == id && d.DependencyType == DependencyType.PostInstall).OrderBy(d => d.InstallOrder).ToListAsync();
             var result = from d in query
-                         select new DependencyViewModel()
+                         select new DependencyViewModel
                          {
                              Id = d.BaseProductId,
                              Version = d.Dependency.ProductVersion,

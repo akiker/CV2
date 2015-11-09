@@ -280,6 +280,8 @@
     <Compile Include="Models\WindowsInstallerRulePropertyType.cs" />
     <Compile Include="Models\WorkQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="App_Data\CV2.mdf" />
+    <Content Include="App_Data\cv2_log.ldf" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\kendo\2015.3.930\fonts\DejaVu\DejaVuSans-Bold.ttf" />
@@ -1357,6 +1359,7 @@
     <Content Include="Views\Shared\_ConfigRecordOptionalSoftware.cshtml" />
     <Content Include="Views\ConfigRecord\Index.cshtml" />
     <Content Include="Views\ConfigRecord\Details.cshtml" />
+    <Content Include="Views\Shared\_HowToRequestSoftware.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1413,10 +1416,7 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Views\LicenseKeyViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

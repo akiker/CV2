@@ -1,10 +1,8 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using CodeVault.Models;
-using CodeVault.Models.BaseTypes;
 using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -29,7 +27,7 @@ namespace CodeVault.Controllers
         {
             var query = await _db.Licenses.Where(p => p.ProductId == id).ToListAsync();
             var result = from l in query
-                         select new LicenseViewModel()
+                         select new LicenseViewModel
                          {
                              Id = l.ProductId,
                              LicenseType = l.LicenseType.LicenseTypeName,

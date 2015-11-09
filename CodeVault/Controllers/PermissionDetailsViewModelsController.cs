@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using CodeVault.Models;
-using CodeVault.Models.BaseTypes;
 using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -29,7 +28,7 @@ namespace CodeVault.Controllers
             var query = await _db.ProductPermissionDetails.Where(p => p.ProductId == id).OrderBy(p => p.ProductId).ToListAsync();
 
             var result = from p in query
-                         select new PermissionDetailViewModel()
+                         select new PermissionDetailViewModel
                          {
                              Id = p.ProductId,
                              GroupUser = p.ProductPermissionGroupOrUserName,

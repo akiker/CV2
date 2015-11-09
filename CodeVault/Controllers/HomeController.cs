@@ -14,7 +14,7 @@ namespace CodeVault.Controllers
         {
             var items = new List<SelectListItem>
             {
-                new SelectListItem() {Value = "0" , Text = "Please Select..."},
+                //new SelectListItem {Value = "0" , Text = "Please Select..."},
                 new SelectListItem {Value = "1", Text = "Request Software"},
                 new SelectListItem {Value = "2", Text = "Request Configuration Record"}
             };

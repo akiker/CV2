@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using CodeVault.Models;
-using System.Threading.Tasks;
 using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -32,7 +29,7 @@ namespace CodeVault.Controllers
                await _db.SoftwarePolicyGroupAssociations.Where(p => p.ProductId == id).ToListAsync();
 
             var result = from s in query
-                         select new SoftwarePolicyGroupAssociationViewModel()
+                         select new SoftwarePolicyGroupAssociationViewModel
                          {
                              Id = s.ProductId,
                              GroupName = s.SoftwarePolicyAdGroupName,

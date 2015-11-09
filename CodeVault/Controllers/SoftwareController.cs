@@ -9,7 +9,6 @@ using CodeVault.Models.BaseTypes;
 using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using DependencyType = CodeVault.Models.DependencyType;
 
 namespace CodeVault.Controllers
 {
@@ -33,7 +32,7 @@ namespace CodeVault.Controllers
             //This is fast!!! Finally
             var query = await _db.Products.Where(p => p.ProductStatus != ProductStatus.Canceled).ToListAsync();
             var result = from p in query
-                select new ProductViewModel()
+                select new ProductViewModel
                 {
                     Id = p.ProductId,
                     Name = p.ProductName,

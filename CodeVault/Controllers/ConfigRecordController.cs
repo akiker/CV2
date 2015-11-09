@@ -6,7 +6,6 @@ using CodeVault.Models;
 using CodeVault.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using System.Net;
 
 namespace CodeVault.Controllers
 {
@@ -25,7 +24,7 @@ namespace CodeVault.Controllers
             var query =
                await _db.CosmicConfigRecords.ToListAsync();
             var result = from p in query
-                         select new ConfigRecordViewModel()
+                         select new ConfigRecordViewModel
                          {
                              Id = p.CosmicConfigRecordId,
                              Name = p.CosmicConfigRecordName,
@@ -39,7 +38,7 @@ namespace CodeVault.Controllers
             var query =
                await _db.CosmicConfigRecords.ToListAsync();
             var result = from p in query
-                         select new ConfigRecordViewModel()
+                         select new ConfigRecordViewModel
                          {
                              Id = p.CosmicConfigRecordId,
                              Name = p.CosmicConfigRecordName,
@@ -53,7 +52,7 @@ namespace CodeVault.Controllers
             var configRecord = await _db.CosmicConfigRecords.FirstOrDefaultAsync(c => c.CosmicConfigRecordId == id);
             var query = configRecord.Products.OrderBy(p => p.ProductName).ToList();
             var result = from p in query
-                         select new ProductViewModel()
+                         select new ProductViewModel
                          {
                              Id = p.ProductId,
                              Name = p.ProductName,
@@ -69,7 +68,7 @@ namespace CodeVault.Controllers
         public ActionResult Details(int? id)
         {
             var query = _db.CosmicConfigRecords.FirstOrDefault(c => c.CosmicConfigRecordId == id);
-            var result = new ConfigRecordViewModel()
+            var result = new ConfigRecordViewModel
             {
                 Id = query.CosmicConfigRecordId,
                 Name = query.CosmicConfigRecordName,

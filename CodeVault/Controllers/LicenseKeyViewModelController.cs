@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using CodeVault.Models;
 using CodeVault.ViewModels;
@@ -30,7 +27,7 @@ namespace CodeVault.Controllers
         {
             var query = await _db.LicenseKeys.Where(l => l.LicenseId == id).ToListAsync();
             var result = from l in query
-                         select new LicenseKeyViewModel()
+                         select new LicenseKeyViewModel
                          {
                              Id = l.LicenseId,
                              KeyData = l.LicenseKeyData,

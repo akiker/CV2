@@ -7,7 +7,7 @@
             <div class="media">
                 <div class="media-left media-middle">
                     <a href="#">
-                        <img class="media-object" src="~/Images/stock_tech_selection_290x179.png" alt="Wells Fargo Advisors"/>
+                        <img class="media-object" src="~/Images/stock_tech_selection_290x179.png" alt="Wells Fargo Advisors" />
                     </a>
                 </div>
                 <div class="media-body">
@@ -18,7 +18,7 @@
                     <p>Use the menu and links to search for software and discover line of business configuration records.</p>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="row">
                 <div class="col-xs-12 col-md-8">
                     <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
@@ -34,15 +34,43 @@
                     </div>
                     <div class="panel-body">
 
-                        @( Html.Kendo().DropDownList().Name("kdropdownlist")
+                        @( Html.Kendo().DropDownList().Name("howToDropDownList")
                                .DataTextField("Text")
                                .DataValueField("Value")
+                               .OptionLabel("Select topic...")
                                .DataSource(source => { source.Read(read => { read.Action("GetHowtoTopics", "Home"); }); })
-                               .HtmlAttributes(new {style = "width:100%;"})
-                              )
+                               .HtmlAttributes(new { style = "width:100%;" })
+                               .Events(e => e.Change("onChange"))
+                        )
 
                     </div>
                 </div>
+            </div>
+            <div id="howToRequestSoftware">
+                @(Html.Kendo().Window()
+                      .Name("HowToRequestSoftware")
+                      .Title("How to Request Software")
+                      .Visible(false)
+                      .Modal(false)
+                      .Width(600)
+                      .Height(500)
+                      .Actions(actions => actions.Close())
+                      .Draggable()
+                      .Content(@<text>@{Html.RenderPartial("_HowToRequestSoftware");}</text>)
+                      )
+            </div>
+            <div id="howToRequestConfigRecord">
+                @(Html.Kendo().Window()
+                        .Name("HowToRequestConfigRecord")
+                        .Title("How to Request Configuration Record")
+                        .Visible(false)
+                        .Modal(false)
+                        .Width(600)
+                        .Height(500)
+                        .Actions(actions => actions.Close())
+                        .Draggable()
+                        .Content(@<text>@{Html.RenderPartial("_HowToRequestSoftware");}</text>)
+                )
             </div>
             <div class="row">
                 <div class="panel panel-default">
@@ -50,16 +78,16 @@
                         <h5 class="panel-title"><span class="glyphicon glyphicon-star-empty"></span> Shortcuts</h5>
                     </div>
                     <div class="panel-body">
-                        <a href="http://cosmic.hosting.wellsfargo.com/default.aspx" title="COSMIC">COSMIC</a><br/>
-                        <a href="http://fossware.wellsfargo.com:7101/oer/cmee/index.jsp" title="Free and Open Source Software">FOSSWARE</a><br/>
-                        <a href="https://lancentral.wellsfargo.com/LC2/">LAN Central</a><br/>
-                        <a href="https://procurement.portal.wellsfargo.com/portal/site/Procurementsite/">Procurement</a><br/>
-                        <a href="http://portal.teamworks.wellsfargo.com/view/Pages/default.aspx">Teamworks</a><br/>
-                        <a href="http://tigportal.homestead.wellsfargo.com/euc/DTSD2/EUC-SDS/Team-SDS/Lists/WFDCFileStaging/Default View.aspx">WFDC File Staging Calendar</a><br/>
-                        <a href="http://wrmt.hosting.wellsfargo.com/" title="Only to be used for TOG/TIS resources, LOBs should request via the MAC using a TRF form.">Workstation Rights Management Tool (WRMT)</a><br/>
-                        <a href="http://rc.wellsfargo.com/RequestCenter">Request Center</a><br/>
-                        <a href="http://tis.homestead.wellsfargo.com/sites/ssdt/det/wfademp/wfade/codevault/Lists/Lab Management/AllItems.aspx">Lab Management</a><br/>
-                        <a href="http://tis.homestead.wellsfargo.com/sites/ssdt/det/wfademp/wfade/products/Wiki Pages/Home.aspx">Life Cycle Management</a><br/>
+                        <a href="http://cosmic.hosting.wellsfargo.com/default.aspx">COSMIC</a><br />
+                        <a href="http://fossware.wellsfargo.com:7101/oer/cmee/index.jsp" title="Free and Open Source Software">FOSSWARE</a><br />
+                        <a href="https://lancentral.wellsfargo.com/LC2/">LAN Central</a><br />
+                        <a href="https://procurement.portal.wellsfargo.com/portal/site/Procurementsite/">Procurement</a><br />
+                        <a href="http://portal.teamworks.wellsfargo.com/view/Pages/default.aspx">Teamworks</a><br />
+                        <a href="http://tigportal.homestead.wellsfargo.com/euc/DTSD2/EUC-SDS/Team-SDS/Lists/WFDCFileStaging/Default View.aspx">WFDC File Staging Calendar</a><br />
+                        <a href="http://wrmt.hosting.wellsfargo.com/" title="Only to be used for TOG/TIS resources, LOBs should request via the MAC using a TRF form.">Workstation Rights Management Tool (WRMT)</a><br />
+                        <a href="http://rc.wellsfargo.com/RequestCenter">Request Center</a><br />
+                        <a href="http://tis.homestead.wellsfargo.com/sites/ssdt/det/wfademp/wfade/codevault/Lists/Lab Management/AllItems.aspx">Lab Management</a><br />
+                        <a href="http://tis.homestead.wellsfargo.com/sites/ssdt/det/wfademp/wfade/products/Wiki Pages/Home.aspx">Life Cycle Management</a><br />
                     </div>
                 </div>
             </div>
@@ -67,7 +95,7 @@
     </div>
 </div>
 <div class="container">
-    <hr style="background-color: #CE4C00; height: 2px"/>
+    <hr style="background-color: #CE4C00; height: 2px" />
     <div class="row">
         <div class="col-md-4">
             <h3 style="color: #78A22F;">Service Delivery Team News</h3>
@@ -80,3 +108,110 @@
     </div>
 </div>
 @Scripts.Render("~/bundles/bootstrap")
+
+<script>
+    var selectedHowToTopic;
+    var window;
+    $(document).ready(function () {
+        
+    });
+
+    function onChange() {
+        selectedHowToTopic = $("#howToDropDownList").val();
+        alert("selected value = " + selectedHowToTopic);
+        if (selectedHowToTopic === "1") {
+            alert("in the software conditional");
+            window = $("#howToRequestSoftware").data("kendoWindow").open().center();
+            
+            
+        }
+        else if (selectedHowToTopic === "2") {
+            alert("in the config record conditional");
+            window = $("#howToRequestConfigRecord").data("kendoWindow").open().center(true);
+        } else {
+            window.destroy();
+        }
+
+        //var wnd = $("#HowToPopupWindow");
+        //wnd.data("kendoWindow").open().center();
+        //alert("you chose " + value);
+    };
+
+    //if (!window.data("kendoWindow"))
+    //    window.kendoWindow({
+    //        width: "600px",
+    //        title: selectedHowToTopic,
+    //        actions: [
+    //            "Close"
+    //        ]
+    //    });
+</script>
+
+@*@{Html.Kendo().Window().Name("test4").Draggable().Content(@<text> @{Html.RenderPartial("_HowToRequestSoftware");} </text>).Render();}
+
+    @(Html.Kendo().Window()
+        .Name("HowToPopupWindow")
+        .Visible(false)
+        .Modal(true)
+        .Width(600)
+        .Height(500)
+        .Actions(actions => actions.Close())
+        .Draggable()
+        .Content(@<text> @{Html.RenderPartial("_HowToRequestSoftware");} </text>)*@
+)
+
+@*<div id="example">
+        <div id="window">
+            <button class="k-button close-button">Close</button>
+        </div>
+        <button class="k-button open-button">Open window</button>
+
+        <script>
+            $(document).ready(function() {
+              var wnd = $("#window");
+
+              $(".open-button").bind("click", function() {
+                wnd.data("kendoWindow").open().center();
+                $(this).hide();
+              });
+
+              $(".close-button").click(function(){
+                // call 'close' method on nearest kendoWindow
+                $(this).closest("[data-role=window]").kendoWindow("close");
+              });
+
+              if (!wnd.data("kendoWindow")) {
+                wnd.kendoWindow({
+                  modal: true,
+                  title: "Dialog window",
+                  close: function() {
+                    $(".open-button").show();
+                  },
+                  visible: false
+                });
+              }
+            });
+        </script>
+    </div>*@
+
+@*<script type="text/x-kendo-template" id="template">
+        <div id="help-container">
+            <h4>Howdy</h4>
+            <em>This is help</em>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        var helpTemplate = kendo.template($("#template").html());
+
+        function showDetails(e) {
+            e.preventDefault();
+
+            var dataItem = $("#howTo").val();
+            var wnd = $("#HowToPopupWindow").data("kendoWindow");
+
+            wnd.content(helpTemplate(dataItem));
+            wnd.center().open();
+        }
+    </script>*@
+
